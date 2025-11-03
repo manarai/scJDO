@@ -21,7 +21,7 @@ $$
 which defines the deterministic part of the cell-state dynamics:
 
 $$
-\boxed{\, dX_t = u(X_t,t)\,dt + \sqrt{2\beta}\,dW_t \,}
+u(x,t) \approx \frac{d\,\mathbb{E}[X_t]}{dt},
 $$
 
 where $dW_t$ is Brownian noise and $\beta$ controls stochasticity.
