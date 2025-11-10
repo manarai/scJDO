@@ -12,9 +12,10 @@ Given observed cell states sampled at different times or perturbation conditions
 \[
 dX_t = u(X_t, t)dt + \sqrt{2\beta}dW_t
 \]
-$$
+
+\$$
 dX_t = u(X_t, t)\,dt + \sqrt{2\beta}\,dW_t
-$$
+\$$
 - **$X_t \in \mathbb{R}^d$** — cell state (e.g., transcriptome)
 - **$u(X_t,t)$** — drift field (regulatory flow learned by scIDiff)
 - **$\beta$** — diffusion constant  
