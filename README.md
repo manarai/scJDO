@@ -44,6 +44,7 @@ $$
 \end{aligned}
 $$
 
+
 - The **forward drift** $u(x,t)$ describes how cells evolve naturally.  
 - The **reverse drift** captures how much “work” would be required to **reprogram** cells backward in time (e.g., iPSC or rejuvenation).  
 - The **difference** $\Delta u = u_{\text{fwd}} - u_{\text{rev}}$ quantifies **irreversibility** — an analog of **biological entropy production**.
@@ -70,9 +71,9 @@ This forward–reverse asymmetry provides a rigorous way to identify **irreversi
 With **CellPhoneDB** ligand–receptor priors, scIDiff models **time-evolving communication graphs**:
 
 $$
-dX_t^{(i)} = u_{\text{intra}}(X_t^{(i)}, t)dt
-+ \sum_j W_{ij}(t)f(X_t^{(j)} - X_t^{(i)})dt
-+ \sqrt{2\beta}dW_t^{(i)}.
+dX_t^{(i)} = u_{\text{intra}}(X_t^{(i)}, t)\,dt
++ \sum_j W_{ij}(t)\,f\!\big(X_t^{(j)} - X_t^{(i)}\big)\,dt
++ \sqrt{2\beta}\,dW_t^{(i)}.
 $$
 
 - **$W_{ij}(t)$** — communication strength between cells  
@@ -86,9 +87,9 @@ Result: **communication archetypes** (e.g., inflammatory relay, exhaustion/resol
 
 scIDiff computes **entropy production** and **cycle flux** metrics to measure the degree of biological irreversibility:
 
-\$$
+$$
 \dot{S}(t) = \mathbb{E}\!\left[\frac{\|u(x,t)-u_{\text{rev}}(x,t)\|^2}{2\beta}\right]
-\$$
+$$
 
 - High $\dot{S}(t)$ → irreversible differentiation (e.g., commitment, exhaustion)  
 - Low $\dot{S}(t)$ → reversible or plastic states (e.g., stem, progenitor)  
