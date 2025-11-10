@@ -71,10 +71,7 @@ This forward–reverse asymmetry provides a rigorous way to identify **irreversi
 With **CellPhoneDB** ligand–receptor priors, scIDiff models **time-evolving communication graphs** as coupled stochastic processes:
 
 $$
-dX_t^{(i)} =
-u_{\text{intra}}\!\big(X_t^{(i)}, t\big)\,dt
-+ \sum_j W_{ij}(t)\,f\!\big(X_t^{(j)} - X_t^{(i)}\big)\,dt
-+ \sqrt{2\beta}\,dW_t^{(i)}.
+dX_t^{(i)} = u_{\text{intra}}\left(X_t^{(i)}, t\right)dt + \sum_j W_{ij}(t)f\left(X_t^{(j)} - X_t^{(i)}\right)dt + \sqrt{2\beta}dW_t^{(i)}
 $$
 
 - **$W_{ij}(t)$** — communication strength between cells *i* and *j*  
