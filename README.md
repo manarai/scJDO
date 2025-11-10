@@ -37,12 +37,12 @@ encodes local, causal gene-to-gene influence along time, revealing how gene modu
 
 scIDiff learns both **forward** and **reverse** drift fields:
 
-\[
+$$
 \begin{aligned}
-\text{Forward: } & dX_t = u(x,t)\,dt + \sqrt{2\beta}\,dW_t \\
-\text{Reverse: } & dX_t = \left[u(x,t) - 2\beta\nabla_x \log\rho_t(x)\right]dt + \sqrt{2\beta}\,d\bar{W}_t
+\text{Forward:} \quad & dX_t = u(x,t)\,dt + \sqrt{2\beta}\,dW_t \\
+\text{Reverse:} \quad & dX_t = \big[u(x,t) - 2\beta\nabla_x \log\rho_t(x)\big]\,dt + \sqrt{2\beta}\,d\bar{W}_t
 \end{aligned}
-\]
+$$
 
 - The **forward drift** $u(x,t)$ describes how cells evolve naturally.  
 - The **reverse drift** captures how much “work” would be required to **reprogram** cells backward in time (e.g., iPSC or rejuvenation).  
