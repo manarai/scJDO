@@ -1,13 +1,15 @@
 # 🧬 scIDiff: Schrödinger Bridge Learning of Single-Cell Regulatory Dynamics
 
-How do cells decide their fate? What are the key genes that drive differentiation, and can we reverse the process? `scIDiff` (single-cell Inverse Diffusion) is a powerful framework designed to answer these fundamental questions by learning the continuous, time-dependent forces that guide cellular identity.
+scIDiff (single-cell inverse Diffusion) is a computational framework that learns the causal, time-symmetric dynamics of cellular identity directly from single-cell data.
+By framing development, differentiation, and reprogramming as a Schrödinger-Bridge inverse-diffusion problem, scQDiff infers both forward and reverse drift fields that describe how cells evolve through transcriptional space—and how these processes could, in principle, be reversed.
+Unlike conventional optimal-transport or score-based methods that follow purely energy-minimal paths, scQDiff incorporates biological priors such as RNA velocity vector fields from Dynamo.
+These velocity priors anchor the Schrödinger-Bridge optimization to biochemically feasible directions of change, ensuring that the inferred stochastic paths are biologically meaningful, not just mathematically minimal.
+The result is a hybrid model—where RNA-velocity-guided kinetics inform the local drift, while the Schrödinger-Bridge regularization guarantees global time-symmetry and probabilistic consistency.
+From the learned drifts, scQDiff computes temporal Jacobian tensors that capture how gene-gene and cell-cell influences evolve through time.
+Decomposing these tensors via singular-value or tensor factorization reveals regulatory archetypes (intracellular control programs) and communication archetypes (intercellular signaling modules).
+By comparing forward and reverse archetypes, scQDiff quantifies biological irreversibility, identifies commitment points, and highlights reprogramming factors that can potentially restore lost plasticity—analogous to Yamanaka-like regulators.
 
-By framing cellular development as a Schrödinger Bridge problem, `scIDiff` goes beyond static snapshots of single-cell data. It reconstructs the complete "flow" of gene expression, revealing the dynamic regulatory landscape that cells navigate. This allows us to:
-
-- **Learn the Regulatory Drift:** Uncover the vector field of gene regulation that pushes cells along developmental trajectories.
-- **Quantify Irreversibility:** Measure the "point of no return" in cell fate decisions, identifying the moments when a cell commits to a specific lineage.
-- **Infer Dynamic Gene Networks:** Move from static gene regulatory networks (GRNs) to a continuous movie of how gene-gene influences change over time.
-
+Through this unified approach, scQDiff bridges optimal transport, RNA-velocity kinetics, and stochastic thermodynamics, offering a rigorous, interpretable, and experimentally testable framework for causal modeling of cell fate and beyond.
 `scIDiff` unifies the principles of optimal transport and score-based generative modeling to provide a physically-grounded, yet biologically-interpretable, model of cellular dynamics.
 
 ## 🌌 Mathematical Foundations
