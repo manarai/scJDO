@@ -40,11 +40,17 @@ where:
 - $u_\theta(x,t)$ — learned Schrödinger-Bridge correction drift
 - $\beta$ — diffusion constant
 
+The full drift is defined as:
+$$
+f(x,t) = b(x,t) + u_\theta(x,t)
+$$
+
 ### Schrödinger Bridge Objective
 
 The Schrödinger Bridge identifies, among all stochastic processes transporting the
 empirical initial distribution $\rho_0$ to the terminal distribution $\rho_1$, the one
-that deviates **minimally** from the reference dynamics:
+that deviates **minimally (in control energy)** from the biological reference drift
+$b(x,t)$:
 
 $$
 \min_{u_\theta}
@@ -81,7 +87,7 @@ this velocity-driven process to match observed start and end populations.
 
 ---
 
-## Forward and Reverse Dynamics
+## 🔁 Forward and Reverse Dynamics
 
 **Forward process**
 $$
@@ -95,11 +101,16 @@ dX_t =
 + \sqrt{2\beta}\,d\bar W_t
 $$
 
+where the reverse drift is given by:
+$$
+f_{\mathrm{rev}}(x,t) = f(x,t) - 2\beta\nabla_x\log\rho_t(x)
+$$
+
 Forward–reverse asymmetry provides a quantitative measure of biological irreversibility.
 
 ---
 
-## Temporal Jacobians and Archetypes
+## 🧠 Temporal Jacobians and Archetypes
 
 The temporal Jacobian tensor is computed from the full drift:
 
@@ -124,7 +135,7 @@ $$
 
 ---
 
-## Installation
+## 💻 Installation
 
 ```bash
 conda create -n scidiff python=3.10
@@ -137,7 +148,7 @@ pip install -e .
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
 ```python
 import scidiff
