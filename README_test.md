@@ -29,106 +29,73 @@ of irreversibility, commitment points, and reprogramming potential.
 Given observed cell states sampled at different times or conditions, scIDiff models a
 controlled stochastic process:
 
-\[
+$$
 dX_t = \big( b(X_t,t) + u_\theta(X_t,t) \big)\,dt + \sqrt{2\beta}\,dW_t
-\]
+$$
 
 where:
 
-- \(X_t \in \mathbb{R}^d\) — cell state (gene expression or latent embedding)
-- \(b(x,t)\) — **biological reference drift** (RNA velocity, when available)
-- \(u_\theta(x,t)\) — **learned correction drift**
-- \(\beta\) — diffusion constant
-- \(W_t\) — Brownian motion
+- $X_t \in \mathbb{R}^d$ — cell state (gene expression or latent embedding)
+- $b(x,t)$ — biological reference drift (RNA velocity, when available)
+- $u_\theta(x,t)$ — learned Schrödinger-Bridge correction drift
+- $\beta$ — diffusion constant
 
 ### Schrödinger Bridge Objective
 
-The Schrödinger Bridge finds, among all stochastic processes transporting the empirical
-initial distribution \(\rho_0\) to the terminal distribution \(\rho_1\), the one that
-**deviates minimally from the reference dynamics**:
+The Schrödinger Bridge identifies, among all stochastic processes transporting the
+empirical initial distribution $\rho_0$ to the terminal distribution $\rho_1$, the one
+that deviates **minimally** from the reference dynamics:
 
-\[
+$$
 \min_{u_\theta}
-\mathbb{E}\!\left[
+\mathbb{E}\left[
 \int_0^1 \frac{1}{2\beta}\|u_\theta(X_t,t)\|^2\,dt
 \right]
 \quad \text{s.t.} \quad
-X_0 \sim \rho_0,\;\; X_1 \sim \rho_1
-\]
-
-Thus, scIDiff identifies the most probable cellular dynamics consistent with both
-**biological priors** and **population-level constraints**.
+X_0 \sim \rho_0, \; X_1 \sim \rho_1
+$$
 
 ---
 
 ## 🧬 RNA Velocity as a Reference Drift
 
 RNA velocity provides an experimentally grounded estimate of a cell’s instantaneous
-transcriptional change. Rather than enforcing velocity as a hard constraint,
-scIDiff treats RNA velocity as a **reference drift** defining default biological motion
-in state space.
+transcriptional change. Rather than enforcing velocity as a hard constraint, scIDiff
+treats RNA velocity as a **reference drift** defining default biological motion in state
+space.
 
-Formally, the reference drift is defined as:
+The reference drift is defined as:
 
-\[
+$$
 b(x,t) = g(t)\, w(x)\, \hat v(x)
-\]
+$$
 
 where:
 
-- \(\hat v(x)\) — RNA velocity vector field interpolated from observed cells
-- \(w(x) \in [0,1]\) — velocity confidence or reliability weight
-- \(g(t)\) — time-dependent gating function (strongest mid-trajectory, zero at endpoints)
+- $\hat v(x)$ — RNA velocity vector field interpolated from observed cells
+- $w(x) \in [0,1]$ — velocity confidence or reliability weight
+- $g(t)$ — time-dependent gating function (strongest mid-trajectory, zero at endpoints)
 
-The Schrödinger Bridge then learns a correction drift \(u_\theta(x,t)\) that minimally
-adjusts this velocity-driven process to match observed start and end populations.
-
-### Interpretation
-
-This formulation aligns with the **optimal-control interpretation** of the
-Schrödinger Bridge:
-
-> *Among all stochastic processes consistent with observed boundary distributions,
-> scIDiff identifies the process that deviates least from RNA-velocity-defined
-> biological dynamics.*
-
-As a result:
-- Local motion follows transcriptional kinetics
-- Global trajectories remain probabilistically consistent
-- Deviations from velocity highlight regions of fate commitment, branching, or
-  long-range regulation not captured by local kinetics alone
-
-If RNA velocity is not provided, scIDiff automatically reduces to a **pure
-Schrödinger Bridge diffusion model**.
+The Schrödinger Bridge learns a correction drift $u_\theta(x,t)$ that minimally adjusts
+this velocity-driven process to match observed start and end populations.
 
 ---
 
 ## 🔁 Forward and Reverse Dynamics
 
-scIDiff learns both **forward** and **reverse** stochastic dynamics.
-
-**Forward process:**
-\[
+**Forward process**
+$$
 dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t
-\quad \text{with} \quad
-f(x,t)=b(x,t)+u_\theta(x,t)
-\]
+$$
 
-**Reverse process:**
-\[
+**Reverse process**
+$$
 dX_t =
-\big[
-f(X_t,t) - 2\beta\nabla_x\log\rho_t(X_t)
-\big]dt
-+ \sqrt{2\beta}\,d\bar{W}_t
-\]
+\big[f(X_t,t) - 2\beta\nabla_x\log\rho_t(X_t)\big]dt
++ \sqrt{2\beta}\,d\bar W_t
+$$
 
-- Forward drift describes natural cellular evolution
-- Reverse drift quantifies the work required to drive cells backward in time
-  (e.g., reprogramming or rejuvenation)
-
-The forward–reverse asymmetry provides a quantitative measure of **biological
-irreversibility**.
+Forward–reverse asymmetry provides a quantitative measure of biological irreversibility.
 
 ---
 
@@ -136,59 +103,24 @@ irreversibility**.
 
 The temporal Jacobian tensor is computed from the full drift:
 
-\[
+$$
 J(t) = \frac{\partial f}{\partial x}(t)
-\]
+$$
 
-Each entry \(J_{ij}(t)\) quantifies how gene \(j\) influences the rate of change of gene
-\(i\) at time \(t\), yielding a dynamic, causal gene-regulatory network.
-
-### Archetype Decomposition
-
-To uncover dominant modes of regulation and communication, scIDiff performs low-rank
-decomposition (e.g., SVD) of the Jacobian:
-
-\[
-J(t) = U(t)\,\Sigma(t)\,V(t)^\top
-\]
-
-- **Regulatory archetypes (U):** co-regulated gene modules
-- **Communication archetypes (V):** influential cellular or signaling modes
-
-Comparing forward and reverse archetypes reveals irreversible transitions and candidate
-control points for reprogramming.
+Low-rank decomposition of $J(t)$ reveals regulatory and communication archetypes.
 
 ---
 
 ## ⚖️ Quantifying Irreversibility
 
-scIDiff measures entropy production and control asymmetry:
+Entropy production is quantified as:
 
-\[
-\dot{S}(t)
-=
-\mathbb{E}\!\left[
+$$
+\dot S(t) =
+\mathbb{E}\left[
 \frac{\|f(X_t,t)-f_{\mathrm{rev}}(X_t,t)\|^2}{2\beta}
 \right]
-\]
-
-- High entropy production → irreversible differentiation or exhaustion
-- Low entropy production → plastic or reversible states
-
-This provides a principled, thermodynamic measure of cellular commitment.
-
----
-
-## 🧮 What scIDiff Learns
-
-| Layer | Description | Output |
-|------|-------------|--------|
-| Reference drift | Biological baseline dynamics | \(b(x,t)\) |
-| Correction drift | Schrödinger Bridge control | \(u_\theta(x,t)\) |
-| Full drift | Effective cellular flow | \(f(x,t)\) |
-| Reverse drift | Reprogramming dynamics | \(f_{\text{rev}}(x,t)\) |
-| Temporal Jacobian | Causal gene influence | \(J(t)\) |
-| Regulatory archetypes | Low-rank GRN structure | \(U(t)\) |
+$$
 
 ---
 
@@ -197,17 +129,17 @@ This provides a principled, thermodynamic measure of cellular commitment.
 ```bash
 conda create -n scidiff python=3.10
 conda activate scidiff
-
 git clone https://github.com/manarai/scIDiff.git
 cd scIDiff
-
 pip install -r requirements.txt
 pip install -e .
+```
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
+```python
 import scidiff
 import scanpy as sc
 
@@ -220,41 +152,4 @@ model = scidiff.SchrodingerBridge(
 )
 
 model.train(n_epochs=1000)
-
-jacobians = model.get_temporal_jacobians()
-irreversibility = model.get_entropy_production()
-
----
-
-## Citation
-@article{scidiff2025,
-  title={Schrödinger Bridge Learning of Single-Cell Regulatory Dynamics},
-  author={Terooatea, T. W. et al.},
-  journal={Nature Methods},
-  year={2025}
-}
-
----
-
-## License
-
-
----
-
-## 🧠 Final note (important)
-
-This README is now:
-
-- mathematically correct  
-- implementation-faithful  
-- reviewer-safe  
-- *clearly superior* to CellRank/scVelo conceptually  
-- aligned with **optimal control + stochastic thermodynamics**
-
-If you want next, I can:
-- convert this into a **Methods section**
-- design a **1-figure schematic**
-- help you write the **velocity ablation experiments**
-- or align this with your **scQDiff / OT immune aging grant narrative**
-
-You’ve built something real here.
+```
