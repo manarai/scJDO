@@ -124,10 +124,11 @@ this velocity-driven process to match observed start and end populations.
 The learned correction is decomposed as:
 
 $$
-u_\theta(x,t) = \beta \cdot \text{score}(x,t) + \text{residual}(x,t)
+u_\theta(x,t) = \gamma \cdot \text{score}(x,t) + \text{residual}(x,t)
 $$
 
 where:
+- $\gamma$ — score weighting parameter (distinct from diffusion constant $\beta$)
 - $\text{score}(x,t)$ — neural network estimating the score function $\nabla_x \log \rho_t(x)$
 - $\text{residual}(x,t)$ — neural network learning additional corrections
 
@@ -155,7 +156,7 @@ where:
 
 ---
 
-## 🔁 Forward and Reverse Dynamics
+## Forward and Reverse Dynamics
 
 **Forward process**
 $$
@@ -174,11 +175,13 @@ $$
 f_{\mathrm{rev}}(x,t) = f(x,t) - 2\beta\nabla_x\log\rho_t(x)
 $$
 
+The reverse dynamics assume a sufficiently smooth intermediate density $\rho_t(x)$, as standard in Schrödinger Bridge theory.
+
 Forward–reverse asymmetry provides a quantitative measure of biological irreversibility.
 
 ---
 
-## 🧠 Temporal Jacobians and Archetypes
+## Temporal Jacobians and Archetypes
 
 The temporal Jacobian tensor is computed from the full drift:
 
@@ -186,8 +189,8 @@ $$
 J(t) = \frac{\partial f}{\partial x}(t)
 $$
 
-where $J_{ij}(t) = \frac{\partial f_i}{\partial x_j}$ quantifies how gene $j$ influences
-the expression rate of gene $i$ at time $t$.
+where $J_{ij}(t) = \frac{\partial f_i}{\partial x_j}$ quantifies how feature $j$ influences
+the rate of change of feature $i$ at time $t$ (when $x$ represents gene expression, this captures gene-gene regulatory influence; in latent spaces, $J(t)$ captures effective regulatory structure).
 
 Low-rank decomposition via SVD reveals regulatory and communication archetypes:
 
@@ -217,7 +220,7 @@ High entropy production indicates irreversible cell-fate decisions and commitmen
 
 ---
 
-## 🧮 What scIDiff Learns
+## What scIDiff Learns
 
 | Layer                  | Description                                      | Output                            |
 | ---------------------- | ------------------------------------------------ | --------------------------------- |
@@ -241,17 +244,18 @@ High entropy production indicates irreversible cell-fate decisions and commitmen
 With CellPhoneDB ligand–receptor priors, scIDiff models time-evolving communication graphs as coupled stochastic processes:
 
 $$
-dX_t^{(i)} = f_{\text{intra}}(X_t^{(i)}, t)dt + \sum_j W_{ij}(t)g(X_t^{(j)} - X_t^{(i)})dt + \sqrt{2\beta}dW_t^{(i)}
+dX_t^{(i)} = f_{\text{intra}}(X_t^{(i)}, t)dt + \sum_j W_{ij}(t)\,\phi(X_t^{(j)} - X_t^{(i)})dt + \sqrt{2\beta}dW_t^{(i)}
 $$
 
+where:
 - $W_{ij}(t)$ — communication strength between cells *i* and *j*
-- $g(\Delta x)$ — interaction kernel (e.g., linear or gated)
+- $\phi(\Delta x)$ — interaction kernel (e.g., linear or gated)
 
 **Result:** Communication archetypes (e.g., inflammatory relay, exhaustion/resolution) that co-evolve with regulatory drift.
 
 ---
 
-## 💻 Installation
+## Installation
 
 ```bash
 # Create conda environment
@@ -271,7 +275,7 @@ pip install -e .
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Command Line Interface
 
@@ -291,9 +295,10 @@ python -m scqdiff.pipeline.train_from_anndata \
 **Key arguments:**
 - `--use-velocity-prior` — Enable RNA velocity integration
 - `--normalize-velocity` — Normalize velocity to unit length (recommended)
-- `--vel-scale 1.0` — Velocity magnitude scaling (tune if needed)
+- `--vel-scale 1.0` — Velocity magnitude scaling ($\lambda$, tune if needed)
 - `--vel-k 32` — Number of neighbors for interpolation
 - `--vel-time-mode mid` — Time schedule ("mid" or "flat")
+- `--beta 0.1` — Diffusion constant ($\beta$)
 
 ### Python API
 
@@ -318,13 +323,13 @@ if V is not None:
 # Configure model with velocity prior
 cfg = DriftConfig(
     dim=X.shape[1],
-    beta=0.1,
+    beta=0.1,              # β: diffusion constant
     use_velocity_prior=True,
-    vel_scale=1.0,
-    vel_k=32,
-    vel_tau=1.0,
-    vel_conf_power=1.0,
-    vel_time_mode="mid"
+    vel_scale=1.0,         # λ: velocity magnitude scaling
+    vel_k=32,              # k: number of neighbors
+    vel_tau=1.0,           # τ: temperature parameter
+    vel_conf_power=1.0,    # p: confidence exponent
+    vel_time_mode="mid"    # g(t): time schedule
 )
 
 # Create model
@@ -357,28 +362,33 @@ model = DriftField(cfg)  # No velocity
 
 ---
 
-## 📊 Advanced Usage
+## Advanced Usage
 
 ### Hyperparameter Tuning
 
-**Velocity scaling** (`--vel-scale`):
+**Velocity scaling** (`--vel-scale`, $\lambda$):
 - Start with 1.0 for normalized velocities
 - Increase (2.0-5.0) if velocity should have stronger influence
 - Decrease (0.1-0.5) if model struggles to match endpoints
 
-**Number of neighbors** (`--vel-k`):
+**Number of neighbors** (`--vel-k`, $k$):
 - Default: 32 works well for most datasets
 - Increase (64-128) for smoother velocity fields
 - Decrease (16-24) for more localized influence
 
 **Time schedule** (`--vel-time-mode`):
-- `"mid"` (default): Emphasize velocity during transitions
-- `"flat"`: Constant velocity contribution throughout
+- `"mid"` (default): Emphasize velocity during transitions, $g(t) = 4t(1-t)$
+- `"flat"`: Constant velocity contribution, $g(t) = 1$
 
-**Confidence gating** (`--vel-conf-power`):
+**Confidence gating** (`--vel-conf-power`, $p$):
 - Default: 1.0 uses confidence linearly
 - Increase (1.5-2.0) to more strongly suppress unreliable velocities
 - Set to 0.0 to disable confidence gating
+
+**Diffusion constant** (`--beta`, $\beta$):
+- Controls noise level in the stochastic process
+- Default: 0.1 works well for most datasets
+- Increase for more stochastic trajectories
 
 ### Fate-Conditioned Archetype Analysis
 
@@ -396,7 +406,7 @@ This computes fate-conditioned Jacobians and extracts regulatory archetypes.
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - **[RNA_VELOCITY_GUIDE.md](RNA_VELOCITY_GUIDE.md)** — Comprehensive guide to velocity integration
 - **[QUICKSTART_VELOCITY.md](QUICKSTART_VELOCITY.md)** — Quick start guide
@@ -405,7 +415,7 @@ This computes fate-conditioned Jacobians and extracts regulatory archetypes.
 
 ---
 
-## 🧮 Core Features
+## Core Features
 
 - ✅ **Schrödinger Bridge learning** with biologically grounded reference drift
 - ✅ **RNA velocity integration** via soft k-NN interpolation
@@ -420,7 +430,7 @@ This computes fate-conditioned Jacobians and extracts regulatory archetypes.
 
 ---
 
-## 🔬 Applications
+## Applications
 
 scIDiff is particularly valuable for:
 
@@ -480,7 +490,7 @@ plt.show()
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please:
 1. Fork the repository
@@ -511,7 +521,7 @@ If you use scIDiff in your research, please cite:
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 This implementation integrates RNA velocity as a biological prior following best practices
 from the Schrödinger Bridge and optimal transport literature. The design prioritizes
@@ -519,18 +529,10 @@ biological interpretability while maintaining mathematical rigor and computation
 
 **Key References:**
 - La Manno et al. (2018) "RNA velocity of single cells" *Nature*
-- Chen et al. (2021) "Likelihood Training of Schrödinger Bridge using Forward-Backward SDEs Theory"
-- Cuturi (2013) "Sinkhorn Distances: Lightspeed Computation of Optimal Transport"
+- Chen et al. (2021) "Likelihood Training of Schrödinger Bridge using Forward-Backward S
+(Content truncated due to size limit. Use page ranges or line ranges to read remaining content)
 
----
 
-## 📧 Contact
+live
 
-For questions, issues, or collaborations:
-- **GitHub Issues:** https://github.com/manarai/scIDiff_V2/issues
-- **Email:** [your-email@domain.com]
-
----
-
-**scIDiff** — *Bridging the gap between mathematical optimality and biological reality*
-
+Jump to live
