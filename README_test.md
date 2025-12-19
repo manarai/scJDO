@@ -81,7 +81,7 @@ this velocity-driven process to match observed start and end populations.
 
 ---
 
-## 🔁 Forward and Reverse Dynamics
+## Forward and Reverse Dynamics
 
 **Forward process**
 $$
@@ -99,7 +99,7 @@ Forward–reverse asymmetry provides a quantitative measure of biological irreve
 
 ---
 
-## 🧠 Temporal Jacobians and Archetypes
+## Temporal Jacobians and Archetypes
 
 The temporal Jacobian tensor is computed from the full drift:
 
@@ -124,7 +124,7 @@ $$
 
 ---
 
-## 💻 Installation
+## Installation
 
 ```bash
 conda create -n scidiff python=3.10
@@ -137,7 +137,7 @@ pip install -e .
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ```python
 import scidiff
