@@ -1,4 +1,4 @@
-# 🧬 scIDiff: Schrödinger Bridge Learning of Single-Cell Regulatory Dynamics
+# scIDiff: Schrödinger Bridge Learning of Single-Cell Regulatory Dynamics
 
 **scIDiff** (single-cell inverse Diffusion) is a computational framework for learning
 continuous-time, causal cellular dynamics directly from single-cell data.
@@ -24,7 +24,7 @@ of irreversibility, commitment points, and reprogramming potential.
 
 ---
 
-## 🌌 Mathematical Foundations
+## Mathematical Foundations
 
 Given observed cell states sampled at different times or conditions, scIDiff models a
 controlled stochastic process:
@@ -63,7 +63,7 @@ $$
 
 ---
 
-## 🧬 RNA Velocity as a Reference Drift
+## RNA Velocity as a Reference Drift
 
 RNA velocity provides an experimentally grounded estimate of a cell's instantaneous
 transcriptional change. Rather than enforcing velocity as a hard constraint, scIDiff
@@ -117,7 +117,7 @@ this velocity-driven process to match observed start and end populations.
 
 ---
 
-## 🔧 Implementation Details
+## Implementation Details
 
 ### Learned Correction Drift
 
@@ -156,7 +156,7 @@ where:
 
 ---
 
-## 🔁 Forward and Reverse Dynamics
+## Forward and Reverse Dynamics
 
 **Forward process**
 $$
@@ -181,7 +181,7 @@ Forward–reverse asymmetry provides a quantitative measure of biological irreve
 
 ---
 
-## 🧠 Temporal Jacobians and Archetypes
+## Temporal Jacobians and Archetypes
 
 The temporal Jacobian tensor is computed from the full drift:
 
@@ -205,7 +205,7 @@ where:
 
 ---
 
-## ⚖️ Quantifying Irreversibility
+## Quantifying Irreversibility
 
 Entropy production is quantified as:
 
@@ -220,7 +220,7 @@ High entropy production indicates irreversible cell-fate decisions and commitmen
 
 ---
 
-## 🧮 What scIDiff Learns
+## What scIDiff Learns
 
 | Layer                  | Description                                      | Output                            |
 | ---------------------- | ------------------------------------------------ | --------------------------------- |
@@ -239,7 +239,7 @@ High entropy production indicates irreversible cell-fate decisions and commitmen
 
 ---
 
-## 🔗 Extension: scIDiff-Comm (Cell–Cell Communication)
+## Extension: scIDiff-Comm (Cell–Cell Communication)
 
 With CellPhoneDB ligand–receptor priors, scIDiff models time-evolving communication graphs as coupled stochastic processes:
 
@@ -255,7 +255,7 @@ where:
 
 ---
 
-## 💻 Installation
+## Installation
 
 ```bash
 # Create conda environment
@@ -275,7 +275,7 @@ pip install -e .
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Command Line Interface
 
@@ -362,7 +362,7 @@ model = DriftField(cfg)  # No velocity
 
 ---
 
-## 📊 Advanced Usage
+## Advanced Usage
 
 ### Hyperparameter Tuning
 
@@ -406,7 +406,7 @@ This computes fate-conditioned Jacobians and extracts regulatory archetypes.
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - **[RNA_VELOCITY_GUIDE.md](RNA_VELOCITY_GUIDE.md)** — Comprehensive guide to velocity integration
 - **[QUICKSTART_VELOCITY.md](QUICKSTART_VELOCITY.md)** — Quick start guide
@@ -490,7 +490,7 @@ plt.show()
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please:
 1. Fork the repository
@@ -500,20 +500,20 @@ Contributions are welcome! Please:
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📖 Citation
+## Citation
 
 If you use scIDiff in your research, please cite:
 
 ```bibtex
 @article{scidiff2024,
   title={scIDiff: Schrödinger Bridge Learning of Single-Cell Regulatory Dynamics},
-  author={[Your Name]},
+  author={[Tommy Terooatea]},
   journal={[Journal]},
   year={2024}
 }
@@ -521,7 +521,7 @@ If you use scIDiff in your research, please cite:
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 This implementation integrates RNA velocity as a biological prior following best practices
 from the Schrödinger Bridge and optimal transport literature. The design prioritizes
@@ -538,7 +538,7 @@ biological interpretability while maintaining mathematical rigor and computation
 
 For questions, issues, or collaborations:
 - **GitHub Issues:** https://github.com/manarai/scIDiff_V2/issues
-- **Email:** [your-email@domain.com]
+- **Email:** tommy.terooatea@byu.edu
 
 ---
 
