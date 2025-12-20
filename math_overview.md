@@ -31,9 +31,9 @@ The density evolves according to the **Fokker–Planck equation**
 $$
 \partial_t \rho_t
 =
--\nabla \cdot (\rho_t f)
+-\nabla\cdot(\rho_t f)
 +
-\beta\,\Delta \rho_t,
+\beta\,\Delta\rho_t
 $$
 
 with boundary conditions
