@@ -1,42 +1,23 @@
+# scIDiff — Minimal Mathematical Core
 
-# Mathematical Foundations of scIDiff
-
-**scIDiff** (*single-cell Inverse Diffusion*) learns a **time-dependent drift field**
-that describes how cellular gene-expression states evolve over continuous time or
-pseudotime. It is grounded in the **Schrödinger Bridge formulation of optimal transport**,
-linking score-based generative modeling, Fokker–Planck dynamics, and **RNA velocity as a biological prior**.
-
-A key innovation of **scIDiff** is the integration of **RNA velocity** as a *biological reference drift*,
-enabling the model to learn trajectories that are not only mathematically optimal but also
-**biologically plausible**.
+**scIDiff** (*single-cell Inverse Diffusion*) models cellular state transitions as a
+stochastic process guided by **RNA velocity** and refined via the
+**Schrödinger Bridge** formulation of optimal transport.
 
 ---
 
-## 1. Conceptual overview
+## State dynamics
 
-Given single-cell data at different developmental or perturbation states,
-we seek a continuous stochastic process
-
-$$
-X_t \in \mathbb{R}^d
-$$
-
-whose probability distribution $\rho_t(x)$ evolves smoothly from an initial (naïve) state
-$\rho_0$ to a terminal (perturbed) state $\rho_1$.
-
-scIDiff models cell-state dynamics as:
+Cell states evolve according to the stochastic differential equation
 
 $$
 dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t,
 $$
 
-where:
+where $X_t \in \mathbb{R}^d$ is the cell state, $f(x,t)$ is the drift field,
+and $\beta$ controls stochasticity.
 
-- $f(x,t)$ is the **total drift field**
-- $dW_t$ is Brownian noise
-- $\beta$ controls stochasticity
-
-The corresponding density evolution follows the **Fokker–Planck equation**:
+The corresponding density $\rho_t(x)$ satisfies the Fokker–Planck equation
 
 $$
 \partial_t\rho_t
@@ -48,50 +29,53 @@ $$
 
 ---
 
-## 2. RNA velocity as biological reference drift
+## RNA velocity as reference drift
 
-### 2.1 Biological motivation
-
-RNA velocity provides an experimentally grounded estimate of a cell’s instantaneous
-transcriptional change derived from unspliced and spliced mRNA ratios.
-Rather than enforcing velocity as a hard constraint, scIDiff treats RNA velocity as a
-**reference drift** that defines a default biological direction of motion in state space.
-
-### 2.2 Reference drift formulation
+RNA velocity defines a biologically grounded **reference drift**
 
 $$
 b(x,t)
 =
-\lambda \cdot g(t) \cdot w(x) \cdot \hat{v}(x)
+\lambda \cdot g(t) \cdot w(x) \cdot \hat{v}(x),
+$$
+
+where $\hat{v}(x)$ is interpolated RNA velocity, $w(x)$ is a confidence weight,
+$g(t)$ is a temporal gating function, and $\lambda$ scales velocity magnitude.
+
+---
+
+## Schrödinger Bridge formulation
+
+The total drift is decomposed as
+
+$$
+f(x,t) = b(x,t) + u_\theta(x,t),
+$$
+
+where $u_\theta(x,t)$ is a learned correction drift.
+
+The Schrödinger Bridge objective learns the **minimal correction**
+required to transport the initial distribution $\rho_0$ to the terminal
+distribution $\rho_1$:
+
+$$
+\min_{u_\theta}
+\;
+\mathbb{E}\!\int_0^1 \|u_\theta(X_t,t)\|^2\,dt,
+\quad
+\text{s.t. } X_0 \sim \rho_0,\; X_1 \sim \rho_1.
 $$
 
 ---
 
-## 3. Schrödinger Bridge with velocity prior
+## Key interpretation
 
-$$
-f(x,t) = b(x,t) + u_\theta(x,t)
-$$
+- RNA velocity provides **local biological directionality**
+- Schrödinger Bridge enforces **global distributional consistency**
+- $u_\theta$ learns the **minimal deviation** from velocity needed to satisfy fate constraints
 
----
-
-## 4. Learning the correction drift
-
-$$
-u_\theta(x,t)
-=
-\gamma\,s_\theta(x,t)
-+
-v_\theta(x,t)
-$$
-
----
-
-## 5. Simulation
-
-$$
-dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t
-$$
+**scIDiff unifies biological kinetics and probabilistic optimal transport
+in a single dynamical system.**
 
 ---
 
