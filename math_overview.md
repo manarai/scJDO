@@ -16,9 +16,10 @@ dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t,
 $$
 
 where:
-- $f : \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$ is the drift field
-- $\beta > 0$ is the diffusion coefficient
-- $W_t$ is standard Brownian motion
+
+- $f : \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$ is the drift field  
+- $\beta > 0$ is the diffusion coefficient  
+- $W_t$ is standard Brownian motion  
 
 ---
 
@@ -49,19 +50,20 @@ where $\rho_0$ and $\rho_1$ are empirical distributions estimated from data.
 
 ## 3. Reference drift from RNA velocity
 
-A time-dependent **reference drift** $b(x,t)$ is constructed from RNA velocity:
+A time-dependent reference drift $b(x,t)$ is constructed from RNA velocity:
 
 $$
 b(x,t)
 =
-\lambda \, g(t)\, w(x)\, \hat{v}(x),
+\lambda\, g(t)\, w(x)\, \hat{v}(x),
 $$
 
 where:
-- $\hat{v}(x)$ is an interpolated RNA velocity field
-- $w(x)$ is a confidence weight
-- $g(t)$ is a temporal gating function
-- $\lambda$ is a global scaling parameter
+
+- $\hat{v}(x)$ is an interpolated RNA velocity field  
+- $w(x)$ is a confidence weight  
+- $g(t)$ is a temporal gating function  
+- $\lambda$ is a global scaling parameter  
 
 The reference drift defines a baseline stochastic process.
 
@@ -89,8 +91,7 @@ Equivalently, it solves the control problem
 $$
 \min_{u_\theta}
 \;
-\mathbb{E}
-\int_0^1
+\mathbb{E}\!\int_0^1
 \|u_\theta(X_t,t)\|^2\,dt,
 $$
 
@@ -104,7 +105,13 @@ $$
 \beta\,\Delta \rho_t,
 $$
 
-and endpoint constraints $X_0 \sim \rho_0$, $X_1 \sim \rho_1$.
+and endpoint constraints
+
+$$
+X_0 \sim \rho_0,
+\qquad
+X_1 \sim \rho_1.
+$$
 
 ---
 
@@ -118,17 +125,17 @@ $$
 
 defines a full generative dynamical system that is:
 
-- consistent with observed endpoint distributions
-- minimally perturbed from the reference process
-- stochastic and time-continuous
+- consistent with observed endpoint distributions  
+- minimally perturbed from the reference process  
+- stochastic and time-continuous  
 
 ---
 
 ## 7. Summary
 
-scIDiff formulates trajectory inference as a **Schrödinger Bridge with a structured reference drift**.
-RNA velocity defines the reference process, and the learned correction $u_\theta$
-accounts for global distributional constraints.
+scIDiff formulates trajectory inference as a **Schrödinger Bridge with a structured
+reference drift**. RNA velocity defines the reference process, and the learned
+correction $u_\theta$ accounts for global distributional constraints.
 
 ---
 
