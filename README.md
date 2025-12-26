@@ -41,6 +41,7 @@ where:
 - $\beta$ — diffusion constant
 
 The full drift is defined as:
+
 $$
 f(x,t) = b(x,t) + u_\theta(x,t)
 $$
@@ -159,11 +160,13 @@ where:
 ## Forward and Reverse Dynamics
 
 **Forward process**
+
 $$
 dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t
 $$
 
 **Reverse process**
+
 $$
 dX_t =
 \big[f(X_t,t) - 2\beta\nabla_x\log\rho_t(X_t)\big]dt
@@ -171,6 +174,7 @@ dX_t =
 $$
 
 where the reverse drift is given by:
+
 $$
 f_{\mathrm{rev}}(x,t) = f(x,t) - 2\beta\nabla_x\log\rho_t(x)
 $$
