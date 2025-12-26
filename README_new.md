@@ -64,13 +64,6 @@ where:
 
 
 **Velocity interpolation** (soft k-NN):
-$$
-\hat v(x) = \sum_{i=1}^k w_i \cdot v_i
-\quad \text{where} \quad
-w_i = \frac{\exp(-d_i/\tau)}{\sum_j \exp(-d_j/\tau)}
-$$
-
-**Velocity interpolation** (soft k-NN):
 
 $$
 \hat v(x) = \sum_{i=1}^k w_i \cdot v_i
@@ -118,11 +111,13 @@ For applications with **natural endpoint distributions** (e.g., young → old ce
 Given two distributions $\rho_0$ (source, e.g., young) and $\rho_1$ (target, e.g., old), the Schrödinger Bridge learns:
 
 **Forward drift** (aging: $\rho_0 \to \rho_1$):
+
 $$
 \dX_t = b_f(X_t, t)\,dt + \sqrt{2\beta}\,dW_t
 $$
 
 **Backward drift** (rejuvenation: $\rho_1 \to \rho_0$):
+
 $$
 \dX_t = b_b(X_t, t)\,dt + \sqrt{2\beta}\,d\bar{W}_t
 $$
@@ -296,6 +291,7 @@ control_modes = eigenvectors[:, eigenvalues.real > 0]
 ```
 
 **Archetype decomposition** via SVD:
+
 $$
 J(t) = U \Sigma V^\top
 $$
@@ -684,7 +680,7 @@ If you use scIDiff in your research, please cite:
 ## Contact
 
 For questions, issues, or collaborations:
-- **GitHub Issues:** https://github.com/yourusername/scIDiff/issues
+- **GitHub Issues:** https://github.com/manarai/scIDiff/issues
 - **Email:** tommy.terooatea@byu.edu
 
 ---
