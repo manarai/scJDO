@@ -63,11 +63,12 @@ where:
 - $\lambda$ — Magnitude scaling
 
 **Velocity interpolation** (soft k-NN):
-$$
-v(x) = \sum_{i=1}^k w_i \cdot v_i
+
+```math
+\hat v(x) = \sum_{i=1}^k w_i \cdot v_i
 \quad \text{where} \quad
 w_i = \frac{\exp(-d_i/\tau)}{\sum_j \exp(-d_j/\tau)}
-$$
+
 
 **Velocity interpolation** (soft k-NN):
 $$
