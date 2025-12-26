@@ -109,19 +109,19 @@ Given two distributions $\rho_0$ (source, e.g., young) and $\rho_1$ (target, e.g
 
 **Forward drift** (aging: $\rho_0 \to \rho_1$):
 $$
-dX_t = b_f(X_t, t)\,dt + \sqrt{2\beta}\,dW_t
+\dX_t = b_f(X_t, t)\,dt + \sqrt{2\beta}\,dW_t
 $$
 
 **Backward drift** (rejuvenation: $\rho_1 \to \rho_0$):
 $$
-dX_t = b_b(X_t, t)\,dt + \sqrt{2\beta}\,d\bar{W}_t
+\dX_t = b_b(X_t, t)\,dt + \sqrt{2\beta}\,d\bar{W}_t
 $$
 
 These drifts are **coupled** through entropic optimal transport, ensuring:
-- ✅ Forward process reaches $\rho_1$ from $\rho_0$
-- ✅ Backward process reaches $\rho_0$ from $\rho_1$
-- ✅ Minimal deviation from reference (Brownian motion)
-- ✅ Consistency between forward and backward
+-  Forward process reaches $\rho_1$ from $\rho_0$
+-  Backward process reaches $\rho_0$ from $\rho_1$
+-  Minimal deviation from reference (Brownian motion)
+-  Consistency between forward and backward
 
 ### Training Algorithm
 
