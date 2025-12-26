@@ -62,13 +62,6 @@ where:
 - $g(t)$ — Time-dependent schedule (peaks at $t=0.5$ for "mid" mode)
 - $\lambda$ — Magnitude scaling
 
-**Velocity interpolation** (soft k-NN):
-
-```math
-\hat v(x) = \sum_{i=1}^k w_i \cdot v_i
-\quad \text{where} \quad
-w_i = \frac{\exp(-d_i/\tau)}{\sum_j \exp(-d_j/\tau)}
-
 
 **Velocity interpolation** (soft k-NN):
 $$
@@ -77,6 +70,12 @@ $$
 w_i = \frac{\exp(-d_i/\tau)}{\sum_j \exp(-d_j/\tau)}
 $$
 
+**Velocity interpolation** (soft k-NN):
+$$
+\hat{v}(x) = \sum_{i=1}^{k} w_i \cdot v_i
+\quad \text{where} \quad
+w_i = \frac{\exp(-d_i/\tau)}{\sum_{j=1}^{k} \exp(-d_j/\tau)}
+$$
 
 ### Training Objective
 
