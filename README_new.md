@@ -11,13 +11,13 @@ The framework supports two complementary approaches:
 
 ## Key Features
 
-- ✅ **Hybrid drift field** combining score-based diffusion + Neural ODE + RNA velocity
-- ✅ **Schrödinger Bridge** for optimal transport between cell states (e.g., young ↔ old)
-- ✅ **RNA velocity integration** as biological reference drift
-- ✅ **Temporal Jacobian computation** for gene regulatory network inference
-- ✅ **Archetype decomposition** revealing regulatory modules
-- ✅ **Forward and reverse dynamics** for irreversibility quantification
-- ✅ **Flexible configuration** for different biological questions
+-  **Hybrid drift field** combining score-based diffusion + Neural ODE + RNA velocity
+-  **Schrödinger Bridge** for optimal transport between cell states (e.g., young ↔ old)
+-  **RNA velocity integration** as biological reference drift
+-  **Temporal Jacobian computation** for gene regulatory network inference
+-  **Archetype decomposition** revealing regulatory modules
+-  **Forward and reverse dynamics** for irreversibility quantification
+-  **Flexible configuration** for different biological questions
 
 ---
 
