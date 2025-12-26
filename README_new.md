@@ -5,7 +5,7 @@
 The framework supports two complementary approaches:
 
 1. **Hybrid Drift Field** (default) — Combines score networks, Neural ODE corrections, and velocity guidance for control analysis and general trajectory modeling
-2. **Schrödinger Bridge** (optional) — Optimal transport between distributions for aging, development, and rejuvenation analysis
+2. **Schrödinger Bridge** (optional) — Optimal transport between distributions for aging and rejuvenation analysis
 
 ---
 
