@@ -165,6 +165,6 @@ Potential enhancements for future versions:
 
 ---
 
-**Date**: December 19, 2025  
+**Date**: Jan 12, 2025  
 **Version**: RNA Velocity Feature Release  
 **Status**: Tested and validated
