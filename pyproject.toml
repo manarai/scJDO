@@ -26,3 +26,6 @@ dependencies = [
   "h5py>=3.10",
   "numba>=0.58"
 ]
+
+[tool.setuptools]
+packages = ["scqdiff"]
