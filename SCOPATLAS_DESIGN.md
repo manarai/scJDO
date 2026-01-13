@@ -340,14 +340,6 @@ Use ATAC-seq data to validate:
 - `cellrank` (for trajectory analysis integration)
 - `episcanpy` (for ATAC-seq overlay)
 
-## Success Criteria
-
-1. ✅ Operator metrics computed for all cells
-2. ✅ Regime classification is interpretable and stable
-3. ✅ Non-redundancy with expression-based cell types demonstrated
-4. ✅ At least one biological anchor validated
-5. ✅ Visualization pipeline produces publication-quality figures
-6. ✅ API is user-friendly and well-documented
 
 ## Future Extensions
 
