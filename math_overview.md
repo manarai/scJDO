@@ -1,142 +1,176 @@
 # scIDiff — Mathematical Overview
+*Time-resolved regulatory operators for single-cell dynamics*
 
-scIDiff (*single-cell Inverse Diffusion*) formulates cell-state transitions as a
-stochastic control problem under the **Schrödinger Bridge** framework, with
-**RNA velocity incorporated as a reference drift**.
+scIDiff (**s**ingle-**c**ell **I**nference of **Diff**erential operators) is an operator-centric framework for learning the **time-dependent dynamical rules** that govern cellular state transitions. Rather than only reconstructing trajectories, scIDiff infers the **local Jacobian operators** of a learned drift field and uses their temporal structure to reveal conserved regulatory programs (“operator archetypes”) and decision-sensitive control modes.
+
+RNA velocity and Schrödinger Bridge constraints can be used as **optional priors** when learning the drift field, but all downstream operator and archetype analysis is independent of these choices.
 
 ---
 
-## 1. State space and dynamics
+## 1. Stochastic model of cell-state dynamics
 
-Let $X_t \in \mathbb{R}^d$ denote the cell state at (pseudo)time $t \in [0,1]$.
-Cell dynamics are modeled by the stochastic differential equation
+Let \(X_t \in \mathbb{R}^d\) denote the latent cellular state at pseudotime \(t \in [0,1]\).
+Cell dynamics are modeled as a stochastic differential equation
 
-$$
+\[
 dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t,
-$$
+\]
 
-where:
+where  
 
-- $f : \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$ is the drift field  
-- $\beta > 0$ is the diffusion coefficient  
-- $W_t$ is standard Brownian motion  
+- \(f : \mathbb{R}^d \times [0,1] \to \mathbb{R}^d\) is a time-dependent drift field,  
+- \(\beta > 0\) controls stochasticity,  
+- \(W_t\) is standard Brownian motion.
+
+The drift \(f(x,t)\) represents the **instantaneous regulatory program** driving cellular motion in latent state space.
 
 ---
 
 ## 2. Density evolution
 
-Let $\rho_t(x)$ denote the probability density of $X_t$.
-The density evolves according to the **Fokker–Planck equation**
+Let \(\rho_t(x)\) be the probability density of \(X_t\). It evolves according to the Fokker–Planck equation
 
-$$
+\[
 \partial_t \rho_t
 =
--\nabla\cdot(\rho_t f)
+-\nabla \cdot (\rho_t f)
 +
-\beta\,\Delta\rho_t
-$$
+\beta \Delta \rho_t.
+\]
 
-with boundary conditions
-
-$$
-\rho_{t=0} = \rho_0,
-\qquad
-\rho_{t=1} = \rho_1,
-$$
-
-where $\rho_0$ and $\rho_1$ are empirical distributions estimated from data.
+scIDiff learns \(f(x,t)\) so that this stochastic flow explains the observed single-cell distribution over pseudotime.
 
 ---
 
-## 3. Reference drift from RNA velocity
+## 3. Local regulatory operators (Jacobians)
 
-A time-dependent reference drift $b(x,t)$ is constructed from RNA velocity:
+The central object in scIDiff is the **time-resolved Jacobian operator**
 
-$$
+\[
+J(x,t) = \nabla_x f(x,t).
+\]
+
+This operator governs the linearized dynamics of perturbations:
+
+\[
+d(\delta X_t)
+=
+J(X_t,t)\,\delta X_t\,dt
++
+\sqrt{2\beta}\,dW_t.
+\]
+
+The eigenvalues and eigenvectors of \(J(x,t)\) define:
+
+- **Stable modes** (negative eigenvalues): buffered, committed programs  
+- **Weakly stable modes** (near-zero eigenvalues): plastic directions  
+- **Unstable modes** (positive eigenvalues): fate-deciding control directions  
+
+These operators quantify **stability, sensitivity, and commitment** directly.
+
+---
+
+## 4. Temporal Jacobian tensor
+
+Evaluating Jacobians along inferred trajectories or pseudotime windows yields a sequence
+
+\[
+\{J(t_1), J(t_2), \dots, J(t_T)\}.
+\]
+
+Stacking them forms the **temporal Jacobian tensor**
+
+\[
+\mathcal{T} \in \mathbb{R}^{T \times d \times d}.
+\]
+
+This tensor summarizes how regulatory sensitivity evolves during differentiation.
+
+---
+
+## 5. Operator archetypes
+
+To obtain an interpretable representation, scIDiff performs a low-rank tensor factorization
+
+\[
+\mathcal{T}(t)
+\;\approx\;
+\sum_{k=1}^{K} a_k(t)\,A_k,
+\]
+
+where  
+
+- \(A_k \in \mathbb{R}^{d \times d}\) are **operator archetypes** (reusable regulatory programs),  
+- \(a_k(t)\) are their time-varying activation profiles.
+
+Archetype coordination patterns—**sequential handoffs** and **concurrent activation**—constitute a conserved regulatory grammar of cell fate decisions.
+
+---
+
+## 6. Control-relevant modes
+
+Eigenvectors of archetypal operators \(A_k\) with positive eigenvalues define **unstable modes**—directions where perturbations are amplified.  
+When projected to gene space, these modes identify **control-relevant transcriptional programs** that disproportionately influence fate outcomes.
+
+---
+
+## 7. RNA velocity as an optional drift prior
+
+RNA velocity can be incorporated as a **reference drift** \(b(x,t)\) to guide learning of \(f\):
+
+\[
 b(x,t)
 =
-\lambda\, g(t)\, w(x)\, \hat{v}(x),
-$$
+\lambda\, g(t)\, w(x)\, \hat v(x),
+\]
 
-where:
+where  
 
-- $\hat{v}(x)$ is an interpolated RNA velocity field  
-- $w(x)$ is a confidence weight  
-- $g(t)$ is a temporal gating function  
-- $\lambda$ is a global scaling parameter  
+- \(\hat v(x)\) is the interpolated RNA velocity field,  
+- \(w(x)\) is a confidence weight,  
+- \(g(t)\) is a temporal gate,  
+- \(\lambda\) controls its influence.
 
-The reference drift defines a baseline stochastic process.
+The learned drift is
 
----
-
-## 4. Drift decomposition
-
-The total drift is decomposed as
-
-$$
+\[
 f(x,t) = b(x,t) + u_\theta(x,t),
-$$
+\]
 
-where $u_\theta(x,t)$ is a learnable correction drift parameterized by a neural network.
+where \(u_\theta\) is a neural correction.  
+RNA velocity improves directional alignment but does **not** alter downstream Jacobian or archetype analysis.
 
 ---
 
-## 5. Schrödinger Bridge objective
+## 8. Endpoint-constrained dynamics via Schrödinger Bridge (optional)
 
-scIDiff seeks the stochastic process that transports $\rho_0$ to $\rho_1$
-while minimizing deviation from the reference drift $b(x,t)$.
+For problems with known start and end populations, scIDiff can enforce endpoint constraints via a Schrödinger Bridge:
 
-Equivalently, it solves the control problem
-
-$$
+\[
 \min_{u_\theta}
 \;
-\mathbb{E}\!\int_0^1
-\|u_\theta(X_t,t)\|^2\,dt,
-$$
+\mathbb{E}\!\int_0^1 \|u_\theta(X_t,t)\|^2\,dt
+\]
 
-subject to the controlled Fokker–Planck equation
+subject to
 
-$$
+\[
 \partial_t \rho_t
 =
--\nabla \cdot \big(\rho_t (b + u_\theta)\big)
+-\nabla\!\cdot(\rho_t (b+u_\theta))
 +
-\beta\,\Delta \rho_t,
-$$
+\beta \Delta \rho_t,
+\quad
+X_0\!\sim\!\rho_0,\;
+X_1\!\sim\!\rho_1.
+\]
 
-and endpoint constraints
-
-$$
-X_0 \sim \rho_0,
-\qquad
-X_1 \sim \rho_1.
-$$
+This modifies only the inferred drift \(f\); Jacobians, archetypes, and operator-defined states are computed exactly as in the unconstrained case.
 
 ---
 
-## 6. Learned dynamics
+## 9. Summary
 
-The resulting drift
+scIDiff is an **operator-centric** framework that infers time-resolved regulatory dynamics from single-cell data. By learning a drift field, computing its Jacobian, and decomposing the resulting temporal tensor into archetypes, scIDiff exposes a conserved grammar of cell fate decisions and identifies control-relevant unstable modes for perturbation and reprogramming.
 
-$$
-f(x,t) = b(x,t) + u_\theta(x,t)
-$$
-
-defines a full generative dynamical system that is:
-
-- consistent with observed endpoint distributions  
-- minimally perturbed from the reference process  
-- stochastic and time-continuous  
-
----
-
-## 7. Summary
-
-scIDiff formulates trajectory inference as a **Schrödinger Bridge with a structured
-reference drift**. RNA velocity defines the reference process, and the learned
-correction $u_\theta$ accounts for global distributional constraints.
-
----
-
-*BYU Genomics & Bioinformatics Core — scIDiff Development Team*
+RNA velocity and Schrödinger Bridge provide optional guidance and constraints—but the core object of scIDiff is the **time-varying regulatory operator**.
