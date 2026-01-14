@@ -338,15 +338,4 @@ If you use SCOPAtlas in your research, please cite:
 - **Examples**: `examples/` directory
 - **Issues**: [GitHub Issues](https://github.com/manarai/scIDiff_V2/issues)
 
-## Next Steps
-
-1. Run the complete workflow notebook
-2. Test on your own data
-3. Validate non-redundancy with cell types
-4. Compare clustering methods
-5. Interpret biological findings
-6. Write paper!
-
----
-
-**Remember**: SCOPAtlas reveals the **dynamical layer** of cell identity that expression-based methods miss. Same cell type can have different operator regimes, and different cell types can share the same regime. This is the key novelty!
+regimes, and different cell types can share the same regime. This is the key novelty!
