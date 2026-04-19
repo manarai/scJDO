@@ -1,10 +1,10 @@
 
-# Fourier Extension for scIDiff-v2
+# Fourier Extension for scQDiff
 
 This document explains how to enable the **Fourier-domain diffusion** and **spectral Schrödinger Bridge** features introduced in this PR bundle.
 
 ## Quick Enable
-1. Drop the `scIDiff/Fourier/` folder and the new files into your repo root.
+1. Drop the `scqdiff/Fourier/` folder and the new files into your repo root.
 2. Import the Fourier trainer/samplers in your experiment script or config.
 3. Set the following in your YAML config:
 
@@ -22,10 +22,10 @@ loss:
 
 ## Minimal Code Snippet
 ```python
-from scIDiff.Fourier.transforms import dft, idft
-from scIDiff.Fourier.kspace_samplers import KSpaceEulerMaruyama
-from scIDiff.Fourier.features import power_spectrum_features
-from scIDiff.models.fourier_score_network import MultiBandScoreNet
+from scqdiff.Fourier.transforms import dft, idft
+from scqdiff.Fourier.kspace_samplers import KSpaceEulerMaruyama
+from scqdiff.Fourier.features import power_spectrum_features
+from scqdiff.models.fourier_score_network import MultiBandScoreNet
 
 # x: (batch, genes) torch.float32
 y = dft(x)          # -> complex tensor in rfft form
@@ -36,7 +36,7 @@ score_hat = net(y, t, cond={"c_fourier": ps})
 
 ## Schrödinger Bridge Hooks
 ```python
-from scIDiff.transport.spectral_bridge import spectral_precondition_marginals
+from scqdiff.transport.spectral_bridge import spectral_precondition_marginals
 mu0_s, mu1_s = spectral_precondition_marginals(mu0, mu1, axis=-1, cutoff=0.6)
 ```
 
