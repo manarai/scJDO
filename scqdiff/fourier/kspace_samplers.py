@@ -47,3 +47,27 @@ class KSpaceHeun:
         drift = 0.5 * (drift1 + drift2)
         noise = (g * (dt ** 0.5)) * (torch.randn_like(x_hat_t.real) + 1j * torch.randn_like(x_hat_t.imag))
         return x_hat_t + drift * dt + noise
+
+def make_fourier_score_fn(model):
+    """
+    Wrap a real-space score model so it works with Fourier-space samplers.
+
+    model: callable like model(x_real, t, cond) -> score_real
+    returns: score_fn(x_hat, t, cond) -> score_hat
+    """
+    def score_fn(x_hat, t, cond=None):
+        device = next(model.parameters()).device
+
+        # Fourier -> real, preserving the original gene dimension
+        n = getattr(model, "gene_dim", None)
+        x = torch.fft.irfft(x_hat, n=n, dim=-1)
+        x = x.to(device)
+
+        # real-space score
+        score = model(x, t, cond or {})
+
+        # real -> Fourier
+        score_hat = torch.fft.rfft(score, dim=-1)
+        return score_hat
+
+    return score_fn
