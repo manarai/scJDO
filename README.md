@@ -1,6 +1,6 @@
-# scIDiff: Learning Single-Cell Regulatory Dynamics with Hybrid Drift Fields
+# scQDiff: Learning Single-Cell Regulatory Dynamics with Hybrid Drift Fields
 
-**scIDiff** (single-cell inverse Diffusion) is a computational framework for learning continuous-time cellular dynamics directly from single-cell data. By combining **score-based diffusion models**, **Neural ODE residual learning**, and **RNA velocity biological priors**, scIDiff infers stochastic drift fields that describe how cells evolve through transcriptional state space.
+**scQDiff** (single-cell inverse Diffusion) is a computational framework for learning continuous-time cellular dynamics directly from single-cell data. By combining **score-based diffusion models**, **Neural ODE residual learning**, and **RNA velocity biological priors**, scQDiff infers stochastic drift fields that describe how cells evolve through transcriptional state space.
 
 The framework supports two complementary approaches:
 
@@ -25,7 +25,7 @@ The framework supports two complementary approaches:
 
 ### Hybrid Drift Field Model (Default)
 
-scIDiff models cellular dynamics as a controlled stochastic process:
+scQDiff models cellular dynamics as a controlled stochastic process:
 
 $$
 dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t
@@ -90,7 +90,7 @@ where:
 
 ## Schrödinger Bridge for Aging Analysis (NEW)
 
-For applications with **natural endpoint distributions** (e.g., young → old cells), scIDiff now includes a **Schrödinger Bridge** module that learns **coupled forward and backward drifts** for optimal transport.
+For applications with **natural endpoint distributions** (e.g., young → old cells), scQDiff now includes a **Schrödinger Bridge** module that learns **coupled forward and backward drifts** for optimal transport.
 
 ### When to Use Schrödinger Bridge
 
@@ -143,12 +143,12 @@ The Schrödinger Bridge is trained iteratively:
 
 ```bash
 # Create conda environment
-conda create -n scidiff python=3.10
-conda activate scidiff
+conda create -n scQDiff python=3.10
+conda activate scQDiff
 
 # Clone repository
-git clone https://github.com/yourusername/scIDiff.git
-cd scIDiff
+git clone https://github.com/yourusername/scQDiff.git
+cd scQDiff
 
 # Install dependencies
 pip install -r requirements.txt
@@ -458,7 +458,7 @@ dedifferentiation_path = sb.backward_integrate(X_differentiated)
 
 ---
 
-## What scIDiff Learns
+## What scQDiff Learns
 
 | Layer | Description | Output | Model |
 |-------|-------------|--------|-------|
@@ -647,11 +647,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Citation
 
-If you use scIDiff in your research, please cite:
+If you use scQDiff in your research, please cite:
 
 ```bibtex
-@article{scidiff2024,
-  title={scIDiff: Learning Single-Cell Regulatory Dynamics with Hybrid Drift Fields},
+@article{scQDiff2024,
+  title={scQDiff: Learning Single-Cell Regulatory Dynamics with Hybrid Drift Fields},
   author={Terooatea, Tommy},
   journal={bioRxiv},
   year={2024}
@@ -680,9 +680,9 @@ If you use scIDiff in your research, please cite:
 ## Contact
 
 For questions, issues, or collaborations:
-- **GitHub Issues:** https://github.com/manarai/scIDiff/issues
+- **GitHub Issues:** https://github.com/manarai/scQDiff/issues
 - **Email:** tommy.terooatea@byu.edu
 
 ---
 
-**scIDiff** — *Combining mathematical rigor with biological reality for interpretable single-cell dynamics*
+**scQDiff** — *Combining mathematical rigor with biological reality for interpretable single-cell dynamics*
