@@ -2,13 +2,13 @@
 
 ## Overview
 
-**scOpAtlas** (Stable Operator Atlas) is a new analytical layer within the scidiff framework that defines cellular states by their **local stability structure** rather than expression patterns alone. It leverages scidiff's core capabilities (drift field inference, Jacobian computation, eigenmode analysis) to construct an atlas of operator regimes that reveal the dynamical properties of cells.
+**scOpAtlas** (Stable Operator Atlas) is a new analytical layer within the scqdiff framework that defines cellular states by their **local stability structure** rather than expression patterns alone. It leverages scqdiff's core capabilities (drift field inference, Jacobian computation, eigenmode analysis) to construct an atlas of operator regimes that reveal the dynamical properties of cells.
 
 ## Conceptual Framework
 
 ### Positioning
-- **scidiff** = the engine (drift + Jacobians + eigenmodes)
-- **scOpAtlas** = a product/application of scidiff (operator-based state definition)
+- **scqdiff** = the engine (drift + Jacobians + eigenmodes)
+- **scOpAtlas** = a product/application of scqdiff (operator-based state definition)
 - This is a **layer**, not a separate tool
 
 ### Core Claim
@@ -161,7 +161,7 @@ class StableOperatorAtlas:
         pass
 ```
 
-### Integration with Existing scidiff
+### Integration with Existing scqdiff
 
 #### Extend `DriftField` class
 ```python
@@ -284,7 +284,7 @@ Use ATAC-seq data to validate:
 - "operator regime"
 - "stability structure"
 - "maintenance"
-- "scidiff application"
+- "scqdiff application"
 - "operator-based state definition"
 
 ### Never Say:
@@ -296,7 +296,7 @@ Use ATAC-seq data to validate:
 ## Paper Positioning
 
 ### For Nature Computational Science:
-> "We use scidiff to construct a Stable Operator Atlas that defines cellular states by their local stability structure, revealing a dynamical layer of cell identity that is invisible to expression-based atlases."
+> "We use scqdiff to construct a Stable Operator Atlas that defines cellular states by their local stability structure, revealing a dynamical layer of cell identity that is invisible to expression-based atlases."
 
 ### For OT Grants:
 > "The Stable Operator Atlas provides a reusable, population-scale framework for quantifying robustness, plasticity, and control across heterogeneous immune systems."
