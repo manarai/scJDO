@@ -1,4 +1,4 @@
-# scIDiff_V2 Requirements
+# scQDIFF Requirements
 # Python >= 3.9 required
 
 # Core dependencies
