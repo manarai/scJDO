@@ -1,13 +1,13 @@
 
-# scIDiff-v2: Fourier-Domain Diffusion + Spectral Schrödinger Bridge (Feature Branch)
+# scQDiff: Fourier-Domain Diffusion + Spectral Schrödinger Bridge (Feature Branch)
 
 **Date:** 2026-02-13
 
 ## Summary
-This PR adds an **optional Fourier track** to scIDiff-v2: diffusion, sampling, conditioning, and regularization **in frequency space**. It also introduces **spectral preconditioning** hooks for the Schrödinger Bridge / OT modules. The feature is opt-in and does **not** break existing APIs.
+This PR adds an **optional Fourier track** to scQDiff-v2: diffusion, sampling, conditioning, and regularization **in frequency space**. It also introduces **spectral preconditioning** hooks for the Schrödinger Bridge / OT modules. The feature is opt-in and does **not** break existing APIs.
 
 ### Highlights
-- `scIDiff/Fourier/` new module with:
+- `scQDiff/Fourier/` new module with:
   - `transforms.py`: DFT/IDFT wrappers on the genes axis (torch.fft), real↔complex packing utilities.
   - `bands.py`: multi-band splitting (low/mid/high) and merge utilities.
   - `features.py`: power spectrum & band-energy conditioning features.
@@ -22,7 +22,7 @@ This PR adds an **optional Fourier track** to scIDiff-v2: diffusion, sampling, c
 
 ## Why
 - scRNA-seq expression vectors contain **structured low-frequency signal** and **high-frequency technical noise**. Operating in the Fourier basis exposes this structure and stabilizes score learning and SB optimization.
-- Prior work has shown Fourier-domain generative modeling (scGFT) and FFT-based spectral compression can improve quality and denoising for scRNA-seq. This PR brings those gains into the scIDiff-v2 pipeline.
+- Prior work has shown Fourier-domain generative modeling (scGFT) and FFT-based spectral compression can improve quality and denoising for scRNA-seq. This PR brings those gains into the scQDiff-v2 pipeline.
 
 ## Integration Points (no breaking changes)
 1. **Score networks**: optionally instantiate `MultiBandScoreNet` from `models/fourier_score_network.py`.
