@@ -4,9 +4,9 @@
 
 **SCOPAtlas** (Stable Operator Atlas) defines cellular states by their **local stability structure** rather than expression patterns alone. It provides a dynamical layer of cell identity that is invisible to expression-based atlases.
 
-### Key Difference: scIDiff vs SCOPAtlas
+### Key Difference: scQDiff vs SCOPAtlas
 
-| Aspect | scIDiff | SCOPAtlas |
+| Aspect | scQDiff | SCOPAtlas |
 |--------|---------|-----------|
 | **Purpose** | Learn time-varying drift fields | Define cell states by stability |
 | **Jacobian** | Temporal J(t) along trajectories | Per-cell J_ic at each cell |
@@ -14,19 +14,19 @@
 | **Analysis** | Temporal evolution | Single-cell classification |
 | **Paper focus** | Conserved regulatory grammar | Operator-based state definition |
 
-**Relationship**: SCOPAtlas uses the drift model trained by scIDiff to compute per-cell operators.
+**Relationship**: SCOPAtlas uses the drift model trained by scQDiff to compute per-cell operators.
 
 ## Installation
 
 ```bash
-git clone https://github.com/manarai/scIDiff_V2.git
-cd scIDiff_V2
+git clone https://github.com/manarai/scQDiff_V2.git
+cd scQDiff_V2
 pip install -e .
 ```
 
 ## Quick Start (5 minutes)
 
-### Step 1: Train scIDiff Model
+### Step 1: Train scQDiff Model
 
 ```python
 import anndata as ad
@@ -336,6 +336,6 @@ If you use SCOPAtlas in your research, please cite:
 - **Documentation**: [SCOPATLAS_README.md](SCOPATLAS_README.md)
 - **Design document**: [SCOPATLAS_DESIGN.md](SCOPATLAS_DESIGN.md)
 - **Examples**: `examples/` directory
-- **Issues**: [GitHub Issues](https://github.com/manarai/scIDiff_V2/issues)
+- **Issues**: [GitHub Issues](https://github.com/manarai/scQDiff_V2/issues)
 
 regimes, and different cell types can share the same regime. This is the key novelty!
