@@ -1,4 +1,4 @@
-SCIDIFF V2 - FINAL REPOSITORY MANIFEST
+SCQDIFF - FINAL REPOSITORY MANIFEST
 =======================================
 
 Release Date: December 25, 2025
@@ -191,5 +191,5 @@ For questions or issues:
 VERSION
 -------
 
-scIDiff V2
+scQDiff
 Release: December 25, 2025
