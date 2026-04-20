@@ -1,6 +1,6 @@
 # scOpAtlas: Stable Operator Atlas
 
-**scOpAtlas** (Stable Operator Atlas) is an analytical layer within the **scidiff** framework that defines cellular states by their **local stability structure** rather than expression patterns alone.
+**scOpAtlas** (Stable Operator Atlas) is an analytical layer within the **scqdiff** framework that defines cellular states by their **local stability structure** rather than expression patterns alone.
 
 ## Overview
 
@@ -18,7 +18,7 @@ This reveals:
 
 ## Mathematical Foundation
 
-From the learned drift field `f(x,t)` in scidiff, we compute the temporal Jacobian:
+From the learned drift field `f(x,t)` in scqdiff, we compute the temporal Jacobian:
 
 ```
 J(x,t) = ∂f/∂x
@@ -46,12 +46,12 @@ At each cell location, we extract four key metrics from the eigenvalue spectrum 
 
 ## Installation
 
-scOpAtlas is included in the scidiff package:
+scOpAtlas is included in the scqdiff package:
 
 ```bash
 # Clone repository
-git clone https://github.com/manarai/scidiff_test.git
-cd scidiff_test
+git clone https://github.com/manarai/scqdiff_test.git
+cd scqdiff_test
 
 # Install dependencies
 pip install -r requirements.txt
@@ -117,9 +117,9 @@ python -m scqdiff.atlas.build_atlas_cli \
 
 ## Workflow
 
-### 1. Train scidiff Drift Model
+### 1. Train scqdiff Drift Model
 
-First, train a drift field model using scidiff:
+First, train a drift field model using scqdiff:
 
 ```bash
 python -m scqdiff.pipeline.train_from_anndata \
@@ -386,7 +386,7 @@ When describing scOpAtlas in papers and presentations:
 - "operator regime"
 - "stability structure"
 - "maintenance"
-- "scidiff application"
+- "scqdiff application"
 - "operator-based state definition"
 - "dynamical layer of cell identity"
 
@@ -400,7 +400,7 @@ When describing scOpAtlas in papers and presentations:
 
 ### For Nature Computational Science:
 
-> "We use scidiff to construct a Stable Operator Atlas that defines cellular states by their local stability structure, revealing a dynamical layer of cell identity that is invisible to expression-based atlases."
+> "We use scqdiff to construct a Stable Operator Atlas that defines cellular states by their local stability structure, revealing a dynamical layer of cell identity that is invisible to expression-based atlases."
 
 ### For OT Grants:
 
@@ -512,8 +512,8 @@ See `examples/tutorial_scopatlas.py` for a complete tutorial.
 If you use scOpAtlas in your research, please cite:
 
 ```bibtex
-@article{scidiff2025,
-  title={scidiff: Schrödinger Bridge Learning of Single-Cell Regulatory Dynamics},
+@article{scqdiff2025,
+  title={scqdiff: Schrödinger Bridge Learning of Single-Cell Regulatory Dynamics},
   author={Your Name et al.},
   journal={Nature Computational Science},
   year={2025}
@@ -523,7 +523,7 @@ If you use scOpAtlas in your research, please cite:
 ## Support
 
 For questions and issues:
-- GitHub Issues: [github.com/manarai/scidiff_test/issues](https://github.com/manarai/scidiff_test/issues)
+- GitHub Issues: [github.com/manarai/scqdiff_test/issues](https://github.com/manarai/scqdiff_test/issues)
 - Email: your.email@institution.edu
 
 ## License
@@ -532,4 +532,4 @@ MIT License
 
 ## Acknowledgments
 
-scOpAtlas builds on the scidiff framework for learning continuous-time cellular dynamics from single-cell data.
+scOpAtlas builds on the scqdiff framework for learning continuous-time cellular dynamics from single-cell data.
