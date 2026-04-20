@@ -1,1 +1,1 @@
-"""Fourier-domain utilities for scIDiff-v2."""
+"""Fourier-domain utilities for scQDiff."""
