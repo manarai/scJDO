@@ -1,7 +1,7 @@
 
 # Applying This Patch
 
-1. Create a feature branch in your local clone of `scIDiff-v2`:
+1. Create a feature branch in your local clone of `scQDiff`:
 ```bash
 git checkout -b feature/fourier-track
 ```
