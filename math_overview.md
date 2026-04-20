@@ -1,8 +1,8 @@
-# Mathematical Foundations of scIDiff
+# Mathematical Foundations of scQDiff
 
-**scIDiff** (“single-cell Inference of Differential operators”) learns a *time-dependent drift field*
+**scQDiff** (“single-cell Inference of Differential operators”) learns a *time-dependent drift field*
 that governs how cellular states move through latent space.  
-Unlike trajectory methods, scIDiff focuses on the **local Jacobian operators** of this drift,
+Unlike trajectory methods, scQDiff focuses on the **local Jacobian operators** of this drift,
 which encode stability, fragility, and fate-controlling regulatory modes.
 
 RNA velocity and Schrödinger-Bridge constraints may be used to guide drift learning,
@@ -45,13 +45,13 @@ $$
 = -\nabla\!\cdot(\rho_t f) + \beta\,\Delta \rho_t.
 $$
 
-scIDiff learns $f(x,t)$ so that this stochastic flow explains the observed distribution of single cells across pseudotime.
+scQDiff learns $f(x,t)$ so that this stochastic flow explains the observed distribution of single cells across pseudotime.
 
 ---
 
 ## 3. Local regulatory operators (Jacobians)
 
-The central object in scIDiff is the **Jacobian of the drift**
+The central object in scQDiff is the **Jacobian of the drift**
 
 $$
 J(x,t) = \frac{\partial f(x,t)}{\partial x}.
@@ -95,7 +95,7 @@ which captures how regulatory sensitivities change over time.
 
 ## 5. Operator archetypes
 
-scIDiff factorizes this tensor as
+scQDiff factorizes this tensor as
 
 $$
 \mathcal{J} \;\approx\; \sum_{k=1}^{K} A_k \, c_k(t),
@@ -148,7 +148,7 @@ Velocity improves directional alignment but does not alter Jacobian or archetype
 
 ## 8. Endpoint-constrained dynamics (optional Schrödinger Bridge)
 
-If start and end populations $\rho_0$ and $\rho_1$ are known, scIDiff can enforce them by minimizing
+If start and end populations $\rho_0$ and $\rho_1$ are known, scQDiff can enforce them by minimizing
 
 $$
 \min_u \; \mathbb{E}\!\int_0^1 \|u(X_t,t)\|^2\,dt
@@ -173,7 +173,7 @@ This modifies only the drift field; **Jacobian operators and archetypes are comp
 
 ## 9. Interpretation
 
-scIDiff treats cell fate as a **dynamical control problem**.
+scQDiff treats cell fate as a **dynamical control problem**.
 Instead of clustering states or tracing paths, it identifies
 
 - where the system is **stable**  
