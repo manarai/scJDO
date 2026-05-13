@@ -1,4 +1,0 @@
-[console_scripts]
-scqdiff-atlas = scqdiff.atlas.build_atlas_cli:main
-scqdiff-bridge = scqdiff.pipeline.train_bridge:main
-scqdiff-train = scqdiff.pipeline.train_from_anndata:main
