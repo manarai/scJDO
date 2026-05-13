@@ -483,7 +483,7 @@ dedifferentiation_path = sb.backward_integrate(X_differentiated)
 - **[CHANGELOG_VELOCITY.md](CHANGELOG_VELOCITY.md)** — Version history and changes
 - **[math_overview.md](math_overview.md)** — Mathematical foundations
 - **[README_fourier_extension.md](README_fourier_extension.md)** — Fourier-domain diffusion extension
-- **[HybridGRN Extension.md](HybridGRN%20Extension.md)** — Gene regulatory network extraction
+- **[HybridGRN_Extension.md](HybridGRN_Extension.md)** — Gene regulatory network extraction
 - **[SCOPATLAS_README.md](SCOPATLAS_README.md)** — Stable Operator Atlas guide
 - **[SCOPATLAS_QUICKSTART.md](SCOPATLAS_QUICKSTART.md)** — SCOPAtlas quick start
 
