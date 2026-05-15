@@ -1,50 +1,33 @@
 # macOS
-  .DS_Store
-  **/.DS_Store
+.DS_Store
 
-  # Python bytecode
-  __pycache__/
-  *.py[cod]
-  *$py.class
-  *.pyo
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
 
-  # Distribution / build
-  dist/
-  build/
-  *.egg-info/
-  *.egg
-  MANIFEST
+# Build / package artifacts
+build/
+dist/
+*.egg-info/
 
-  # Virtual environments
-  .venv/
-  venv/
-  env/
-  .env
+# Jupyter
+.ipynb_checkpoints/
 
-  # Testing
-  .pytest_cache/
-  .coverage
-  coverage.xml
-  htmlcov/
+# Local data and outputs
+data/
+results/
+temp/
+Figures_notebook/data/
+Figures_notebook/results/
+examples/data/
+examples/results/
+examples/temp/
 
-  # Type checking / linting caches
-  .mypy_cache/
-  .ruff_cache/
+# Logs
+*.log
 
-  # Jupyter
-  .ipynb_checkpoints/
-
-  # Large data and model files in examples/
-  examples/*.h5ad
-  examples/*.h5
-  examples/*.pt
-  examples/data/
-
-  # IDE
-  .idea/
-  .vscode/
-  *.swp
-  *.swo
-
-  - Commit message: chore: add .gitignore
-  - Click Commit changes
+# Environments
+.env
+.venv/
+venv/
