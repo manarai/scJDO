@@ -69,6 +69,7 @@ exclude = ["scIDiff*", "tests*", "notebooks*", "examples*"]
 
 # ── Console scripts ───────────────────────────────────────────────────────────
 [project.scripts]
+scqdiff          = "scqdiff.cli.main:main"
 scqdiff-train    = "scqdiff.pipeline.train_from_anndata:main"
 scqdiff-bridge   = "scqdiff.pipeline.train_bridge:main"
 scqdiff-atlas    = "scqdiff.atlas.build_atlas_cli:main"

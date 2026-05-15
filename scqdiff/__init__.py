@@ -1,39 +1,22 @@
-"""scQDiff: Learning single-cell regulatory dynamics with hybrid drift fields."""
+"""scQDiff: Operator-level analysis of single-cell dynamics."""
 
-# Core models
+# Scanpy-style namespaces
+from . import pp
+from . import tl
+from . import pl
+
+# Core models (direct access)
 from .models.drift import DriftField, DriftConfig
 from .models.schrodinger_bridge import SchrodingerBridge, SchrodingerBridgeConfig
 
 # IO
 from .io.anndata import tensors_from_anndata
 
-# Fourier-domain utilities
-from .fourier.transforms import dft, idft, pack_ri, unpack_ri
-from .fourier.bands import split_bands, merge_bands
-from .fourier.features import power_spectrum_features
-from .fourier.losses_spectral import band_weighted_score_loss, spectral_smoothness_loss
-from .fourier.kspace_samplers import KSpaceEulerMaruyama, KSpaceHeun
-
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 __all__ = [
-    # Models
-    "DriftField",
-    "DriftConfig",
-    "SchrodingerBridge",
-    "SchrodingerBridgeConfig",
-    # IO
+    "pp", "tl", "pl",
+    "DriftField", "DriftConfig",
+    "SchrodingerBridge", "SchrodingerBridgeConfig",
     "tensors_from_anndata",
-    # Fourier
-    "dft",
-    "idft",
-    "pack_ri",
-    "unpack_ri",
-    "split_bands",
-    "merge_bands",
-    "power_spectrum_features",
-    "band_weighted_score_loss",
-    "spectral_smoothness_loss",
-    "KSpaceEulerMaruyama",
-    "KSpaceHeun",
 ]

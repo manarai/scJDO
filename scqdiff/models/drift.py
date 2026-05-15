@@ -1,34 +1,34 @@
 """
-=======================
-Hybrid drift field: score network + Neural ODE residual + RNA velocity prior.
-"""
+Hybrid drift field with FiLM time-conditioning, spectral norm, and flexible velocity gate.
 
+Architecture
+------------
+    f(x, t) = β · score_θ(x, t) + residual_θ(x, t) + v_prior(x, t)
+
+Both score and residual use FiLM (Feature-wise Linear Modulation) at every
+hidden layer, which is architecturally superior to simple time-concatenation:
+time modulates *how* the network processes x, not just what it sees as input.
+"""
 from __future__ import annotations
 
 import warnings
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 import numpy as np
 import torch
 import torch.nn as nn
 
-
-# ---------------------------------------------------------------------------
-# Optional FAISS import (graceful fallback)
-# ---------------------------------------------------------------------------
 try:
     import faiss  # type: ignore
-
     _FAISS_AVAILABLE = True
 except ImportError:
     _FAISS_AVAILABLE = False
 
 
 # ---------------------------------------------------------------------------
-# Configuration dataclass
+# Configuration
 # ---------------------------------------------------------------------------
-
 
 @dataclass
 class DriftConfig:
@@ -36,203 +36,175 @@ class DriftConfig:
     hidden: int = 256
     depth: int = 4
     beta: float = 0.1
+    use_spectral_norm: bool = True      # spectral norm on output layer for Jacobian stability
 
     # Velocity prior
     use_velocity_prior: bool = False
-    vel_scale: float = 1.0
-    vel_k: int = 32
+    vel_scale: float = 2.0
+    vel_k: int = 15
     vel_tau: float = 1.0
-    vel_time_mode: str = "mid"   # "mid" | "flat"
+    vel_time_mode: str = "flat"         # "flat" | "mid" | "root" | "rise"
     vel_conf_power: float = 1.0
 
-    # Loss weights
-    alpha_control: float = 0.1
-    alpha_fp: float = 0.01
-    alpha_smooth: float = 0.001
+    # Loss weights (used by tl.fit_drift)
+    alpha_control: float = 0.001
 
-    # Jacobian dimension safety threshold
+    # Safety
     jacobian_dim_warn: int = 500
 
 
 # ---------------------------------------------------------------------------
-# MLP building blocks
+# Building blocks
 # ---------------------------------------------------------------------------
 
-
-class SinusoidalTime(nn.Module):
-    """Encode scalar time t into a sinusoidal embedding."""
+class SinusoidalEmbed(nn.Module):
+    """Sinusoidal time → learned projection."""
 
     def __init__(self, dim: int):
         super().__init__()
         half = dim // 2
-        freq = torch.exp(-torch.arange(half) * (np.log(10_000) / (half - 1)))
+        freq = torch.exp(-torch.arange(half) * (np.log(10_000) / max(half - 1, 1)))
         self.register_buffer("freq", freq)
+        self.proj = nn.Sequential(
+            nn.Linear(dim, dim), nn.SiLU(), nn.Linear(dim, dim)
+        )
 
     def forward(self, t: torch.Tensor) -> torch.Tensor:
-        # t: (B,) or scalar
-        t = t.view(-1, 1) * self.freq.unsqueeze(0)  # (B, half)
-        return torch.cat([t.sin(), t.cos()], dim=-1)  # (B, dim)
+        if t.dim() == 0:
+            t = t.unsqueeze(0)
+        t = t.view(-1, 1) * self.freq.unsqueeze(0)
+        emb = torch.cat([t.sin(), t.cos()], dim=-1)
+        return self.proj(emb)
 
 
-def _mlp(in_dim: int, out_dim: int, hidden: int, depth: int) -> nn.Sequential:
-    layers: list[nn.Module] = []
-    prev = in_dim
-    for _ in range(depth - 1):
-        layers += [nn.Linear(prev, hidden), nn.SiLU()]
-        prev = hidden
-    layers.append(nn.Linear(prev, out_dim))
-    return nn.Sequential(*layers)
+class FiLMLayer(nn.Module):
+    """Scale + shift hidden state by time embedding."""
 
-
-class MLPScore(nn.Module):
-    """Score network s_θ(x, t) ≈ ∇_x log ρ_t(x)."""
-
-    def __init__(self, dim: int, hidden: int = 256, depth: int = 4):
+    def __init__(self, hidden: int, emb_dim: int):
         super().__init__()
-        self.time_emb = SinusoidalTime(hidden)
-        self.net = _mlp(dim + hidden, dim, hidden, depth)
+        self.gamma = nn.Linear(emb_dim, hidden)
+        self.beta  = nn.Linear(emb_dim, hidden)
+
+    def forward(self, h: torch.Tensor, emb: torch.Tensor) -> torch.Tensor:
+        return h * (1.0 + self.gamma(emb)) + self.beta(emb)
+
+
+class FiLMNet(nn.Module):
+    """
+    MLP with FiLM conditioning at every hidden layer.
+
+    Time modulates intermediate representations rather than being
+    concatenated to the input — stronger inductive bias for temporal data.
+    """
+
+    def __init__(
+        self,
+        in_dim: int,
+        out_dim: int,
+        hidden: int,
+        depth: int,
+        use_spectral_norm: bool = False,
+    ):
+        super().__init__()
+        self.emb    = SinusoidalEmbed(hidden)
+        self.input  = nn.Linear(in_dim, hidden)
+        self.layers = nn.ModuleList([nn.Linear(hidden, hidden) for _ in range(depth - 1)])
+        self.films  = nn.ModuleList([FiLMLayer(hidden, hidden) for _ in range(depth - 1)])
+        self.act    = nn.SiLU()
+
+        out = nn.Linear(hidden, out_dim)
+        self.out = nn.utils.spectral_norm(out) if use_spectral_norm else out
 
     def forward(self, x: torch.Tensor, t: torch.Tensor) -> torch.Tensor:
-        te = self.time_emb(t)
-        if te.shape[0] == 1 and x.shape[0] > 1:
-            te = te.expand(x.shape[0], -1)
-        return self.net(torch.cat([x, te], dim=-1))
+        if t.dim() == 0:
+            t = t.expand(x.shape[0])
+        elif t.shape[0] == 1 and x.shape[0] > 1:
+            t = t.expand(x.shape[0])
 
-
-class ResidualNet(nn.Module):
-    """Neural ODE residual correction r_θ(x, t)."""
-
-    def __init__(self, dim: int, hidden: int = 128, depth: int = 3):
-        super().__init__()
-        self.time_emb = SinusoidalTime(hidden)
-        self.net = _mlp(dim + hidden, dim, hidden, depth)
-
-    def forward(self, x: torch.Tensor, t: torch.Tensor) -> torch.Tensor:
-        te = self.time_emb(t)
-        if te.shape[0] == 1 and x.shape[0] > 1:
-            te = te.expand(x.shape[0], -1)
-        return self.net(torch.cat([x, te], dim=-1))
+        emb = self.emb(t)
+        h   = self.act(self.input(x))
+        for layer, film in zip(self.layers, self.films):
+            h = self.act(film(layer(h), emb))
+        return self.out(h)
 
 
 # ---------------------------------------------------------------------------
-# KNN Velocity prior  (FAISS-accelerated when available)
+# KNN Velocity prior
 # ---------------------------------------------------------------------------
-
 
 class KNNVelocity(nn.Module):
-    """
-    Soft k-NN velocity interpolation.
-
-    Uses FAISS (if installed) for approximate nearest-neighbour search,
-    falling back to exact sklearn/numpy search for smaller datasets or
-    when FAISS is not available.
-
-    Parameters
-    ----------
-    X_ref : torch.Tensor  (N, D)  Reference cell positions (PCA / embedding).
-    V_ref : torch.Tensor  (N, D)  RNA velocity vectors at reference cells.
-    k     : int           Number of neighbours.
-    tau   : float         Softmax temperature.
-    use_faiss : bool      Force FAISS on/off (default: auto-detect).
-    """
+    """Soft k-NN velocity interpolation (FAISS-accelerated when available)."""
 
     def __init__(
         self,
         X_ref: torch.Tensor,
         V_ref: torch.Tensor,
-        k: int = 32,
+        k: int = 15,
         tau: float = 1.0,
         use_faiss: Optional[bool] = None,
     ):
         super().__init__()
-        self.k = k
+        self.k   = k
         self.tau = tau
 
         X_np = X_ref.detach().cpu().numpy().astype(np.float32)
         self.register_buffer("X_ref", X_ref)
         self.register_buffer("V_ref", V_ref)
 
-        # Confidence: L2 norm of velocity (normalised to [0,1])
         conf = V_ref.norm(dim=-1)
         conf = conf / (conf.max() + 1e-8)
         self.register_buffer("conf_ref", conf)
 
-        # Build index
         _use_faiss = _FAISS_AVAILABLE if use_faiss is None else use_faiss
         self._index = None
-
         if _use_faiss:
-            d = X_np.shape[1]
-            index = faiss.IndexFlatL2(d)
+            index = faiss.IndexFlatL2(X_np.shape[1])
             index.add(X_np)
             self._index = index
             self._backend = "faiss"
         else:
-            self._X_np = X_np
+            self._X_np   = X_np
             self._backend = "numpy"
 
-    # ------------------------------------------------------------------
-    def _knn_distances(self, x: torch.Tensor):
-        """Return (distances², indices) arrays for query x (B, D)."""
+    def _knn(self, x: torch.Tensor):
         x_np = x.detach().cpu().numpy().astype(np.float32)
-
         if self._backend == "faiss":
-            D, I = self._index.search(x_np, self.k)  # (B, k)
+            D, I = self._index.search(x_np, self.k)
         else:
-            # Exact L2 via numpy broadcasting
-            diff = self._X_np[None, :, :] - x_np[:, None, :]  # (B, N, D)
-            D_all = (diff ** 2).sum(-1)                         # (B, N)
-            I = np.argpartition(D_all, self.k, axis=1)[:, : self.k]
-            D = np.take_along_axis(D_all, I, axis=1)
+            diff  = self._X_np[None] - x_np[:, None]
+            D_all = (diff ** 2).sum(-1)
+            I     = np.argpartition(D_all, self.k, axis=1)[:, :self.k]
+            D     = np.take_along_axis(D_all, I, axis=1)
+        return D, I
 
-        return D, I  # both (B, k), float32 / int64
-
-    # ------------------------------------------------------------------
     def forward(self, x: torch.Tensor):
-        """
-        Parameters
-        ----------
-        x : (B, D)
-
-        Returns
-        -------
-        v_hat : (B, D)   Interpolated velocity.
-        conf  : (B,)     Mean neighbour confidence.
-        """
-        D_np, I_np = self._knn_distances(x)
+        D_np, I_np = self._knn(x)
         D_t = torch.from_numpy(D_np).to(x)
         I_t = torch.from_numpy(I_np).to(x.device).long()
-
-        # Soft-max weights
-        w = torch.softmax(-D_t / self.tau, dim=-1)  # (B, k)
-
-        # Gather velocities and confidences
-        V_k = self.V_ref[I_t]       # (B, k, D)
-        c_k = self.conf_ref[I_t]    # (B, k)
-
-        v_hat = (w.unsqueeze(-1) * V_k).sum(1)   # (B, D)
-        conf = (w * c_k).sum(1)                   # (B,)
+        w   = torch.softmax(-D_t / self.tau, dim=-1)
+        v_hat = (w.unsqueeze(-1) * self.V_ref[I_t]).sum(1)
+        conf  = (w * self.conf_ref[I_t]).sum(1)
         return v_hat, conf
 
 
 # ---------------------------------------------------------------------------
-# Main DriftField model
+# DriftField
 # ---------------------------------------------------------------------------
-
 
 class DriftField(nn.Module):
     """
     Hybrid drift field:
 
-        f(x,t) = β · score_θ(x,t) + residual_θ(x,t) + b(x,t)
+        f(x, t) = β · score_θ(x, t) + residual_θ(x, t) + v_prior(x, t)
 
-    where b(x,t) is the RNA velocity prior (optional).
+    Both networks use FiLM time-conditioning. Output layer optionally has
+    spectral normalization for Jacobian stability.
 
     Parameters
     ----------
-    cfg    : DriftConfig
-    X_ref  : Reference cell positions (for velocity prior).
-    V_ref  : RNA velocity vectors (for velocity prior).
+    cfg   : DriftConfig
+    X_ref : (N, D) reference cell positions for velocity prior.
+    V_ref : (N, D) velocity vectors (RNA velocity or pseudotime gradient).
     """
 
     def __init__(
@@ -244,46 +216,37 @@ class DriftField(nn.Module):
         super().__init__()
         self.cfg = cfg
 
-        # ── Dimension safety warning ──────────────────────────────────────
         if cfg.dim > cfg.jacobian_dim_warn:
             warnings.warn(
-                f"[DriftField] Input dimension ({cfg.dim}) exceeds the recommended "
-                f"threshold ({cfg.jacobian_dim_warn}) for full Jacobian computation. "
-                f"model.jacobian() will allocate a ({cfg.dim}, {cfg.dim}) matrix per "
-                f"sample, which may exhaust memory. "
-                f"Consider reducing dimensionality (e.g. PCA to 50–200 components) "
-                f"before calling jacobian(), or use jacobian_approx() for random "
-                f"projections.",
-                stacklevel=2,
-                category=ResourceWarning,
+                f"[DriftField] dim={cfg.dim} > {cfg.jacobian_dim_warn}. "
+                f"Full Jacobian will be ({cfg.dim},{cfg.dim}) per cell — "
+                f"consider PCA to ≤200 dims or use jacobian_approx().",
+                ResourceWarning, stacklevel=2,
             )
 
-        self.score = MLPScore(cfg.dim, cfg.hidden, cfg.depth)
-        self.residual = ResidualNet(cfg.dim, cfg.hidden // 2, max(cfg.depth - 1, 2))
+        sn = cfg.use_spectral_norm
+        self.score    = FiLMNet(cfg.dim, cfg.dim, cfg.hidden, cfg.depth, use_spectral_norm=sn)
+        self.residual = FiLMNet(cfg.dim, cfg.dim, cfg.hidden // 2, max(cfg.depth - 1, 2))
 
         self.vel: Optional[KNNVelocity] = None
         if cfg.use_velocity_prior and X_ref is not None and V_ref is not None:
             self.vel = KNNVelocity(X_ref, V_ref, k=cfg.vel_k, tau=cfg.vel_tau)
 
     # ------------------------------------------------------------------
-    def _time_schedule(self, t: torch.Tensor) -> torch.Tensor:
-        """g(t): time-dependent gate for velocity prior."""
-        if self.cfg.vel_time_mode == "mid":
+    def _gate(self, t: torch.Tensor) -> torch.Tensor:
+        """Time-dependent gate for velocity prior."""
+        mode = self.cfg.vel_time_mode
+        if mode == "mid":
             return 4.0 * t * (1.0 - t)
-        return torch.ones_like(t)
+        elif mode == "root":
+            return 1.0 - t          # strongest at root, fades at tips
+        elif mode == "rise":
+            return t                 # grows along trajectory
+        else:                        # "flat" (default)
+            return torch.ones_like(t)
 
     # ------------------------------------------------------------------
     def forward(self, x: torch.Tensor, t: torch.Tensor) -> torch.Tensor:
-        """
-        Parameters
-        ----------
-        x : (B, D)
-        t : (B,) or scalar — must be in [0, 1]
-
-        Returns
-        -------
-        drift : (B, D)
-        """
         if t.dim() == 0:
             t = t.expand(x.shape[0])
 
@@ -291,58 +254,44 @@ class DriftField(nn.Module):
 
         if self.vel is not None:
             v_hat, conf = self.vel(x)
-            gate = conf.pow(self.cfg.vel_conf_power)          # (B,)
-            g = self._time_schedule(t)                         # (B,)
-            b = self.cfg.vel_scale * g * gate                  # (B,)
-            u = u + b.unsqueeze(-1) * v_hat
+            gate = conf.pow(self.cfg.vel_conf_power) * self._gate(t)
+            u    = u + (self.cfg.vel_scale * gate).unsqueeze(-1) * v_hat
 
         return u
 
     # ------------------------------------------------------------------
     def jacobian(self, x: torch.Tensor, t: torch.Tensor) -> torch.Tensor:
-        """
-        Full Jacobian ∂f/∂x via autograd.  Shape: (B, D, D).
-
-        Warn if B*D*D tensor would be large (> 1 GB float32).
-        """
+        """Full Jacobian ∂f/∂x via autograd. Shape: (B, D, D)."""
         B, D = x.shape
-        mem_gb = B * D * D * 4 / 1e9
-        if mem_gb > 1.0:
+        if B * D * D * 4 / 1e9 > 1.0:
             warnings.warn(
-                f"[DriftField.jacobian] Estimated output size is {mem_gb:.1f} GB "
-                f"(B={B}, D={D}). This may cause OOM. "
-                f"Use a smaller batch or jacobian_approx() instead.",
-                stacklevel=2,
-                category=ResourceWarning,
+                f"[DriftField.jacobian] Output ≈ {B*D*D*4/1e9:.1f} GB. "
+                "Consider jacobian_approx() or smaller batch.",
+                ResourceWarning, stacklevel=2,
             )
-
         x = x.detach().requires_grad_(True)
-        f = self.forward(x, t)   # (B, D)
+        f = self.forward(x, t)
         J = torch.zeros(B, D, D, device=x.device, dtype=x.dtype)
         for i in range(D):
             grad = torch.autograd.grad(
-                f[:, i].sum(), x, create_graph=False, retain_graph=(i < D - 1)
+                f[:, i].sum(), x,
+                create_graph=False, retain_graph=(i < D - 1)
             )[0]
             J[:, i, :] = grad
         return J
 
     # ------------------------------------------------------------------
-    def jacobian_approx(
-        self, x: torch.Tensor, t: torch.Tensor, n_proj: int = 64
-    ) -> torch.Tensor:
-        """
-        Memory-efficient approximate Jacobian via random projections.
-        Returns (B, n_proj, D) — sufficient for eigenmode analysis.
-        """
+    def jacobian_approx(self, x: torch.Tensor, t: torch.Tensor, n_proj: int = 64) -> torch.Tensor:
+        """Approximate Jacobian via random projections. Shape: (B, n_proj, D)."""
         B, D = x.shape
-        x = x.detach().requires_grad_(True)
-        f = self.forward(x, t)
+        x    = x.detach().requires_grad_(True)
+        f    = self.forward(x, t)
         vecs = torch.randn(n_proj, D, device=x.device, dtype=x.dtype)
-        J_approx = torch.zeros(B, n_proj, D, device=x.device, dtype=x.dtype)
+        out  = torch.zeros(B, n_proj, D, device=x.device, dtype=x.dtype)
         for i, v in enumerate(vecs):
             jvp = torch.autograd.grad(
                 (f * v.unsqueeze(0)).sum(), x,
                 create_graph=False, retain_graph=(i < n_proj - 1)
             )[0]
-            J_approx[:, i, :] = jvp
-        return J_approx
+            out[:, i, :] = jvp
+        return out
