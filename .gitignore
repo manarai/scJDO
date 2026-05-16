@@ -31,3 +31,4 @@ examples/temp/
 .env
 .venv/
 venv/
+docs/_build/
