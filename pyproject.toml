@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 # ── Project metadata ──────────────────────────────────────────────────────────
 [project]
 name = "scqdiff"
-version = "0.2.0"
+version = "0.3.0"
 description = "scQDiff: Schrödinger-Bridge-inspired learning of drift fields and regulatory archetypes from single-cell data"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -57,7 +57,9 @@ dev = [
 # Documentation
 docs = [
     "sphinx>=7.0",
-    "sphinx-rtd-theme>=1.3",
+    "pydata-sphinx-theme>=0.15",
+    "myst-parser>=2.0",
+    "sphinx-autodoc-typehints>=1.24",
     "nbsphinx>=0.9",
 ]
 
