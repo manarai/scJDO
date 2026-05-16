@@ -1,0 +1,49 @@
+# Mathematical background
+
+scQDiff models a cell as a point in latent space evolving over pseudotime. Its central object is not only the cell trajectory, but the local differential operator governing how perturbations grow or decay around that trajectory.
+
+## Stochastic dynamics
+
+A cell state is represented as
+
+$$
+X_t \in \mathbb{R}^d,
+$$
+
+with pseudotime $t \in [0,1]$. scQDiff uses stochastic dynamics of the form
+
+$$
+dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t,
+$$
+
+where $f(x,t)$ is the regulatory drift field, $\beta$ controls stochasticity, and $W_t$ is Brownian motion.
+
+## Local regulatory operators
+
+The key object is the Jacobian of the drift,
+
+$$
+J(x,t) = \frac{\partial f(x,t)}{\partial x}.
+$$
+
+This operator describes the local evolution of small perturbations. Positive real eigenvalues indicate directions where perturbations can grow, negative real eigenvalues indicate stable or buffered directions, and near-zero values indicate fragile or plastic regimes.
+
+| Eigenvalue regime | Interpretation |
+|---|---|
+| $\lambda < 0$ | Stable, buffered state |
+| $\lambda \approx 0$ | Fragile or plastic state |
+| $\lambda > 0$ | Locally unstable, fate-controlling direction |
+
+## Temporal Jacobian tensor and archetypes
+
+By sampling Jacobians across pseudotime windows, scQDiff constructs a temporal Jacobian tensor. It then approximates this tensor as a sum of reusable operator archetypes with time-dependent activations:
+
+$$
+\mathcal{J} \approx \sum_{k=1}^{K} A_k c_k(t),
+$$
+
+where $A_k$ is an operator archetype and $c_k(t)$ is its temporal activation. The non-negative activation profiles help identify when each regulatory mode is active.
+
+## Endpoint-constrained dynamics
+
+When source and target populations are defined, scQDiff can use a Schrödinger Bridge formulation. The bridge seeks a stochastic process that transports the source distribution to the target distribution while remaining close to a reference process. scQDiff then applies the same Jacobian and archetype analysis to the learned forward and backward dynamics.

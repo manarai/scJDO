@@ -1,0 +1,50 @@
+# Tools: `tl`
+
+The tools namespace contains model-fitting, gene extraction, regulator inference, and network-loading functions.
+
+## Drift analysis
+
+```{eval-rst}
+.. autofunction:: scqdiff.tl.fit_drift
+
+.. autofunction:: scqdiff.tl.get_instability_genes
+```
+
+## Schrödinger Bridge analysis
+
+```{eval-rst}
+.. autofunction:: scqdiff.tl.fit_bridge
+
+.. autofunction:: scqdiff.tl.get_bridge_instability_genes
+```
+
+## Regulatory inference
+
+```{eval-rst}
+.. autofunction:: scqdiff.tl.infer_regulators
+
+.. autofunction:: scqdiff.tl.load_network
+```
+
+## Stored drift results
+
+| Key | Shape | Description |
+|---|---|---|
+| `J_tensor` | `(T, D, D)` | Smoothed Jacobian tensor |
+| `t_centers` | `(T,)` | Window pseudotime centers |
+| `patterns` | `(K, D, D)` | Archetype Jacobian patterns |
+| `activations` | `(T, K)` | Non-negative temporal activations |
+| `max_real_eig` | `(T,)` | Maximum real eigenvalue per window |
+| `instability_scores` | `(T, n_genes)` | Gene-level instability scores |
+| `top_instability_genes` | `list` | Globally ranked instability genes |
+
+## Regulator scoring metrics
+
+| Metric | Output column | Interpretation |
+|---|---|---|
+| Weighted out-degree | `weighted_score` | Total instability explained by TF targets |
+| Mean target instability | `mean_instability` | Quality of target instability signal |
+| Regulon enrichment | `enrichment_score` | Hypergeometric enrichment score |
+| Branch specificity | `branch_specificity` | Archetype preference on a 0–1 scale |
+| Database confidence | `db_confidence` | Mean confidence of source-network edges |
+| Pseudotime lead | `pseudotime_lead` | Optional TF-before-target timing score |

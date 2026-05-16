@@ -1,0 +1,1091 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>scqdiff.tl._regulators &#8212; scQDiff</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=20b8dc4b" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../../_static/documentation_options.js?v=e259d695"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/scqdiff/tl/_regulators';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '_static/switcher.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = 'stable';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.3.0" />
+  
+    
+    <script src="../../../_static/searchtools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">scQDiff</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../usage-principles.html">
+    Usage principles
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../how-to/index.html">
+    How-to guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API reference
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../mathematical-background.html">
+    Mathematical background
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../release-notes.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../tutorials/index.html">
+    Tutorials
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../usage-principles.html">
+    Usage principles
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../how-to/index.html">
+    How-to guides
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api/index.html">
+    API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../mathematical-background.html">
+    Mathematical background
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../release-notes.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../citation.html">
+    Citation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../contributing.html">
+    Contributing
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">scqdiff.tl._regulators</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for scqdiff.tl._regulators</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Regulatory network inference: link instability genes to upstream TF regulators.</span>
+
+<span class="sd">Scoring uses six complementary metrics:</span>
+<span class="sd">  1. Weighted out-degree     — total instability explained by TF targets</span>
+<span class="sd">  2. Mean target instability — quality (few sharp targets &gt; many weak ones)</span>
+<span class="sd">  3. Regulon enrichment      — hypergeometric overlap with top instability genes</span>
+<span class="sd">  4. Branch specificity      — entropy-based archetype preference</span>
+<span class="sd">  5. Database confidence     — mean edge weight in the source network</span>
+<span class="sd">  6. Pseudotime lead         — TF expression peak before target instability peak</span>
+
+<span class="sd">Figure 5 uses a hybrid network:</span>
+<span class="sd">  Solid edges   = reference database confirms TF → target AND target is instability gene</span>
+<span class="sd">  Dashed edges  = de novo, inferred from Jacobian eigenvector co-loading (novel)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Network loading</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_load_collectri</span><span class="p">(</span><span class="n">organism</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">decoupler</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dc</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">get_collectri</span><span class="p">(</span><span class="n">organism</span><span class="o">=</span><span class="n">organism</span><span class="p">,</span> <span class="n">split_complexes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">col_map</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;tf&quot;</span><span class="p">:</span> <span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;genesymbol&quot;</span><span class="p">:</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;gene&quot;</span><span class="p">:</span> <span class="s2">&quot;target&quot;</span><span class="p">}</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="n">net</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">col_map</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">columns</span><span class="p">})</span>
+        <span class="k">if</span> <span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">&quot;weight&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">net</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="k">return</span> <span class="n">net</span><span class="p">[[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_load_trrust</span><span class="p">(</span><span class="n">organism</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span><span class="o">,</span><span class="w"> </span><span class="nn">io</span>
+    <span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;mouse&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.grnpedia.org/trrust/data/trrust_rawdata.mouse.tsv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;human&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.grnpedia.org/trrust/data/trrust_rawdata.human.tsv&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">urls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">organism</span><span class="p">,</span> <span class="n">urls</span><span class="p">[</span><span class="s2">&quot;mouse&quot;</span><span class="p">]),</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">()),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span>
+                             <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;mode&quot;</span><span class="p">,</span> <span class="s2">&quot;pmid&quot;</span><span class="p">])</span>
+        <span class="n">df</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;mode&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="s2">&quot;Activation&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;Repression&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">})</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_builtin_network</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Curated mouse hematopoiesis TF-target network (always available).&quot;&quot;&quot;</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="c1"># Erythroid program</span>
+        <span class="p">(</span><span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Alas1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Car1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Car2&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Blvrb&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Fam132a&quot;</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Ermap&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="s2">&quot;Car1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="s2">&quot;Car2&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="s2">&quot;Alas1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="s2">&quot;Blvrb&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="s2">&quot;Ermap&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Gata2&quot;</span><span class="p">,</span> <span class="s2">&quot;Gata1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Gata2&quot;</span><span class="p">,</span> <span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Gata2&quot;</span><span class="p">,</span> <span class="s2">&quot;Nfe2&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Tal1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Gata1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Tal1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Tal1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Alas1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Nfe2&quot;</span><span class="p">,</span>  <span class="s2">&quot;Alas1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Nfe2&quot;</span><span class="p">,</span>  <span class="s2">&quot;Car1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Nfe2&quot;</span><span class="p">,</span>  <span class="s2">&quot;Blvrb&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Lmo2&quot;</span><span class="p">,</span>  <span class="s2">&quot;Gata1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Lmo2&quot;</span><span class="p">,</span>  <span class="s2">&quot;Tal1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="c1"># Myeloid / neutrophil program</span>
+        <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Mpo&quot;</span><span class="p">,</span>    <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Elane&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Ctsg&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Prtn3&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Ly6c2&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Nkg7&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Cst3&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Crip1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Hp&quot;</span><span class="p">,</span>     <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Irf8&quot;</span><span class="p">,</span>  <span class="s2">&quot;Mpo&quot;</span><span class="p">,</span>    <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Irf8&quot;</span><span class="p">,</span>  <span class="s2">&quot;Elane&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Irf8&quot;</span><span class="p">,</span>  <span class="s2">&quot;Ctsg&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Irf8&quot;</span><span class="p">,</span>  <span class="s2">&quot;Ly6c2&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Irf8&quot;</span><span class="p">,</span>  <span class="s2">&quot;Id2&quot;</span><span class="p">,</span>    <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Irf8&quot;</span><span class="p">,</span>  <span class="s2">&quot;Cst3&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Cebpa&quot;</span><span class="p">,</span> <span class="s2">&quot;Mpo&quot;</span><span class="p">,</span>    <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Cebpa&quot;</span><span class="p">,</span> <span class="s2">&quot;Elane&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Cebpa&quot;</span><span class="p">,</span> <span class="s2">&quot;Prtn3&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Cebpa&quot;</span><span class="p">,</span> <span class="s2">&quot;Ctsg&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Cebpa&quot;</span><span class="p">,</span> <span class="s2">&quot;Gstm1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Gfi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Mpo&quot;</span><span class="p">,</span>    <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Gfi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Elane&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Gfi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="o">-</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="c1"># Cross-antagonism</span>
+        <span class="p">(</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="o">-</span><span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="c1"># Chromatin / proliferation</span>
+        <span class="p">(</span><span class="s2">&quot;Myc&quot;</span><span class="p">,</span>   <span class="s2">&quot;Rps11&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Myc&quot;</span><span class="p">,</span>   <span class="s2">&quot;Rpl23&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Myc&quot;</span><span class="p">,</span>   <span class="s2">&quot;Tmsb10&quot;</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Chd4&quot;</span><span class="p">,</span>  <span class="s2">&quot;Gata1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Chd4&quot;</span><span class="p">,</span>  <span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span>
+        <span class="c1"># Inflammatory / immune</span>
+        <span class="p">(</span><span class="s2">&quot;Stat1&quot;</span><span class="p">,</span> <span class="s2">&quot;H2-Aa&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Stat1&quot;</span><span class="p">,</span> <span class="s2">&quot;H2-Ab1&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Irf1&quot;</span><span class="p">,</span>  <span class="s2">&quot;Cst3&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="c1"># Shared progenitor</span>
+        <span class="p">(</span><span class="s2">&quot;Runx1&quot;</span><span class="p">,</span> <span class="s2">&quot;Gata1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Runx1&quot;</span><span class="p">,</span> <span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>   <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Runx1&quot;</span><span class="p">,</span> <span class="s2">&quot;Gfi1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Cbfa2t3&quot;</span><span class="p">,</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Cbfa2t3&quot;</span><span class="p">,</span><span class="s2">&quot;Klf1&quot;</span><span class="p">,</span>  <span class="mf">1.0</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;Tgfb1&quot;</span><span class="p">,</span> <span class="s2">&quot;Id2&quot;</span><span class="p">,</span>    <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Vamp8&quot;</span><span class="p">,</span>  <span class="s2">&quot;Mpo&quot;</span><span class="p">,</span>   <span class="mf">0.5</span><span class="p">),</span>
+        <span class="c1"># TF self-regulation / co-factor</span>
+        <span class="p">(</span><span class="s2">&quot;Nup210&quot;</span><span class="p">,</span><span class="s2">&quot;Gata1&quot;</span><span class="p">,</span>  <span class="mf">0.7</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;Malat1&quot;</span><span class="p">,</span> <span class="s2">&quot;Spi1&quot;</span><span class="p">,</span>  <span class="mf">0.5</span><span class="p">),</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="load_network">
+<a class="viewcode-back" href="../../../api/tools.html#scqdiff.tl.load_network">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_network</span><span class="p">(</span>
+    <span class="n">organism</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mouse&quot;</span><span class="p">,</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">custom</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load a signed TF-target regulatory network.</span>
+
+<span class="sd">    Priority: CollecTRI (decoupler) → TRRUST v2 (web) → built-in hematopoiesis.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    organism : &#39;mouse&#39; or &#39;human&#39;.</span>
+<span class="sd">    source   : &#39;auto&#39; | &#39;collectri&#39; | &#39;trrust&#39; | &#39;builtin&#39;.</span>
+<span class="sd">    custom   : User-supplied DataFrame [source, target, weight].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">custom</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">custom</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;custom must have columns: source, target, weight&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">custom</span><span class="p">[[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">source</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;collectri&quot;</span><span class="p">):</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="n">_load_collectri</span><span class="p">(</span><span class="n">organism</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">net</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[network] CollecTRI loaded — </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> edges, &quot;</span>
+                  <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">net</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span><span class="si">}</span><span class="s2"> TFs&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">net</span>
+
+    <span class="k">if</span> <span class="n">source</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;trrust&quot;</span><span class="p">):</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="n">_load_trrust</span><span class="p">(</span><span class="n">organism</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">net</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[network] TRRUST v2 loaded — </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">net</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> edges&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">net</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[network] Using built-in hematopoiesis network &quot;</span>
+          <span class="s2">&quot;(install decoupler for CollecTRI)&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_builtin_network</span><span class="p">()</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># De novo edge inference from Jacobian eigenvectors</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_de_novo_edges</span><span class="p">(</span>
+    <span class="n">instab_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">max_eig</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">gene_names</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">pca_load</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_top</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="n">sens_thresh</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer co-instability gene pairs from Jacobian eigenvector co-loading.</span>
+
+<span class="sd">    For each sensitive pseudotime window, genes that load highly onto the</span>
+<span class="sd">    max-eigenvalue eigenvector are co-amplified — putative co-regulatory</span>
+<span class="sd">    partners regardless of known network edges.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    instab_matrix : (T, n_genes) — instability score per window per gene.</span>
+<span class="sd">    max_eig       : (T,) — max real eigenvalue per window.</span>
+<span class="sd">    n_top         : Genes per window to consider co-amplified.</span>
+<span class="sd">    sens_thresh   : Min eigenvalue to consider a window sensitive.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DataFrame [source, target, weight, type=&#39;denovo&#39;].</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+
+    <span class="n">sens_mask</span> <span class="o">=</span> <span class="n">max_eig</span> <span class="o">&gt;</span> <span class="n">sens_thresh</span>
+    <span class="n">n_sens</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sens_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">n_sens</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;source&quot;</span><span class="p">,</span> <span class="s2">&quot;target&quot;</span><span class="p">,</span> <span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">])</span>
+
+    <span class="n">edge_acc</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sens_mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">scores_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">instab_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">top_idx</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">scores_i</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="n">n_top</span><span class="p">]</span>
+        <span class="n">top_g</span>    <span class="o">=</span> <span class="p">[</span><span class="n">gene_names</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">top_idx</span><span class="p">]</span>
+        <span class="n">top_s</span>    <span class="o">=</span> <span class="n">scores_i</span><span class="p">[</span><span class="n">top_idx</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">top_g</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">top_g</span><span class="p">)):</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">([</span><span class="n">top_g</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">top_g</span><span class="p">[</span><span class="n">b</span><span class="p">]]))</span>
+                <span class="n">edge_acc</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">+=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">top_s</span><span class="p">[</span><span class="n">a</span><span class="p">],</span> <span class="n">top_s</span><span class="p">[</span><span class="n">b</span><span class="p">]))</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+             <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">n_sens</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;denovo&quot;</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">edge_acc</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;weight&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Six scoring metrics</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_score_regulators</span><span class="p">(</span>
+    <span class="n">gene_scores</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">network</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">all_genes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">act_norm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>         <span class="c1"># (T, K) archetype activations</span>
+    <span class="n">instab_matrix</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>    <span class="c1"># (T, n_genes) per-window scores</span>
+    <span class="n">max_eig</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>          <span class="c1"># (T,) eigenvalues</span>
+    <span class="n">min_targets</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">sens_thresh</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Score each TF on six complementary metrics.&quot;&quot;&quot;</span>
+    <span class="n">gene_set</span>  <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">all_genes</span><span class="p">)</span>
+    <span class="n">net</span>       <span class="o">=</span> <span class="n">network</span><span class="p">[</span><span class="n">network</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">gene_set</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">score_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">s</span><span class="p">))</span> <span class="k">for</span> <span class="n">g</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">gene_scores</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="c1"># Top-25% instability genes for enrichment denominator</span>
+    <span class="k">if</span> <span class="n">score_map</span><span class="p">:</span>
+        <span class="n">q75</span>   <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">score_map</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="mf">0.75</span><span class="p">))</span>
+        <span class="n">top_g</span> <span class="o">=</span> <span class="p">{</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">score_map</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;=</span> <span class="n">q75</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">top_g</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="n">n_total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gene_set</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tf</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">net</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;source&quot;</span><span class="p">):</span>
+        <span class="n">shared</span> <span class="o">=</span> <span class="n">grp</span><span class="p">[</span><span class="n">grp</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">score_map</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shared</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">min_targets</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">scores_v</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">score_map</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">shared</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]])</span>
+        <span class="n">weights_v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+        <span class="c1"># Metric 1: weighted out-degree</span>
+        <span class="n">w_score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">((</span><span class="n">scores_v</span> <span class="o">*</span> <span class="n">weights_v</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+
+        <span class="c1"># Metric 2: mean target instability (quality)</span>
+        <span class="n">mean_ins</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">scores_v</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+        <span class="c1"># Metric 3: regulon enrichment (hypergeometric p-value)</span>
+        <span class="n">n_tgt</span>      <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shared</span><span class="p">)</span>
+        <span class="n">n_in_top</span>   <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="n">top_g</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">top_g</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n_total</span> <span class="o">&gt;</span> <span class="n">n_tgt</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">hg_p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">fisher_exact</span><span class="p">(</span>
+                <span class="p">[[</span><span class="n">n_in_top</span><span class="p">,</span> <span class="n">n_tgt</span> <span class="o">-</span> <span class="n">n_in_top</span><span class="p">],</span>
+                 <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">top_g</span><span class="p">)</span> <span class="o">-</span> <span class="n">n_in_top</span><span class="p">,</span> <span class="n">n_total</span> <span class="o">-</span> <span class="n">n_tgt</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">top_g</span><span class="p">)</span> <span class="o">+</span> <span class="n">n_in_top</span><span class="p">]],</span>
+                <span class="n">alternative</span><span class="o">=</span><span class="s2">&quot;greater&quot;</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">hg_p</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">enrich_score</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">hg_p</span><span class="p">,</span> <span class="mf">1e-10</span><span class="p">)))</span>
+
+        <span class="c1"># Metric 4: branch/archetype specificity (entropy-based)</span>
+        <span class="n">branch_spec</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">peak_arch</span>   <span class="o">=</span> <span class="s2">&quot;—&quot;</span>
+        <span class="k">if</span> <span class="n">act_norm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">instab_matrix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">K</span> <span class="o">=</span> <span class="n">act_norm</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">arch_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ki</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">K</span><span class="p">):</span>
+                <span class="n">a_mask</span> <span class="o">=</span> <span class="n">act_norm</span><span class="p">[:,</span> <span class="n">ki</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span>
+                <span class="k">if</span> <span class="n">a_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                    <span class="n">gi_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">all_genes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">shared</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span>
+                               <span class="k">if</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">all_genes</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">gi_list</span><span class="p">:</span>
+                        <span class="n">arch_scores</span><span class="p">[</span><span class="n">ki</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+                            <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">instab_matrix</span><span class="p">[</span><span class="n">a_mask</span><span class="p">][:,</span> <span class="n">gi_list</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">arch_scores</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">arch_scores</span> <span class="o">/</span> <span class="p">(</span><span class="n">arch_scores</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+                <span class="n">entropy</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)))</span>
+                <span class="n">max_ent</span>  <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">K</span><span class="p">))</span>
+                <span class="n">branch_spec</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="n">entropy</span> <span class="o">/</span> <span class="n">max_ent</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+                <span class="n">peak_arch</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;A</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">arch_scores</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="c1"># Metric 5: database confidence (mean edge weight)</span>
+        <span class="n">db_conf</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">weights_v</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+
+        <span class="c1"># Top contributing targets</span>
+        <span class="n">contrib</span> <span class="o">=</span> <span class="n">scores_v</span> <span class="o">*</span> <span class="n">weights_v</span>
+        <span class="n">top_tgts</span> <span class="o">=</span> <span class="n">shared</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">_c</span><span class="o">=</span><span class="n">contrib</span><span class="p">)</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;_c&quot;</span><span class="p">)[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;regulator&quot;</span><span class="p">:</span>       <span class="n">tf</span><span class="p">,</span>
+            <span class="s2">&quot;weighted_score&quot;</span><span class="p">:</span>  <span class="nb">round</span><span class="p">(</span><span class="n">w_score</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+            <span class="s2">&quot;mean_instability&quot;</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">mean_ins</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+            <span class="s2">&quot;enrichment_score&quot;</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">enrich_score</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="s2">&quot;branch_specificity&quot;</span><span class="p">:</span> <span class="n">branch_spec</span><span class="p">,</span>
+            <span class="s2">&quot;peak_archetype&quot;</span><span class="p">:</span>  <span class="n">peak_arch</span><span class="p">,</span>
+            <span class="s2">&quot;db_confidence&quot;</span><span class="p">:</span>   <span class="nb">round</span><span class="p">(</span><span class="n">db_conf</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+            <span class="s2">&quot;n_targets&quot;</span><span class="p">:</span>       <span class="n">n_tgt</span><span class="p">,</span>
+            <span class="s2">&quot;enrichment_pval&quot;</span><span class="p">:</span> <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">hg_p</span><span class="p">),</span> <span class="mi">5</span><span class="p">),</span>
+            <span class="s2">&quot;top_targets&quot;</span><span class="p">:</span>     <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top_tgts</span><span class="p">),</span>
+        <span class="p">})</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;No regulators passed min_targets=</span><span class="si">{</span><span class="n">min_targets</span><span class="si">}</span><span class="s2">. &quot;</span>
+            <span class="s2">&quot;The bridge instability gene set may be small — try min_targets=1 &quot;</span>
+            <span class="s2">&quot;or use the built-in network (network_source=&#39;builtin&#39;).&quot;</span><span class="p">,</span>
+            <span class="ne">UserWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;regulator&quot;</span><span class="p">,</span> <span class="s2">&quot;weighted_score&quot;</span><span class="p">,</span> <span class="s2">&quot;mean_instability&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;enrichment_score&quot;</span><span class="p">,</span> <span class="s2">&quot;branch_specificity&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;peak_archetype&quot;</span><span class="p">,</span> <span class="s2">&quot;db_confidence&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;n_targets&quot;</span><span class="p">,</span> <span class="s2">&quot;enrichment_pval&quot;</span><span class="p">,</span> <span class="s2">&quot;top_targets&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;weighted_score&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Pseudotime lead (metric 6, optional)</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_pseudotime_lead_score</span><span class="p">(</span>
+    <span class="n">tf</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">target_genes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">time_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;pseudotime&quot;</span><span class="p">,</span>
+    <span class="n">n_bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Estimate how many pseudotime units the TF peaks before its targets.</span>
+<span class="sd">    Positive = TF is upstream (causal-looking).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">time_key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">columns</span> <span class="ow">or</span> <span class="n">tf</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">pt</span>   <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="n">time_key</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_peak</span><span class="p">(</span><span class="n">gene</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">gene</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">idx</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">gene</span><span class="p">)</span>
+        <span class="n">expr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="n">idx</span><span class="p">])</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">means</span> <span class="o">=</span> <span class="p">[</span><span class="n">expr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pt</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">argsort</span><span class="p">()[:</span><span class="mi">20</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bins</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">means</span><span class="p">)])</span>
+
+    <span class="n">tf_peak</span> <span class="o">=</span> <span class="n">_peak</span><span class="p">(</span><span class="n">tf</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tf_peak</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">tgt_peaks</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">target_genes</span> <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">:=</span> <span class="n">_peak</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tgt_peaks</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">tf_peak</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tgt_peaks</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Unified data extraction</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_scores</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">pca_load</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return (gene_scores, instab_matrix, max_eig, act_norm) from uns.&quot;&quot;&quot;</span>
+    <span class="n">res</span>        <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="n">gene_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="p">)</span>
+    <span class="n">is_bridge</span>  <span class="o">=</span> <span class="s2">&quot;df_fwd&quot;</span> <span class="ow">in</span> <span class="n">res</span>
+
+    <span class="k">if</span> <span class="n">is_bridge</span><span class="p">:</span>
+        <span class="n">_short</span>    <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;forward&quot;</span><span class="p">:</span> <span class="s2">&quot;fwd&quot;</span><span class="p">,</span> <span class="s2">&quot;backward&quot;</span><span class="p">:</span> <span class="s2">&quot;bwd&quot;</span><span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">direction</span><span class="p">)</span>
+        <span class="n">df_key</span>    <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;df_</span><span class="si">{</span><span class="n">_short</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">df</span>        <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">df_key</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="c1"># Primary gene scores from stored table</span>
+        <span class="n">gene_sc</span>   <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gene&quot;</span><span class="p">)[</span><span class="s2">&quot;instability_score&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="n">ekey</span>      <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;evec_</span><span class="si">{</span><span class="n">_short</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">mkey</span>      <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;max_eig_</span><span class="si">{</span><span class="n">_short</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">evec</span>      <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ekey</span><span class="p">)</span>          <span class="c1"># (T, n_pcs)</span>
+        <span class="n">max_eig</span>   <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">mkey</span><span class="p">)</span>
+        <span class="c1"># Expand gene scores using eigenvector projections → covers all HVGs</span>
+        <span class="k">if</span> <span class="n">evec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">pca_load</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_eig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">instab_full</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pca_load</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span> <span class="o">@</span> <span class="n">evec</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>  <span class="c1"># (T, n_genes)</span>
+            <span class="n">sens_mask</span>   <span class="o">=</span> <span class="n">max_eig</span> <span class="o">&gt;</span> <span class="mf">0.05</span>
+            <span class="k">if</span> <span class="n">sens_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gene_names</span><span class="p">):</span>
+                    <span class="n">sc_i</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">instab_full</span><span class="p">[</span><span class="n">sens_mask</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+                    <span class="k">if</span> <span class="n">g</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gene_sc</span> <span class="ow">or</span> <span class="n">sc_i</span> <span class="o">&gt;</span> <span class="n">gene_sc</span><span class="p">[</span><span class="n">g</span><span class="p">]:</span>
+                        <span class="n">gene_sc</span><span class="p">[</span><span class="n">g</span><span class="p">]</span> <span class="o">=</span> <span class="n">sc_i</span>
+        <span class="k">if</span> <span class="n">evec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">pca_load</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">instab_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">pca_load</span> <span class="o">@</span> <span class="n">evec</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>   <span class="c1"># (T, n_genes)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">instab_mat</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">act_norm</span>  <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;act_fwd&quot;</span> <span class="k">if</span> <span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;forward&quot;</span> <span class="k">else</span> <span class="s2">&quot;act_bwd&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">instab_mat</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;instability_scores&quot;</span><span class="p">)</span>     <span class="c1"># (T, n_genes)</span>
+        <span class="n">max_eig</span>    <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;max_real_eig&quot;</span><span class="p">)</span>
+        <span class="n">act_norm</span>   <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;act_norm&quot;</span><span class="p">)</span>
+        <span class="c1"># Build gene_scores from the stored matrix</span>
+        <span class="k">if</span> <span class="n">instab_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_eig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sens</span> <span class="o">=</span> <span class="n">max_eig</span> <span class="o">&gt;</span> <span class="mf">0.05</span>
+            <span class="k">if</span> <span class="n">sens</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">gene_sc</span> <span class="o">=</span> <span class="p">{</span><span class="n">g</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">instab_mat</span><span class="p">[</span><span class="n">sens</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+                           <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">gene_names</span><span class="p">)}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tg</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;top_instability_genes&quot;</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="n">ts</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;top_instability_scores&quot;</span><span class="p">,</span> <span class="p">[])</span>
+                <span class="n">gene_sc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tg</span><span class="p">,</span> <span class="n">ts</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tg</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;top_instability_genes&quot;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">ts</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;top_instability_scores&quot;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="n">gene_sc</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tg</span><span class="p">,</span> <span class="n">ts</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">gene_sc</span><span class="p">,</span> <span class="n">instab_mat</span><span class="p">,</span> <span class="n">max_eig</span><span class="p">,</span> <span class="n">act_norm</span><span class="p">,</span> <span class="n">gene_names</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Public API</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="infer_regulators">
+<a class="viewcode-back" href="../../../api/tools.html#scqdiff.tl.infer_regulators">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">infer_regulators</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">,</span>
+    <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;scqdiff&quot;</span><span class="p">,</span>
+    <span class="n">direction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;forward&quot;</span><span class="p">,</span>
+    <span class="n">network</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">network_source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="n">organism</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mouse&quot;</span><span class="p">,</span>
+    <span class="n">min_targets</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="n">n_top</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="n">compute_pseudotime_lead</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">denovo_n_top</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="n">key_added</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;scqdiff_regulators&quot;</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer upstream TF regulators from instability-associated genes.</span>
+
+<span class="sd">    Scores each TF on six metrics (weighted out-degree, mean target instability,</span>
+<span class="sd">    regulon enrichment, branch specificity, database confidence, pseudotime lead)</span>
+<span class="sd">    and infers de novo co-instability edges from Jacobian eigenvector structure.</span>
+
+<span class="sd">    Works with both ``sqd.tl.fit_drift`` and ``sqd.tl.fit_bridge`` results.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key       : ``adata.uns`` key from fit_drift (&#39;scqdiff&#39;) or fit_bridge (&#39;scqdiff_bridge&#39;).</span>
+<span class="sd">    direction : For bridge — &#39;forward&#39;, &#39;backward&#39;, or &#39;both&#39;.</span>
+<span class="sd">    network   : Custom TF-target DataFrame [source, target, weight].</span>
+<span class="sd">    organism  : &#39;mouse&#39; or &#39;human&#39;.</span>
+<span class="sd">    min_targets : Min shared targets to include a TF.</span>
+<span class="sd">    n_top     : Return top N regulators.</span>
+<span class="sd">    compute_pseudotime_lead : Compute pseudotime lead-lag (slower).</span>
+<span class="sd">    denovo_n_top : Genes per window for de novo edge inference.</span>
+<span class="sd">    key_added : Key to store results in adata.uns.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    pandas.DataFrame — ranked regulators.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; sqd.tl.fit_drift(adata)</span>
+<span class="sd">    &gt;&gt;&gt; df = sqd.tl.infer_regulators(adata)</span>
+<span class="sd">    &gt;&gt;&gt; sqd.pl.regulator_summary(adata)</span>
+
+<span class="sd">    &gt;&gt;&gt; sqd.tl.fit_bridge(adata)</span>
+<span class="sd">    &gt;&gt;&gt; df = sqd.tl.infer_regulators(adata, key=&#39;scqdiff_bridge&#39;,</span>
+<span class="sd">    ...                               direction=&#39;both&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; not in adata.uns. Run fit_drift or fit_bridge first.&quot;</span><span class="p">)</span>
+
+    <span class="n">pca_load</span>   <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">varm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PCs&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pca_load</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pca_load</span> <span class="o">=</span> <span class="n">pca_load</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ── Determine directions ───────────────────────────────────────────────</span>
+    <span class="n">is_bridge</span> <span class="o">=</span> <span class="s2">&quot;df_fwd&quot;</span> <span class="ow">in</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="n">dirs</span>      <span class="o">=</span> <span class="p">([</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span> <span class="s2">&quot;backward&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="p">(</span><span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span> <span class="ow">and</span> <span class="n">is_bridge</span><span class="p">)</span>
+                 <span class="k">else</span> <span class="p">[</span><span class="n">direction</span><span class="p">])</span>
+
+    <span class="c1"># ── Load network ───────────────────────────────────────────────────────</span>
+    <span class="c1"># For bridge results the instability gene set is small (~80 genes).</span>
+    <span class="c1"># If external network has no matches, fall back to built-in automatically.</span>
+    <span class="n">net</span> <span class="o">=</span> <span class="n">load_network</span><span class="p">(</span><span class="n">organism</span><span class="o">=</span><span class="n">organism</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">network_source</span><span class="p">,</span> <span class="n">custom</span><span class="o">=</span><span class="n">network</span><span class="p">)</span>
+
+    <span class="c1"># ── Adaptive min_targets ───────────────────────────────────────────────</span>
+    <span class="c1"># Bridge gene sets are smaller → lower the bar to 2 shared targets.</span>
+    <span class="n">effective_min</span> <span class="o">=</span> <span class="n">min_targets</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">is_bridge</span> <span class="k">else</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_targets</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># ── Score each direction ───────────────────────────────────────────────</span>
+    <span class="n">tables</span>   <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">denovo_d</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dirs</span><span class="p">:</span>
+        <span class="n">gene_sc</span><span class="p">,</span> <span class="n">instab_mat</span><span class="p">,</span> <span class="n">max_eig</span><span class="p">,</span> <span class="n">act_norm</span><span class="p">,</span> <span class="n">gene_names</span> <span class="o">=</span> <span class="n">_extract_scores</span><span class="p">(</span>
+            <span class="n">adata</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">pca_load</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">gene_sc</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No gene scores for direction &#39;</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">&#39;. Skipping.&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">] Scoring regulators against </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">gene_sc</span><span class="p">)</span><span class="si">}</span><span class="s2"> genes...&quot;</span><span class="p">)</span>
+
+        <span class="n">df_sc</span> <span class="o">=</span> <span class="n">_score_regulators</span><span class="p">(</span>
+            <span class="n">gene_sc</span><span class="p">,</span> <span class="n">net</span><span class="p">,</span> <span class="n">gene_names</span><span class="p">,</span> <span class="n">act_norm</span><span class="p">,</span> <span class="n">instab_mat</span><span class="p">,</span> <span class="n">max_eig</span><span class="p">,</span>
+            <span class="n">min_targets</span><span class="o">=</span><span class="n">effective_min</span><span class="p">,</span> <span class="n">sens_thresh</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Metric 6: pseudotime lead (optional)</span>
+        <span class="k">if</span> <span class="n">compute_pseudotime_lead</span><span class="p">:</span>
+            <span class="n">leads</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df_sc</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+                <span class="n">tgts</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;top_targets&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)]</span>
+                <span class="n">leads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_pseudotime_lead_score</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;regulator&quot;</span><span class="p">],</span> <span class="n">tgts</span><span class="p">,</span> <span class="n">adata</span><span class="p">))</span>
+            <span class="n">df_sc</span><span class="p">[</span><span class="s2">&quot;pseudotime_lead&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">leads</span>
+
+        <span class="n">tables</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_sc</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n_top</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">top5</span> <span class="o">=</span> <span class="n">df_sc</span><span class="p">[</span><span class="s2">&quot;regulator&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Top 5: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">top5</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># De novo edges</span>
+        <span class="k">if</span> <span class="n">instab_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">max_eig</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">denovo_d</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">_de_novo_edges</span><span class="p">(</span>
+                <span class="n">instab_mat</span><span class="p">,</span> <span class="n">max_eig</span><span class="p">,</span> <span class="n">gene_names</span><span class="p">,</span>
+                <span class="n">pca_load</span><span class="o">=</span><span class="n">pca_load</span><span class="p">,</span> <span class="n">n_top</span><span class="o">=</span><span class="n">denovo_n_top</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  De novo edges: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">denovo_d</span><span class="p">[</span><span class="n">d</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tables</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No regulator results. Check that instability scores are computed.&quot;</span><span class="p">)</span>
+
+    <span class="n">primary</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+    <span class="c1"># ── Store results ──────────────────────────────────────────────────────</span>
+    <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="n">key_added</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;tables&quot;</span><span class="p">:</span>       <span class="p">{</span><span class="n">d</span><span class="p">:</span> <span class="n">t</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">&quot;records&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tables</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+        <span class="s2">&quot;denovo_edges&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">d</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">&quot;records&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">denovo_d</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+        <span class="s2">&quot;network&quot;</span><span class="p">:</span>      <span class="n">net</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s2">&quot;records&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;source_key&quot;</span><span class="p">:</span>   <span class="n">key</span><span class="p">,</span>
+        <span class="s2">&quot;direction&quot;</span><span class="p">:</span>    <span class="n">direction</span><span class="p">,</span>
+        <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;organism&quot;</span><span class="p">:</span> <span class="n">organism</span><span class="p">,</span> <span class="s2">&quot;min_targets&quot;</span><span class="p">:</span> <span class="n">min_targets</span><span class="p">,</span>
+            <span class="s2">&quot;n_top&quot;</span><span class="p">:</span> <span class="n">n_top</span><span class="p">,</span> <span class="s2">&quot;network_source&quot;</span><span class="p">:</span> <span class="n">network_source</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">primary</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2026, scQDiff developers.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.17.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

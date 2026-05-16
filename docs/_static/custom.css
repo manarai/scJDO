@@ -1,0 +1,43 @@
+:root {
+  --scqdiff-primary: #1f6f8b;
+  --scqdiff-secondary: #35a7a0;
+  --scqdiff-accent: #d98536;
+}
+
+html[data-theme='light'] {
+  --pst-color-primary: var(--scqdiff-primary);
+  --pst-color-secondary: var(--scqdiff-secondary);
+}
+
+.bd-sidebar-primary .navbar-brand .logo__text,
+.navbar-brand .logo__text {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--scqdiff-primary);
+}
+
+.sd-card {
+  border-radius: 0.85rem;
+}
+
+.scqdiff-hero {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--pst-color-border);
+  border-radius: 1rem;
+  background: linear-gradient(135deg, rgba(31,111,139,.08), rgba(53,167,160,.08));
+  margin-bottom: 1.5rem;
+}
+
+.scqdiff-tagline {
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.scqdiff-kpi {
+  font-weight: 700;
+  color: var(--scqdiff-primary);
+}
+
+code.literal {
+  border-radius: 0.2rem;
+}
