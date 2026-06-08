@@ -1,14 +1,14 @@
 # Installation
 
-scQDiff is a Python package for single-cell dynamical analysis. The package requires Python 3.9 or later and depends on the scientific Python and single-cell ecosystem, including PyTorch, NumPy, SciPy, AnnData, Scanpy, and Matplotlib.
+scJDO is a Python package for single-cell dynamical analysis. The package requires Python 3.9 or later and depends on the scientific Python and single-cell ecosystem, including PyTorch, NumPy, SciPy, AnnData, Scanpy, and Matplotlib.
 
 ## Install from GitHub
 
 The current development version can be installed directly from the GitHub repository.
 
 ```bash
-git clone https://github.com/manarai/scQDiff.git
-cd scQDiff
+git clone https://github.com/manarai/scJDO.git
+cd scJDO
 python -m pip install -e .
 ```
 
@@ -28,7 +28,7 @@ python -m pip install -e . --no-deps
 sphinx-build -b html docs docs/_build/html
 ```
 
-The `--no-deps` flag is useful for documentation-only builds because Sphinx can mock heavy runtime dependencies while still importing the scQDiff package structure.
+The `--no-deps` flag is useful for documentation-only builds because Sphinx can mock heavy runtime dependencies while still importing the scJDO package structure.
 
 | Component | Recommendation |
 |---|---|
@@ -43,10 +43,10 @@ The `--no-deps` flag is useful for documentation-only builds because Sphinx can 
 After installation, verify that the Scanpy-style namespaces are available.
 
 ```python
-import scqdiff as sqd
+import scjdo as sjd
 
-print(sqd.__version__)
-print(sqd.pp.prepare_trajectory)
-print(sqd.tl.fit_drift)
-print(sqd.pl.summary_figure)
+print(sjd.__version__)
+print(sjd.pp.prepare_trajectory)
+print(sjd.tl.fit_drift)
+print(sjd.pl.summary_figure)
 ```

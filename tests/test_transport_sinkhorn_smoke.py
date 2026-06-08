@@ -3,7 +3,7 @@ import torch
 
 def test_sinkhorn_balances_marginals():
     try:
-        from scqdiff.transport import sinkhorn as S
+        from scjdo.transport import sinkhorn as S
     except Exception as e:
         pytest.skip(f"transport.sinkhorn not importable: {e}")
 

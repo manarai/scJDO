@@ -22,7 +22,7 @@ def check_file_syntax(filepath):
 
 def validate_module_structure():
     """Validate that all expected modules exist"""
-    base_path = Path('/home/ubuntu/scidiff/scqdiff/atlas')
+    base_path = Path('/home/ubuntu/scidiff/scjdo/atlas')
     
     expected_files = [
         '__init__.py',
@@ -51,7 +51,7 @@ def validate_module_structure():
 
 def validate_syntax():
     """Validate syntax of all Python files"""
-    base_path = Path('/home/ubuntu/scidiff/scqdiff/atlas')
+    base_path = Path('/home/ubuntu/scidiff/scjdo/atlas')
     
     print("\n" + "="*70)
     print("VALIDATING PYTHON SYNTAX")
@@ -76,7 +76,7 @@ def validate_imports():
     print("="*70)
     
     # Check __init__.py
-    init_file = Path('/home/ubuntu/scidiff/scqdiff/atlas/__init__.py')
+    init_file = Path('/home/ubuntu/scidiff/scjdo/atlas/__init__.py')
     
     try:
         with open(init_file, 'r') as f:
@@ -123,7 +123,7 @@ def validate_classes():
         'atlas_builder.py': ['StableOperatorAtlas']
     }
     
-    base_path = Path('/home/ubuntu/scidiff/scqdiff/atlas')
+    base_path = Path('/home/ubuntu/scidiff/scjdo/atlas')
     all_valid = True
     
     for filename, expected_classes in files_and_classes.items():
@@ -160,7 +160,7 @@ def validate_methods():
     print("="*70)
     
     # Check OperatorMetrics methods
-    metrics_file = Path('/home/ubuntu/scidiff/scqdiff/atlas/operator_metrics.py')
+    metrics_file = Path('/home/ubuntu/scidiff/scjdo/atlas/operator_metrics.py')
     
     expected_methods = {
         'OperatorMetrics': [
@@ -192,7 +192,7 @@ def validate_methods():
         ('regime_classifier.py', 'OperatorRegimeClassifier'),
         ('atlas_builder.py', 'StableOperatorAtlas')
     ]:
-        filepath = Path('/home/ubuntu/scidiff/scqdiff/atlas') / filename
+        filepath = Path('/home/ubuntu/scidiff/scjdo/atlas') / filename
         
         try:
             with open(filepath, 'r') as f:

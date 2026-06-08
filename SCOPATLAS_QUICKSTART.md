@@ -4,9 +4,9 @@
 
 **SCOPAtlas** (Stable Operator Atlas) defines cellular states by their **local stability structure** rather than expression patterns alone. It provides a dynamical layer of cell identity that is invisible to expression-based atlases.
 
-### Key Difference: scQDiff vs SCOPAtlas
+### Key Difference: scJDO vs SCOPAtlas
 
-| Aspect | scQDiff | SCOPAtlas |
+| Aspect | scJDO | SCOPAtlas |
 |--------|---------|-----------|
 | **Purpose** | Learn time-varying drift fields | Define cell states by stability |
 | **Jacobian** | Temporal J(t) along trajectories | Per-cell J_ic at each cell |
@@ -14,24 +14,24 @@
 | **Analysis** | Temporal evolution | Single-cell classification |
 | **Paper focus** | Conserved regulatory grammar | Operator-based state definition |
 
-**Relationship**: SCOPAtlas uses the drift model trained by scQDiff to compute per-cell operators.
+**Relationship**: SCOPAtlas uses the drift model trained by scJDO to compute per-cell operators.
 
 ## Installation
 
 ```bash
-git clone https://github.com/manarai/scQDiff.git
-cd scQDiff
+git clone https://github.com/manarai/scJDO.git
+cd scJDO
 pip install -e .
 ```
 
 ## Quick Start (5 minutes)
 
-### Step 1: Train scQDiff Model
+### Step 1: Train scJDO Model
 
 ```python
 import anndata as ad
-from scqdiff.models.drift import DriftField
-from scqdiff.pipeline import train_drift_model
+from scjdo.models.drift import DriftField
+from scjdo.pipeline import train_drift_model
 
 # Load your data
 adata = ad.read_h5ad("your_data.h5ad")
@@ -51,7 +51,7 @@ drift_model.save("my_drift_model.pt")
 ### Step 2: Build SCOPAtlas
 
 ```python
-from scqdiff.atlas import StableOperatorAtlas
+from scjdo.atlas import StableOperatorAtlas
 
 # Initialize atlas
 atlas = StableOperatorAtlas(
@@ -92,7 +92,7 @@ sc.pl.umap(adata, color=['lambda_max_plus', 'lambda_min_minus',
 ### Step 4: Operator-Based Clustering
 
 ```python
-from scqdiff.atlas import OperatorClustering
+from scjdo.atlas import OperatorClustering
 
 # Initialize clustering
 clusterer = OperatorClustering(adata)
@@ -164,7 +164,7 @@ For a complete tutorial with all steps, see:
 Project operators into low-dimensional space:
 
 ```python
-from scqdiff.atlas import compute_operator_embedding
+from scjdo.atlas import compute_operator_embedding
 
 # Compute embedding
 embedding = compute_operator_embedding(
@@ -181,7 +181,7 @@ adata.obsm['X_operator'] = embedding
 Cluster cells by dynamical properties:
 
 ```python
-from scqdiff.atlas import quick_operator_clustering
+from scjdo.atlas import quick_operator_clustering
 
 # Quick clustering
 adata = quick_operator_clustering(
@@ -323,8 +323,8 @@ print(f"Overall purity: {purity['overall_purity']:.3f}")
 If you use SCOPAtlas in your research, please cite:
 
 ```bibtex
-@article{scQDiff2024,
-  title={scQDiff: Learning Single-Cell Regulatory Dynamics with Hybrid Drift Fields},
+@article{scJDO2024,
+  title={scJDO: Learning Single-Cell Regulatory Dynamics with Hybrid Drift Fields},
   author={Terooatea, Tommy W. and Redd, David},
   journal={bioRxiv},
   year={2024}
@@ -336,4 +336,4 @@ If you use SCOPAtlas in your research, please cite:
 - **Documentation**: [SCOPATLAS_README.md](SCOPATLAS_README.md)
 - **Design document**: [SCOPATLAS_DESIGN.md](SCOPATLAS_DESIGN.md)
 - **Examples**: `examples/` directory
-- **Issues**: [GitHub Issues](https://github.com/manarai/scQDiff/issues)
+- **Issues**: [GitHub Issues](https://github.com/manarai/scJDO/issues)

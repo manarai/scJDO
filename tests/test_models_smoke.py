@@ -5,9 +5,9 @@ import torch
 def test_model_instantiation(model_name, tiny_gene_dim):
     if model_name == "DriftField":
         try:
-            from scqdiff.models.drift import DriftField, DriftConfig
+            from scjdo.models.drift import DriftField, DriftConfig
         except Exception as e:
-            pytest.skip(f"Cannot import scqdiff.models.drift: {e}")
+            pytest.skip(f"Cannot import scjdo.models.drift: {e}")
 
         cfg = DriftConfig(dim=tiny_gene_dim, hidden=32, depth=2)
         model = DriftField(cfg)
@@ -19,9 +19,9 @@ def test_model_instantiation(model_name, tiny_gene_dim):
 
     elif model_name == "SchrodingerBridge":
         try:
-            from scqdiff.models.schrodinger_bridge import SchrodingerBridge, SchrodingerBridgeConfig
+            from scjdo.models.schrodinger_bridge import SchrodingerBridge, SchrodingerBridgeConfig
         except Exception as e:
-            pytest.skip(f"Cannot import scqdiff.models.schrodinger_bridge: {e}")
+            pytest.skip(f"Cannot import scjdo.models.schrodinger_bridge: {e}")
 
         X_0 = torch.randn(16, tiny_gene_dim)
         X_1 = torch.randn(16, tiny_gene_dim) + 1.0

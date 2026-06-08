@@ -16,22 +16,22 @@ import types
 import warnings
 
 # Bypass the pre-existing broken __init__.py in the repo
-_m = types.ModuleType("scqdiff")
-_m.__path__ = ["/home/ubuntu/scQDiff_dev/scqdiff"]
-_m.__package__ = "scqdiff"
-sys.modules["scqdiff"] = _m
+_m = types.ModuleType("scjdo")
+_m.__path__ = ["/home/ubuntu/scJDO_dev/scjdo"]
+_m.__package__ = "scjdo"
+sys.modules["scjdo"] = _m
 
 import torch
 import torch.nn as nn
 import numpy as np
 
-from scqdiff.models.drift import DriftField, DriftConfig
-from scqdiff.models.representation import RepresentationConfig, PCARep, LDVAERep
-from scqdiff.grn.pullback import pullback_gene_operator, binned_pullback
-from scqdiff.grn.refine import GRNRefinerConfig, SparseGRNRefiner
-from scqdiff.grn.archetypes import grn_modes, archetype_summary
-from scqdiff.grn.priors import identify_tfs, build_tf_mask
-from scqdiff.analysis.grn_scores import regulator_centrality, temporal_activity_score
+from scjdo.models.drift import DriftField, DriftConfig
+from scjdo.models.representation import RepresentationConfig, PCARep, LDVAERep
+from scjdo.grn.pullback import pullback_gene_operator, binned_pullback
+from scjdo.grn.refine import GRNRefinerConfig, SparseGRNRefiner
+from scjdo.grn.archetypes import grn_modes, archetype_summary
+from scjdo.grn.priors import identify_tfs, build_tf_mask
+from scjdo.analysis.grn_scores import regulator_centrality, temporal_activity_score
 
 
 # ============================================================

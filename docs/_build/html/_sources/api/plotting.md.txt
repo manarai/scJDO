@@ -5,49 +5,49 @@ The plotting namespace provides standalone Matplotlib panels and combined summar
 ## Drift-field plots
 
 ```{eval-rst}
-.. autofunction:: scqdiff.pl.summary_figure
+.. autofunction:: scjdo.pl.summary_figure
 
-.. autofunction:: scqdiff.pl.drift_field
+.. autofunction:: scjdo.pl.drift_field
 
-.. autofunction:: scqdiff.pl.sensitivity
+.. autofunction:: scjdo.pl.sensitivity
 
-.. autofunction:: scqdiff.pl.archetypes
+.. autofunction:: scjdo.pl.archetypes
 
-.. autofunction:: scqdiff.pl.coordination
+.. autofunction:: scjdo.pl.coordination
 
-.. autofunction:: scqdiff.pl.instability_genes
+.. autofunction:: scjdo.pl.instability_genes
 ```
 
 ## Bridge plots
 
 ```{eval-rst}
-.. autofunction:: scqdiff.pl.bridge_source_target
+.. autofunction:: scjdo.pl.bridge_source_target
 
-.. autofunction:: scqdiff.pl.bridge_trajectories
+.. autofunction:: scjdo.pl.bridge_trajectories
 
-.. autofunction:: scqdiff.pl.bridge_instability
+.. autofunction:: scjdo.pl.bridge_instability
 
-.. autofunction:: scqdiff.pl.bridge_archetypes
+.. autofunction:: scjdo.pl.bridge_archetypes
 
-.. autofunction:: scqdiff.pl.bridge_genes
+.. autofunction:: scjdo.pl.bridge_genes
 
-.. autofunction:: scqdiff.pl.bridge_summary
+.. autofunction:: scjdo.pl.bridge_summary
 
-.. autofunction:: scqdiff.pl.bridge_gene_comparison
+.. autofunction:: scjdo.pl.bridge_gene_comparison
 ```
 
 ## Regulator plots
 
 ```{eval-rst}
-.. autofunction:: scqdiff.pl.regulator_barplot
+.. autofunction:: scjdo.pl.regulator_barplot
 
-.. autofunction:: scqdiff.pl.regulator_heatmap
+.. autofunction:: scjdo.pl.regulator_heatmap
 
-.. autofunction:: scqdiff.pl.regulator_scatter
+.. autofunction:: scjdo.pl.regulator_scatter
 
-.. autofunction:: scqdiff.pl.regulator_profiles
+.. autofunction:: scjdo.pl.regulator_profiles
 
-.. autofunction:: scqdiff.pl.regulator_network
+.. autofunction:: scjdo.pl.regulator_network
 
-.. autofunction:: scqdiff.pl.regulator_summary
+.. autofunction:: scjdo.pl.regulator_summary
 ```

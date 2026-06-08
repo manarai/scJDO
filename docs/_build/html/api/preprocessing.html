@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Preprocessing: pp &#8212; scQDiff</title>
+    <title>Preprocessing: pp &#8212; scJDO</title>
   
   
   
@@ -125,7 +125,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -249,7 +249,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -261,7 +261,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -403,7 +403,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -415,7 +415,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -505,11 +505,11 @@
   <section class="tex2jax_ignore mathjax_ignore" id="preprocessing-pp">
 <h1>Preprocessing: <code class="docutils literal notranslate"><span class="pre">pp</span></code><a class="headerlink" href="#preprocessing-pp" title="Link to this heading">#</a></h1>
 <p>The preprocessing namespace contains the high-level trajectory preparation entry point.</p>
-<section id="scqdiff-pp-prepare-trajectory">
-<h2><code class="docutils literal notranslate"><span class="pre">scqdiff.pp.prepare_trajectory</span></code><a class="headerlink" href="#scqdiff-pp-prepare-trajectory" title="Link to this heading">#</a></h2>
+<section id="scjdo-pp-prepare-trajectory">
+<h2><code class="docutils literal notranslate"><span class="pre">scjdo.pp.prepare_trajectory</span></code><a class="headerlink" href="#scjdo-pp-prepare-trajectory" title="Link to this heading">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="scqdiff.pp.prepare_trajectory">
-<span class="sig-prename descclassname"><span class="pre">scqdiff.pp.</span></span><span class="sig-name descname"><span class="pre">prepare_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_hvg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_pcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pseudotime'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_umap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flavor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'seurat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scqdiff/pp/_trajectory.html#prepare_trajectory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scqdiff.pp.prepare_trajectory" title="Link to this definition">#</a></dt>
+<dt class="sig sig-object py" id="scjdo.pp.prepare_trajectory">
+<span class="sig-prename descclassname"><span class="pre">scjdo.pp.</span></span><span class="sig-name descname"><span class="pre">prepare_trajectory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_hvg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_pcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_neighbors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'pseudotime'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_umap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flavor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'seurat'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/scjdo/pp/_trajectory.html#prepare_trajectory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#scjdo.pp.prepare_trajectory" title="Link to this definition">#</a></dt>
 <dd><p>Normalize, select HVGs, PCA, neighbors, and compute DPT pseudotime.</p>
 <p>All results are stored in <code class="docutils literal notranslate"><span class="pre">adata</span></code> in-place (or a copy if <code class="docutils literal notranslate"><span class="pre">copy=True</span></code>).
 Pseudotime is normalized to [0, 1] and stored in <code class="docutils literal notranslate"><span class="pre">adata.obs[time_key]</span></code>.</p>
@@ -534,9 +534,9 @@ Pseudotime is normalized to [0, 1] and stored in <code class="docutils literal n
 </dl>
 <p class="rubric">Examples</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">scqdiff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sqd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">scjdo</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sjd</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">paul15</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sqd</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">prepare_trajectory</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;paul15_clusters&quot;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s2">&quot;7MEP&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sjd</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">prepare_trajectory</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s2">&quot;paul15_clusters&quot;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s2">&quot;7MEP&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -630,8 +630,8 @@ Pseudotime is normalized to [0, 1] and stored in <code class="docutils literal n
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scqdiff-pp-prepare-trajectory"><code class="docutils literal notranslate"><span class="pre">scqdiff.pp.prepare_trajectory</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scqdiff.pp.prepare_trajectory"><code class="docutils literal notranslate"><span class="pre">prepare_trajectory()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scjdo-pp-prepare-trajectory"><code class="docutils literal notranslate"><span class="pre">scjdo.pp.prepare_trajectory</span></code></a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scjdo.pp.prepare_trajectory"><code class="docutils literal notranslate"><span class="pre">prepare_trajectory()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
@@ -672,7 +672,7 @@ Pseudotime is normalized to [0, 1] and stored in <code class="docutils literal n
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

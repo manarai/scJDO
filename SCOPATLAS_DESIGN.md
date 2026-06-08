@@ -2,13 +2,13 @@
 
 ## Overview
 
-**scOpAtlas** (Stable Operator Atlas) is a new analytical layer within the scqdiff framework that defines cellular states by their **local stability structure** rather than expression patterns alone. It leverages scqdiff's core capabilities (drift field inference, Jacobian computation, eigenmode analysis) to construct an atlas of operator regimes that reveal the dynamical properties of cells.
+**scOpAtlas** (Stable Operator Atlas) is a new analytical layer within the scjdo framework that defines cellular states by their **local stability structure** rather than expression patterns alone. It leverages scjdo's core capabilities (drift field inference, Jacobian computation, eigenmode analysis) to construct an atlas of operator regimes that reveal the dynamical properties of cells.
 
 ## Conceptual Framework
 
 ### Positioning
-- **scqdiff** = the engine (drift + Jacobians + eigenmodes)
-- **scOpAtlas** = a product/application of scqdiff (operator-based state definition)
+- **scjdo** = the engine (drift + Jacobians + eigenmodes)
+- **scOpAtlas** = a product/application of scjdo (operator-based state definition)
 - This is a **layer**, not a separate tool
 
 ### Core Claim
@@ -72,7 +72,7 @@ S = #{λᵢ < 0}
 ### Module Structure
 
 ```
-scqdiff/
+scjdo/
 ├── atlas/                      # NEW: scOpAtlas module
 │   ├── __init__.py
 │   ├── operator_metrics.py     # Compute λ_max⁺, λ_min⁻, P, S
@@ -161,7 +161,7 @@ class StableOperatorAtlas:
         pass
 ```
 
-### Integration with Existing scqdiff
+### Integration with Existing scjdo
 
 #### Extend `DriftField` class
 ```python
@@ -186,8 +186,8 @@ class DriftField(nn.Module):
 
 ```python
 import anndata as ad
-from scqdiff.models.drift import DriftField
-from scqdiff.atlas import StableOperatorAtlas
+from scjdo.models.drift import DriftField
+from scjdo.atlas import StableOperatorAtlas
 
 # Load trained drift model
 adata = ad.read_h5ad("data.h5ad")
@@ -214,14 +214,14 @@ adata_with_atlas = atlas.to_anndata()
 
 ```bash
 # Build atlas from trained model
-python -m scqdiff.atlas.build_atlas \
+python -m scjdo.atlas.build_atlas \
     --h5ad data.h5ad \
     --model my_model.pt \
     --ptime-key pseudotime \
     --out atlas_results.h5ad
 
 # Compare regimes across conditions
-python -m scqdiff.atlas.compare_conditions \
+python -m scjdo.atlas.compare_conditions \
     --h5ad atlas_results.h5ad \
     --condition-key treatment \
     --celltype-key cell_type \

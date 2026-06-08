@@ -1,5 +1,5 @@
 """
-Tests for scqdiff.validation — null models, robustness, identifiability.
+Tests for scjdo.validation — null models, robustness, identifiability.
 """
 from __future__ import annotations
 
@@ -7,17 +7,17 @@ import numpy as np
 import pytest
 import torch
 
-from scqdiff.validation.identifiability import (
+from scjdo.validation.identifiability import (
     archetype_cosine_similarity,
     instability_peak_overlap,
     model_sensitivity_report,
 )
-from scqdiff.validation.null_models import (
+from scjdo.validation.null_models import (
     continuous_control_null,
     run_null_comparison,
     temporal_shuffle_null,
 )
-from scqdiff.validation.robustness import (
+from scjdo.validation.robustness import (
     gene_overlap_across_pseudotimes,
     pseudotime_sensitivity_report,
 )

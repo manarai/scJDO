@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Schrödinger Bridge analysis &#8212; scQDiff</title>
+    <title>Schrödinger Bridge analysis &#8212; scJDO</title>
   
   
   
@@ -125,7 +125,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -249,7 +249,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -261,7 +261,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -403,7 +403,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -415,7 +415,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -502,25 +502,25 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="schrodinger-bridge-analysis">
 <h1>Schrödinger Bridge analysis<a class="headerlink" href="#schrodinger-bridge-analysis" title="Link to this heading">#</a></h1>
-<p>Schrödinger Bridge analysis fits endpoint-constrained stochastic dynamics between source and target populations. In scQDiff, the bridge workflow computes both forward and backward Jacobian tensors, enabling asymmetric instability analysis across a transition.</p>
+<p>Schrödinger Bridge analysis fits endpoint-constrained stochastic dynamics between source and target populations. In scJDO, the bridge workflow computes both forward and backward Jacobian tensors, enabling asymmetric instability analysis across a transition.</p>
 <section id="quantile-based-source-and-target-populations">
 <h2>Quantile-based source and target populations<a class="headerlink" href="#quantile-based-source-and-target-populations" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">scqdiff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sqd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scjdo</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sjd</span>
 
 <span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">paul15</span><span class="p">()</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">prepare_trajectory</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;paul15_clusters&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;7MEP&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">prepare_trajectory</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;paul15_clusters&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;7MEP&#39;</span><span class="p">)</span>
 
-<span class="n">sqd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_bridge</span><span class="p">(</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_bridge</span><span class="p">(</span>
     <span class="n">adata</span><span class="p">,</span>
     <span class="n">src_quantile</span><span class="o">=</span><span class="mf">0.20</span><span class="p">,</span>
     <span class="n">tgt_quantile</span><span class="o">=</span><span class="mf">0.80</span><span class="p">,</span>
     <span class="n">n_archetypes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_summary</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;results/bridge_summary.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_summary</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;results/bridge_summary.pdf&#39;</span><span class="p">)</span>
 
-<span class="n">df_fwd</span><span class="p">,</span> <span class="n">df_bwd</span> <span class="o">=</span> <span class="n">sqd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">get_bridge_instability_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+<span class="n">df_fwd</span><span class="p">,</span> <span class="n">df_bwd</span> <span class="o">=</span> <span class="n">sjd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">get_bridge_instability_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 <span class="n">df_fwd</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;results/genes_forward.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">df_bwd</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;results/genes_backward.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -529,7 +529,7 @@
 <section id="label-based-source-and-target-populations">
 <h2>Label-based source and target populations<a class="headerlink" href="#label-based-source-and-target-populations" title="Link to this heading">#</a></h2>
 <p>When the biological comparison is defined by a condition or cell-type label, use <code class="docutils literal notranslate"><span class="pre">src_group</span></code>, <code class="docutils literal notranslate"><span class="pre">tgt_group</span></code>, and <code class="docutils literal notranslate"><span class="pre">groupby</span></code> instead of pseudotime quantiles.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sqd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_bridge</span><span class="p">(</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sjd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_bridge</span><span class="p">(</span>
     <span class="n">adata</span><span class="p">,</span>
     <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;condition&#39;</span><span class="p">,</span>
     <span class="n">src_group</span><span class="o">=</span><span class="s1">&#39;young&#39;</span><span class="p">,</span>
@@ -541,18 +541,18 @@
 </section>
 <section id="direction-specific-regulator-inference">
 <h2>Direction-specific regulator inference<a class="headerlink" href="#direction-specific-regulator-inference" title="Link to this heading">#</a></h2>
-<p>Bridge results can be passed to <code class="docutils literal notranslate"><span class="pre">infer_regulators</span></code> by setting <code class="docutils literal notranslate"><span class="pre">key='scqdiff_bridge'</span></code>. Direction can be <code class="docutils literal notranslate"><span class="pre">forward</span></code>, <code class="docutils literal notranslate"><span class="pre">backward</span></code>, or <code class="docutils literal notranslate"><span class="pre">both</span></code>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sqd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">infer_regulators</span><span class="p">(</span>
+<p>Bridge results can be passed to <code class="docutils literal notranslate"><span class="pre">infer_regulators</span></code> by setting <code class="docutils literal notranslate"><span class="pre">key='scjdo_bridge'</span></code>. Direction can be <code class="docutils literal notranslate"><span class="pre">forward</span></code>, <code class="docutils literal notranslate"><span class="pre">backward</span></code>, or <code class="docutils literal notranslate"><span class="pre">both</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sjd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">infer_regulators</span><span class="p">(</span>
     <span class="n">adata</span><span class="p">,</span>
-    <span class="n">key</span><span class="o">=</span><span class="s1">&#39;scqdiff_bridge&#39;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s1">&#39;scjdo_bridge&#39;</span><span class="p">,</span>
     <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span>
-    <span class="n">key_added</span><span class="o">=</span><span class="s1">&#39;scqdiff_regulators_fwd&#39;</span><span class="p">,</span>
+    <span class="n">key_added</span><span class="o">=</span><span class="s1">&#39;scjdo_regulators_fwd&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_network</span><span class="p">(</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_network</span><span class="p">(</span>
     <span class="n">adata</span><span class="p">,</span>
-    <span class="n">key</span><span class="o">=</span><span class="s1">&#39;scqdiff_regulators_fwd&#39;</span><span class="p">,</span>
-    <span class="n">scqdiff_key</span><span class="o">=</span><span class="s1">&#39;scqdiff_bridge&#39;</span><span class="p">,</span>
+    <span class="n">key</span><span class="o">=</span><span class="s1">&#39;scjdo_regulators_fwd&#39;</span><span class="p">,</span>
+    <span class="n">scjdo_key</span><span class="o">=</span><span class="s1">&#39;scjdo_bridge&#39;</span><span class="p">,</span>
     <span class="n">save</span><span class="o">=</span><span class="s1">&#39;results/regulator_network_forward.pdf&#39;</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
@@ -672,7 +672,7 @@
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

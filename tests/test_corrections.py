@@ -1,7 +1,7 @@
 """
 tests/test_corrections.py
 ==========================
-Regression tests for the six corrections applied to scqdiff.
+Regression tests for the six corrections applied to scjdo.
 
 Run with:
     pytest tests/test_corrections.py -v
@@ -44,23 +44,23 @@ def large_data():
 
 
 # ---------------------------------------------------------------------------
-# 1. Naming — canonical package is scqdiff
+# 1. Naming — canonical package is scjdo
 # ---------------------------------------------------------------------------
 
 
 class TestNaming:
-    def test_import_scqdiff_models(self):
-        """scqdiff.models.drift must be importable."""
-        from scqdiff.models.drift import DriftField, DriftConfig  # noqa: F401
+    def test_import_scjdo_models(self):
+        """scjdo.models.drift must be importable."""
+        from scjdo.models.drift import DriftField, DriftConfig  # noqa: F401
 
-    def test_import_scqdiff_bridge(self):
-        from scqdiff.models.schrodinger_bridge import (  # noqa: F401
+    def test_import_scjdo_bridge(self):
+        from scjdo.models.schrodinger_bridge import (  # noqa: F401
             SchrodingerBridge,
             SchrodingerBridgeConfig,
         )
 
-    def test_import_scqdiff_io(self):
-        from scqdiff.io.anndata import tensors_from_anndata  # noqa: F401
+    def test_import_scjdo_io(self):
+        from scjdo.io.anndata import tensors_from_anndata  # noqa: F401
 
 
 # ---------------------------------------------------------------------------
@@ -70,7 +70,7 @@ class TestNaming:
 
 class TestDimWarning:
     def test_no_warning_small_dim(self, small_data):
-        from scqdiff.models.drift import DriftField, DriftConfig
+        from scjdo.models.drift import DriftField, DriftConfig
 
         X, V, T = small_data
         cfg = DriftConfig(dim=DIM_SMALL, hidden=32, depth=2,
@@ -81,7 +81,7 @@ class TestDimWarning:
             DriftField(cfg, X_ref=X, V_ref=V)
 
     def test_warning_large_dim(self, large_data):
-        from scqdiff.models.drift import DriftField, DriftConfig
+        from scjdo.models.drift import DriftField, DriftConfig
 
         X, V, T = large_data
         cfg = DriftConfig(dim=DIM_LARGE, hidden=64, depth=2,
@@ -91,7 +91,7 @@ class TestDimWarning:
 
     def test_jacobian_memory_warning(self, small_data):
         """jacobian() warns when B * D^2 * 4 bytes > 1 GB."""
-        from scqdiff.models.drift import DriftField, DriftConfig
+        from scjdo.models.drift import DriftField, DriftConfig
 
         X, V, T = small_data
         # Fake a big batch to trigger the memory warning
@@ -115,7 +115,7 @@ class TestDimWarning:
 
 class TestKNNVelocity:
     def test_numpy_backend(self, small_data):
-        from scqdiff.models.drift import KNNVelocity
+        from scjdo.models.drift import KNNVelocity
 
         X, V, _ = small_data
         knn = KNNVelocity(X, V, k=K, use_faiss=False)
@@ -134,7 +134,7 @@ class TestKNNVelocity:
         except ImportError:
             faiss_available = False
 
-        from scqdiff.models.drift import KNNVelocity
+        from scjdo.models.drift import KNNVelocity
 
         X, V, _ = small_data
         if faiss_available:
@@ -152,7 +152,7 @@ class TestKNNVelocity:
         except ImportError:
             pytest.skip("faiss not installed")
 
-        from scqdiff.models.drift import KNNVelocity
+        from scjdo.models.drift import KNNVelocity
 
         X, V, _ = small_data
         knn_np = KNNVelocity(X, V, k=K, use_faiss=False)
@@ -171,7 +171,7 @@ class TestKNNVelocity:
 
 class TestDriftFieldForward:
     def test_forward_no_velocity(self, small_data):
-        from scqdiff.models.drift import DriftField, DriftConfig
+        from scjdo.models.drift import DriftField, DriftConfig
 
         X, _, T = small_data
         cfg = DriftConfig(dim=DIM_SMALL, hidden=32, depth=2)
@@ -181,7 +181,7 @@ class TestDriftFieldForward:
         assert not drift.isnan().any()
 
     def test_forward_with_velocity(self, small_data):
-        from scqdiff.models.drift import DriftField, DriftConfig
+        from scjdo.models.drift import DriftField, DriftConfig
 
         X, V, T = small_data
         cfg = DriftConfig(dim=DIM_SMALL, hidden=32, depth=2,
@@ -191,7 +191,7 @@ class TestDriftFieldForward:
         assert drift.shape == (N, DIM_SMALL)
 
     def test_jacobian_shape(self, small_data):
-        from scqdiff.models.drift import DriftField, DriftConfig
+        from scjdo.models.drift import DriftField, DriftConfig
 
         X, _, T = small_data
         cfg = DriftConfig(dim=DIM_SMALL, hidden=32, depth=2)
@@ -200,7 +200,7 @@ class TestDriftFieldForward:
         assert J.shape == (4, DIM_SMALL, DIM_SMALL)
 
     def test_jacobian_approx_shape(self, small_data):
-        from scqdiff.models.drift import DriftField, DriftConfig
+        from scjdo.models.drift import DriftField, DriftConfig
 
         X, _, T = small_data
         cfg = DriftConfig(dim=DIM_SMALL, hidden=32, depth=2)
@@ -216,7 +216,7 @@ class TestDriftFieldForward:
 
 class TestSchrodingerBridgeConvergence:
     def _make_bridge(self, dim=DIM_SMALL):
-        from scqdiff.models.schrodinger_bridge import (
+        from scjdo.models.schrodinger_bridge import (
             SchrodingerBridge,
             SchrodingerBridgeConfig,
         )
@@ -288,7 +288,7 @@ class TestPseudotimeNormalisation:
         return adata
 
     def test_valid_pseudotime_passes(self):
-        from scqdiff.io.anndata import tensors_from_anndata
+        from scjdo.io.anndata import tensors_from_anndata
 
         adata = self._make_adata(np.random.rand(N))  # [0, 1]
         X, V, T = tensors_from_anndata(adata, use_rep="X_pca",
@@ -298,7 +298,7 @@ class TestPseudotimeNormalisation:
         assert float(T.max()) <= 1.0
 
     def test_out_of_range_raises_by_default(self):
-        from scqdiff.io.anndata import tensors_from_anndata
+        from scjdo.io.anndata import tensors_from_anndata
 
         pt = np.linspace(0, 100, N)  # typical raw DPT output
         adata = self._make_adata(pt)
@@ -307,7 +307,7 @@ class TestPseudotimeNormalisation:
                                   pseudotime_key="pseudotime")
 
     def test_out_of_range_normalises_with_flag(self):
-        from scqdiff.io.anndata import tensors_from_anndata
+        from scjdo.io.anndata import tensors_from_anndata
 
         pt = np.linspace(5, 50, N)
         adata = self._make_adata(pt)
@@ -322,7 +322,7 @@ class TestPseudotimeNormalisation:
         assert abs(float(T.max()) - 1.0) < 1e-4
 
     def test_missing_pseudotime_key_raises(self):
-        from scqdiff.io.anndata import tensors_from_anndata
+        from scjdo.io.anndata import tensors_from_anndata
 
         adata = self._make_adata(np.random.rand(N))
         with pytest.raises(KeyError, match="not found in adata.obs"):
@@ -330,7 +330,7 @@ class TestPseudotimeNormalisation:
                                   pseudotime_key="does_not_exist")
 
     def test_no_pseudotime_returns_none(self):
-        from scqdiff.io.anndata import tensors_from_anndata
+        from scjdo.io.anndata import tensors_from_anndata
 
         adata = self._make_adata(np.random.rand(N))
         X, V, T = tensors_from_anndata(adata, use_rep="X_pca",

@@ -1,12 +1,12 @@
-# HybridGRN Extension for scQDiff
+# HybridGRN Extension for scJDO
 
-**Status: Experimental opt-in extension.** The default scQDiff workflow (latent Hybrid Drift → latent Jacobian → latent archetypes) is unchanged.
+**Status: Experimental opt-in extension.** The default scJDO workflow (latent Hybrid Drift → latent Jacobian → latent archetypes) is unchanged.
 
 ---
 
 ## Overview
 
-The HybridGRN extension adds a gene-space GRN extraction path on top of the existing latent dynamics model. It is designed to be used after the standard scQDiff workflow is complete and validated.
+The HybridGRN extension adds a gene-space GRN extraction path on top of the existing latent dynamics model. It is designed to be used after the standard scJDO workflow is complete and validated.
 
 The pipeline is:
 
@@ -33,7 +33,7 @@ Regulatory archetypes  A_k   (rank × n_tf × G)
 
 ## Why this is an extension, not the default
 
-The existing scQDiff design is already organised around a latent-space Hybrid Drift default. The data loader defaults to `X_pca`, the model warns that full Jacobians become risky once dimension gets large, and the present design philosophy is "estimate dynamics in a reduced state space first."
+The existing scJDO design is already organised around a latent-space Hybrid Drift default. The data loader defaults to `X_pca`, the model warns that full Jacobians become risky once dimension gets large, and the present design philosophy is "estimate dynamics in a reduced state space first."
 
 A hybrid GRN layer adds extra assumptions that are not part of the core model: an encoder/decoder map, a gene-space pullback, sparsity choices, TF-target constraints, and a GRN extraction objective. Those are valuable, but they create more failure modes than the current latent operator pipeline.
 
@@ -43,7 +43,7 @@ The HybridGRN path should only be promoted to default after it clears three test
 |---|---|
 | **Mathematical stability** | The pulled-back gene operator is consistent across seeds, nearby latent neighbourhoods, and reasonable decoder choices. Use `model.validate_consistency()`. |
 | **Biological credibility** | Recovered regulators/modules outperform or at least match baselines (CellOracle, SCENIC) on known benchmark systems (Paul15, LARRY). |
-| **Usability** | The added model does not make ordinary scQDiff workflows much harder to train or interpret. |
+| **Usability** | The added model does not make ordinary scJDO workflows much harder to train or interpret. |
 
 ---
 
@@ -69,7 +69,7 @@ where `D_z = ∂D/∂z` (decoder Jacobian, constant for linear decoder) and `E_x
 ## Module structure
 
 ```
-scqdiff/
+scjdo/
   models/
     representation.py     # PCARep, LDVAERep, VegaRep backends
     hybrid_grn.py         # HybridGRNConfig, HybridGRNModel, HybridGRNResult
@@ -110,11 +110,11 @@ The decoder choice is the most consequential design decision. Three backends are
 ```python
 import warnings
 import torch
-from scqdiff.models.drift import DriftField, DriftConfig
-from scqdiff.models.representation import RepresentationConfig, LDVAERep
-from scqdiff.models.hybrid_grn import HybridGRNConfig, HybridGRNModel
-from scqdiff.grn.refine import GRNRefinerConfig
-from scqdiff.pipeline.train_hybrid_grn import (
+from scjdo.models.drift import DriftField, DriftConfig
+from scjdo.models.representation import RepresentationConfig, LDVAERep
+from scjdo.models.hybrid_grn import HybridGRNConfig, HybridGRNModel
+from scjdo.grn.refine import GRNRefinerConfig
+from scjdo.pipeline.train_hybrid_grn import (
     HybridGRNTrainConfig,
     train_hybrid_grn_from_anndata,
 )
@@ -212,7 +212,7 @@ print(stability)
 # (run train_hybrid_grn_from_anndata with seed=0,1,2 and compare top TFs)
 
 # 3. Check archetype variance explained
-from scqdiff.grn.archetypes import archetype_summary
+from scjdo.grn.archetypes import archetype_summary
 summaries = archetype_summary(result.archetypes, tf_names, gene_names)
 for s in summaries:
     print(f"Archetype {s['rank']}: {s['variance_explained']:.3f} var, "
@@ -227,4 +227,4 @@ The HybridGRN path should only be considered for default status after:
 
 1. **Mathematical stability:** `validate_consistency()` returns `mean_cosine_similarity > 0.9` on at least two real datasets.
 2. **Biological credibility:** Top TFs from `K_x` archetypes match known regulators on Paul15 (haematopoiesis) or LARRY (lineage tracing) benchmarks.
-3. **Usability:** Training time increase over standard scQDiff is less than 3× for typical datasets (N=5000, G=2000).
+3. **Usability:** Training time increase over standard scJDO is less than 3× for typical datasets (N=5000, G=2000).

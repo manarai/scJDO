@@ -1,23 +1,23 @@
-# scQDiff — Operator-level single-cell dynamics
+# scJDO — single-cell Jacobian drift operators
 
-**scQDiff** infers how local dynamical sensitivity evolves during cell fate transitions.
+**scJDO** infers how local dynamical sensitivity evolves during cell fate transitions.
 It learns a drift field from scRNA-seq data, computes temporal Jacobian operators along
 a trajectory, decomposes them into recurrent regulatory archetypes, and identifies the
 genes and transcription factors that drive instability at each transition point.
 
 ```python
 import scanpy as sc
-import scqdiff as sqd
+import scjdo as sjd
 
 adata = sc.datasets.paul15()
-sqd.pp.prepare_trajectory(adata, groupby='paul15_clusters', root='7MEP')
-sqd.tl.fit_drift(adata, n_archetypes=5, n_epochs=5000)
-sqd.pl.summary_figure(adata, save='figure3.pdf')
+sjd.pp.prepare_trajectory(adata, groupby='paul15_clusters', root='7MEP')
+sjd.tl.fit_drift(adata, n_archetypes=5, n_epochs=5000)
+sjd.pl.summary_figure(adata, save='figure3.pdf')
 ```
 
 ```bash
 # Same analysis from the command line
-scqdiff drift paul15.h5ad --groupby paul15_clusters --root 7MEP --out results/
+scjdo drift paul15.h5ad --groupby paul15_clusters --root 7MEP --out results/
 ```
 
 ---
@@ -25,8 +25,8 @@ scqdiff drift paul15.h5ad --groupby paul15_clusters --root 7MEP --out results/
 ## Install
 
 ```bash
-git clone https://github.com/manarai/scQDiff
-cd scQDiff
+git clone https://github.com/manarai/scJDO
+cd scJDO
 pip install -e .
 ```
 
@@ -46,21 +46,21 @@ pip install faiss-cpu          # faster kNN for velocity prior
 
 | Workflow | When to use | Key call |
 |---|---|---|
-| **Drift field** | Any scRNA-seq with pseudotime | `sqd.tl.fit_drift` |
-| **Schrödinger Bridge** | Two defined populations (young/old, treated/ctrl) | `sqd.tl.fit_bridge` |
-| **Regulatory inference** | After either — link instability genes to TF regulators | `sqd.tl.infer_regulators` |
+| **Drift field** | Any scRNA-seq with pseudotime | `sjd.tl.fit_drift` |
+| **Schrödinger Bridge** | Two defined populations (young/old, treated/ctrl) | `sjd.tl.fit_bridge` |
+| **Regulatory inference** | After either — link instability genes to TF regulators | `sjd.tl.infer_regulators` |
 
 ---
 
 ## API overview
 
-### `sqd.pp` — Preprocessing
+### `sjd.pp` — Preprocessing
 
 | Function | What it does |
 |---|---|
 | `prepare_trajectory(adata, groupby, root)` | Normalize → HVG → PCA → kNN → DPT pseudotime in one call |
 
-### `sqd.tl` — Analysis
+### `sjd.tl` — Analysis
 
 | Function | What it does |
 |---|---|
@@ -70,7 +70,7 @@ pip install faiss-cpu          # faster kNN for velocity prior
 | `get_bridge_instability_genes(adata)` | Same for forward and backward bridge directions |
 | `infer_regulators(adata, ...)` | Link instability genes to upstream TF regulators via network database |
 
-### `sqd.pl` — Figures
+### `sjd.pl` — Figures
 
 **Drift field:**
 
@@ -108,8 +108,8 @@ pip install faiss-cpu          # faster kNN for velocity prior
 ### CLI
 
 ```bash
-scqdiff drift  input.h5ad --groupby CLUSTER_COL --root ROOT_CLUSTER --out DIR/
-scqdiff bridge input.h5ad --groupby CLUSTER_COL --root ROOT_CLUSTER --out DIR/
+scjdo drift  input.h5ad --groupby CLUSTER_COL --root ROOT_CLUSTER --out DIR/
+scjdo bridge input.h5ad --groupby CLUSTER_COL --root ROOT_CLUSTER --out DIR/
 ```
 
 ---
@@ -120,9 +120,9 @@ Both `fit_drift` and `fit_bridge` store all results in `adata.uns` so every plot
 function can read directly without recomputing:
 
 ```
-adata.uns['scqdiff']          ← drift results
-adata.uns['scqdiff_bridge']   ← bridge results
-adata.uns['scqdiff_regulators'] ← regulator inference results
+adata.uns['scjdo']          ← drift results
+adata.uns['scjdo_bridge']   ← bridge results
+adata.uns['scjdo_regulators'] ← regulator inference results
 adata.obsm['X_drift']         ← per-cell drift vectors
 adata.obsm['X_velocity_pseudo'] ← pseudotime-gradient velocity prior
 ```
@@ -149,22 +149,37 @@ Figure-generating notebooks for the manuscript are in [`Figures_notebook/`](Figu
 
 For the full mathematical derivation see [`MATH.md`](MATH.md).
 
+**Using scVI, Palantir, Harmony, or Slingshot?**
+scJDO accepts any latent space or pseudotime from any tool — one parameter
+change connects them. See [`INTEROPERABILITY.md`](INTEROPERABILITY.md).
+
 **Core idea:** model cell dynamics as a stochastic differential equation
 
 $$dX_t = f_\theta(X_t, t)\,dt + \sigma\,dW_t$$
 
 where the drift field $f_\theta$ is parameterized by a FiLM-conditioned neural network
 trained via denoising score matching. Local Jacobians $J(x,t) = \nabla_x f_\theta$
-are stacked across pseudotime into a tensor, then decomposed by semi-NMF into $K$
+are aggregated across pseudotime by **adaptive Gaussian kernel windowing**
+
+$$\bar J(\tau;h) = \frac{\sum_i e^{-(\tau-\tau_i)^2/2h^2}\,J_i}
+                        {\sum_i e^{-(\tau-\tau_i)^2/2h^2}}$$
+
+with the bandwidth $h$ selected by maximising
+$S(h) = R(h)\!\cdot\!C(h)\!\cdot\!L(h)$ — bootstrap reproducibility, peak
+contrast, and peak localisation — subject to an effective-sample-size floor.
+The resulting temporal Jacobian tensor is decomposed by semi-NMF into $K$
 recurrent operator archetypes with non-negative temporal activation profiles.
+The legacy fixed-window scheme is available via `windowing='fixed'`; see
+[`Manuscript/adaptive_kernel_windowing.ipynb`](Manuscript/adaptive_kernel_windowing.ipynb)
+for the derivation and side-by-side validation.
 
 ---
 
 ## Citation
 
-If you use scQDiff, please cite:
+If you use scJDO, please cite:
 
-> Redd D., Green S., Terooatea T.W. (2026). scQDiff: Inferring time-varying dynamical
+> Redd D., Green S., Terooatea T.W. (2026). scJDO: Inferring time-varying dynamical
 > operators from single-cell transcriptomic data. *[journal]*.
 
 ---

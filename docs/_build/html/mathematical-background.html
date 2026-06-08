@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Mathematical background &#8212; scQDiff</title>
+    <title>Mathematical background &#8212; scJDO</title>
   
   
   
@@ -127,7 +127,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -251,7 +251,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -263,7 +263,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -405,7 +405,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -417,7 +417,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -496,7 +496,7 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="mathematical-background">
 <h1>Mathematical background<a class="headerlink" href="#mathematical-background" title="Link to this heading">#</a></h1>
-<p>scQDiff models a cell as a point in latent space evolving over pseudotime. Its central object is not only the cell trajectory, but the local differential operator governing how perturbations grow or decay around that trajectory.</p>
+<p>scJDO models a cell as a point in latent space evolving over pseudotime. Its central object is not only the cell trajectory, but the local differential operator governing how perturbations grow or decay around that trajectory.</p>
 <section id="stochastic-dynamics">
 <h2>Stochastic dynamics<a class="headerlink" href="#stochastic-dynamics" title="Link to this heading">#</a></h2>
 <p>A cell state is represented as</p>
@@ -504,7 +504,7 @@
 \[
 X_t \in \mathbb{R}^d,
 \]</div>
-<p>with pseudotime <span class="math notranslate nohighlight">\(t \in [0,1]\)</span>. scQDiff uses stochastic dynamics of the form</p>
+<p>with pseudotime <span class="math notranslate nohighlight">\(t \in [0,1]\)</span>. scJDO uses stochastic dynamics of the form</p>
 <div class="math notranslate nohighlight">
 \[
 dX_t = f(X_t,t)\,dt + \sqrt{2\beta}\,dW_t,
@@ -541,7 +541,7 @@ J(x,t) = \frac{\partial f(x,t)}{\partial x}.
 </section>
 <section id="temporal-jacobian-tensor-and-archetypes">
 <h2>Temporal Jacobian tensor and archetypes<a class="headerlink" href="#temporal-jacobian-tensor-and-archetypes" title="Link to this heading">#</a></h2>
-<p>By sampling Jacobians across pseudotime windows, scQDiff constructs a temporal Jacobian tensor. It then approximates this tensor as a sum of reusable operator archetypes with time-dependent activations:</p>
+<p>By sampling Jacobians across pseudotime windows, scJDO constructs a temporal Jacobian tensor. It then approximates this tensor as a sum of reusable operator archetypes with time-dependent activations:</p>
 <div class="math notranslate nohighlight">
 \[
 \mathcal{J} \approx \sum_{k=1}^{K} A_k c_k(t),
@@ -550,7 +550,7 @@ J(x,t) = \frac{\partial f(x,t)}{\partial x}.
 </section>
 <section id="endpoint-constrained-dynamics">
 <h2>Endpoint-constrained dynamics<a class="headerlink" href="#endpoint-constrained-dynamics" title="Link to this heading">#</a></h2>
-<p>When source and target populations are defined, scQDiff can use a Schrödinger Bridge formulation. The bridge seeks a stochastic process that transports the source distribution to the target distribution while remaining close to a reference process. scQDiff then applies the same Jacobian and archetype analysis to the learned forward and backward dynamics.</p>
+<p>When source and target populations are defined, scJDO can use a Schrödinger Bridge formulation. The bridge seeks a stochastic process that transports the source distribution to the target distribution while remaining close to a reference process. scJDO then applies the same Jacobian and archetype analysis to the learned forward and backward dynamics.</p>
 </section>
 </section>
 
@@ -642,7 +642,7 @@ J(x,t) = \frac{\partial f(x,t)}{\partial x}.
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

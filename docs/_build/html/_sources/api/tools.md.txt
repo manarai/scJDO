@@ -5,25 +5,25 @@ The tools namespace contains model-fitting, gene extraction, regulator inference
 ## Drift analysis
 
 ```{eval-rst}
-.. autofunction:: scqdiff.tl.fit_drift
+.. autofunction:: scjdo.tl.fit_drift
 
-.. autofunction:: scqdiff.tl.get_instability_genes
+.. autofunction:: scjdo.tl.get_instability_genes
 ```
 
 ## Schrödinger Bridge analysis
 
 ```{eval-rst}
-.. autofunction:: scqdiff.tl.fit_bridge
+.. autofunction:: scjdo.tl.fit_bridge
 
-.. autofunction:: scqdiff.tl.get_bridge_instability_genes
+.. autofunction:: scjdo.tl.get_bridge_instability_genes
 ```
 
 ## Regulatory inference
 
 ```{eval-rst}
-.. autofunction:: scqdiff.tl.infer_regulators
+.. autofunction:: scjdo.tl.infer_regulators
 
-.. autofunction:: scqdiff.tl.load_network
+.. autofunction:: scjdo.tl.load_network
 ```
 
 ## Stored drift results

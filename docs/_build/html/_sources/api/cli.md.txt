@@ -3,7 +3,7 @@
 The command line interface exposes complete drift and bridge pipelines for `.h5ad` files.
 
 ```bash
-scqdiff drift INPUT \
+scjdo drift INPUT \
   --groupby paul15_clusters \
   --root 7MEP \
   --n-hvg 2000 \
@@ -13,7 +13,7 @@ scqdiff drift INPUT \
 ```
 
 ```bash
-scqdiff bridge INPUT \
+scjdo bridge INPUT \
   --groupby paul15_clusters \
   --root 7MEP \
   --src-quantile 0.20 \
@@ -24,8 +24,8 @@ scqdiff bridge INPUT \
 
 | Command | Purpose | Principal outputs |
 |---|---|---|
-| `scqdiff drift` | Drift field, archetypes, instability genes, regulators | Annotated `.h5ad`, CSV tables, drift and regulator figures |
-| `scqdiff bridge` | Schrödinger Bridge, forward/backward instability, regulators | Annotated `.h5ad`, direction-specific gene tables, bridge figures |
+| `scjdo drift` | Drift field, archetypes, instability genes, regulators | Annotated `.h5ad`, CSV tables, drift and regulator figures |
+| `scjdo bridge` | Schrödinger Bridge, forward/backward instability, regulators | Annotated `.h5ad`, direction-specific gene tables, bridge figures |
 
 ## Common options
 

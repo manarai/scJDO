@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Use custom data &#8212; scQDiff</title>
+    <title>Use custom data &#8212; scJDO</title>
   
   
   
@@ -125,7 +125,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -249,7 +249,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -261,7 +261,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -403,7 +403,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -415,7 +415,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -500,22 +500,22 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="use-custom-data">
 <h1>Use custom data<a class="headerlink" href="#use-custom-data" title="Link to this heading">#</a></h1>
-<p>scQDiff can be used with any <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object that contains a suitable expression matrix and either a grouping variable for root-based DPT estimation or a precomputed pseudotime variable.</p>
+<p>scJDO can be used with any <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object that contains a suitable expression matrix and either a grouping variable for root-based DPT estimation or a precomputed pseudotime variable.</p>
 <section id="prepare-a-custom-trajectory">
 <h2>Prepare a custom trajectory<a class="headerlink" href="#prepare-a-custom-trajectory" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">anndata</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ad</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">scqdiff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sqd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scjdo</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sjd</span>
 
 <span class="n">adata</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s1">&#39;my_data.h5ad&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">prepare_trajectory</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;HSC&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_drift</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">time_key</span><span class="o">=</span><span class="s1">&#39;pseudotime&#39;</span><span class="p">,</span> <span class="n">n_archetypes</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">prepare_trajectory</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;cell_type&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;HSC&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_drift</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">time_key</span><span class="o">=</span><span class="s1">&#39;pseudotime&#39;</span><span class="p">,</span> <span class="n">n_archetypes</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="use-precomputed-pseudotime">
 <h2>Use precomputed pseudotime<a class="headerlink" href="#use-precomputed-pseudotime" title="Link to this heading">#</a></h2>
 <p>If <code class="docutils literal notranslate"><span class="pre">adata.obs['pseudotime']</span></code> already exists and is scaled to <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>, you can skip DPT estimation and fit the drift model directly.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sqd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_drift</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">time_key</span><span class="o">=</span><span class="s1">&#39;pseudotime&#39;</span><span class="p">,</span> <span class="n">n_archetypes</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sjd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_drift</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">time_key</span><span class="o">=</span><span class="s1">&#39;pseudotime&#39;</span><span class="p">,</span> <span class="n">n_archetypes</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -525,7 +525,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">my_net</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;my_network.csv&#39;</span><span class="p">)</span>
-<span class="n">df_reg</span> <span class="o">=</span> <span class="n">sqd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">infer_regulators</span><span class="p">(</span>
+<span class="n">df_reg</span> <span class="o">=</span> <span class="n">sjd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">infer_regulators</span><span class="p">(</span>
     <span class="n">adata</span><span class="p">,</span>
     <span class="n">network</span><span class="o">=</span><span class="n">my_net</span><span class="p">,</span>
     <span class="n">organism</span><span class="o">=</span><span class="s1">&#39;human&#39;</span><span class="p">,</span>
@@ -641,7 +641,7 @@
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

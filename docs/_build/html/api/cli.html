@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Command line interface &#8212; scQDiff</title>
+    <title>Command line interface &#8212; scJDO</title>
   
   
   
@@ -125,7 +125,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -249,7 +249,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -261,7 +261,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -403,7 +403,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -415,7 +415,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -505,7 +505,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="command-line-interface">
 <h1>Command line interface<a class="headerlink" href="#command-line-interface" title="Link to this heading">#</a></h1>
 <p>The command line interface exposes complete drift and bridge pipelines for <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> files.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scqdiff<span class="w"> </span>drift<span class="w"> </span>INPUT<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scjdo<span class="w"> </span>drift<span class="w"> </span>INPUT<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--groupby<span class="w"> </span>paul15_clusters<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--root<span class="w"> </span>7MEP<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--n-hvg<span class="w"> </span><span class="m">2000</span><span class="w"> </span><span class="se">\</span>
@@ -514,7 +514,7 @@
 <span class="w">  </span>--out<span class="w"> </span>results/paul15_drift/
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scqdiff<span class="w"> </span>bridge<span class="w"> </span>INPUT<span class="w"> </span><span class="se">\</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scjdo<span class="w"> </span>bridge<span class="w"> </span>INPUT<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--groupby<span class="w"> </span>paul15_clusters<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--root<span class="w"> </span>7MEP<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--src-quantile<span class="w"> </span><span class="m">0</span>.20<span class="w"> </span><span class="se">\</span>
@@ -531,11 +531,11 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scqdiff</span> <span class="pre">drift</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scjdo</span> <span class="pre">drift</span></code></p></td>
 <td><p>Drift field, archetypes, instability genes, regulators</p></td>
 <td><p>Annotated <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>, CSV tables, drift and regulator figures</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scqdiff</span> <span class="pre">bridge</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scjdo</span> <span class="pre">bridge</span></code></p></td>
 <td><p>Schrödinger Bridge, forward/backward instability, regulators</p></td>
 <td><p>Annotated <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code>, direction-specific gene tables, bridge figures</p></td>
 </tr>
@@ -663,7 +663,7 @@
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

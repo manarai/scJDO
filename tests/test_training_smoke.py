@@ -2,8 +2,8 @@ import pytest
 
 def test_spectral_trainer_two_steps(tiny_loader, tiny_gene_dim):
     try:
-        from scqdiff.models.fourier_score_network import MultiBandScoreNet
-        from scqdiff.training.fourier_trainer import SpectralDiffusionTrainer
+        from scjdo.models.fourier_score_network import MultiBandScoreNet
+        from scjdo.training.fourier_trainer import SpectralDiffusionTrainer
         import torch
     except Exception as e:
         pytest.skip(f"Trainer or model import failed: {e}")

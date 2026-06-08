@@ -1,4 +1,4 @@
-# scQDiff — core runtime dependencies
+# scJDO — core runtime dependencies
 # Python >= 3.9 required
 # For dev/test/docs extras, use: pip install -e ".[dev]" or pip install -r requirements-dev.txt
 

@@ -11,9 +11,9 @@ from unittest.mock import Mock, MagicMock
 import sys
 sys.path.insert(0, '/home/ubuntu/scidiff')
 
-from scqdiff.atlas.operator_metrics import OperatorMetrics
-from scqdiff.atlas.regime_classifier import OperatorRegimeClassifier
-from scqdiff.atlas.atlas_builder import StableOperatorAtlas
+from scjdo.atlas.operator_metrics import OperatorMetrics
+from scjdo.atlas.regime_classifier import OperatorRegimeClassifier
+from scjdo.atlas.atlas_builder import StableOperatorAtlas
 
 
 class TestOperatorMetrics(unittest.TestCase):

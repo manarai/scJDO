@@ -2,11 +2,11 @@
   {
     "name": "stable",
     "version": "stable",
-    "url": "https://scqdiff.readthedocs.io/en/stable/"
+    "url": "https://scjdo.readthedocs.io/en/stable/"
   },
   {
     "name": "latest",
     "version": "latest",
-    "url": "https://scqdiff.readthedocs.io/en/latest/"
+    "url": "https://scjdo.readthedocs.io/en/latest/"
   }
 ]

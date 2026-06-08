@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Plotting panels &#8212; scQDiff</title>
+    <title>Plotting panels &#8212; scJDO</title>
   
   
   
@@ -125,7 +125,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -249,7 +249,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -261,7 +261,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -403,7 +403,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -415,7 +415,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -505,32 +505,32 @@
 <p>All major summary figures are composed of standalone plotting functions. This design makes it easy to build publication panels without copying internal plotting code.</p>
 <section id="drift-field-panels">
 <h2>Drift-field panels<a class="headerlink" href="#drift-field-panels" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">drift_field</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;drift_field.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;sensitivity.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">archetypes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;archetypes.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">coordination</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;coordination.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">instability_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;instability_genes.pdf&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">drift_field</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;drift_field.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;sensitivity.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">archetypes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;archetypes.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">coordination</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;coordination.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">instability_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_genes</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;instability_genes.pdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="bridge-panels">
 <h2>Bridge panels<a class="headerlink" href="#bridge-panels" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_trajectories</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;traj_fwd.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_trajectories</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;traj_bwd.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_instability</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;bridge_instability.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_archetypes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;bridge_archetypes.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;bridge_genes.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_gene_comparison</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;bridge_gene_comparison.pdf&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_trajectories</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;forward&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;traj_fwd.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_trajectories</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;backward&#39;</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;traj_bwd.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_instability</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;bridge_instability.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_archetypes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;bridge_archetypes.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;bridge_genes.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">bridge_gene_comparison</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;bridge_gene_comparison.pdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="regulator-panels">
 <h2>Regulator panels<a class="headerlink" href="#regulator-panels" title="Link to this heading">#</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_barplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_barplot.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_heatmap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_heatmap.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_scatter.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_profiles</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_profiles.pdf&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_network</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_network.pdf&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_barplot</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_barplot.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_heatmap</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_heatmap.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_scatter.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_profiles</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_profiles.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">regulator_network</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;regulator_network.pdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -645,7 +645,7 @@
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

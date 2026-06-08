@@ -10,16 +10,16 @@ import pytest
 import torch
 import numpy as np
 
-from scqdiff.models.drift import DriftField, DriftConfig
-from scqdiff.models.representation import (
+from scjdo.models.drift import DriftField, DriftConfig
+from scjdo.models.representation import (
     RepresentationConfig,
     PCARep,
     LDVAERep,
     VegaRep,
 )
-from scqdiff.grn.pullback import pullback_gene_operator
-from scqdiff.grn.refine import GRNRefinerConfig, SparseGRNRefiner
-from scqdiff.grn.archetypes import grn_modes
+from scjdo.grn.pullback import pullback_gene_operator
+from scjdo.grn.refine import GRNRefinerConfig, SparseGRNRefiner
+from scjdo.grn.archetypes import grn_modes
 
 
 @pytest.fixture

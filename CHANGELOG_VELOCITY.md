@@ -6,13 +6,13 @@
 
 #### Core Implementation
 
-- **KNNVelocity Module** (`scqdiff/models/drift.py`)
+- **KNNVelocity Module** (`scjdo/models/drift.py`)
   - Soft k-nearest neighbors interpolation for smooth velocity fields
   - Confidence propagation from reference cells
   - Efficient PyTorch implementation with automatic device management
   - Configurable number of neighbors and temperature parameter
 
-- **Extended DriftConfig** (`scqdiff/models/drift.py`)
+- **Extended DriftConfig** (`scjdo/models/drift.py`)
   - `use_velocity_prior`: Enable/disable velocity integration
   - `vel_k`: Number of neighbors for KNN interpolation
   - `vel_tau`: Temperature for softmax weighting
@@ -20,7 +20,7 @@
   - `vel_conf_power`: Confidence gating exponent
   - `vel_time_mode`: Time schedule type ("mid" or "flat")
 
-- **Enhanced DriftField** (`scqdiff/models/drift.py`)
+- **Enhanced DriftField** (`scjdo/models/drift.py`)
   - Accepts optional velocity reference data (X_ref, V_ref, W_ref)
   - Computes drift as: `f(x,t) = b(x,t) + u_θ(x,t)`
   - Time-dependent velocity contribution via scheduling
@@ -29,7 +29,7 @@
 
 #### Training Pipeline
 
-- **Rewritten train_from_anndata.py** (`scqdiff/pipeline/train_from_anndata.py`)
+- **Rewritten train_from_anndata.py** (`scjdo/pipeline/train_from_anndata.py`)
   - New command-line arguments for velocity configuration
   - Optional velocity normalization (`--normalize-velocity`)
   - Removed naive MSE velocity loss
@@ -70,7 +70,7 @@
 
 ### Changed
 
-#### scqdiff/models/drift.py
+#### scjdo/models/drift.py
 
 - **ResidualNet**: Fixed input concatenation
   - Changed from `expand(-1, x.shape[1])` to proper concatenation
@@ -88,7 +88,7 @@
   - Preserves Laplacian smoothing on learned term only
   - Returns same output shape as before
 
-#### scqdiff/pipeline/train_from_anndata.py
+#### scjdo/pipeline/train_from_anndata.py
 
 - **Complete rewrite** with velocity integration
   - Removed: `loss += 0.5*((u-V[idx])**2).mean()` (naive approach)

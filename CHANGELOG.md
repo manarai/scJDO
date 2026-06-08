@@ -4,14 +4,14 @@
 
 ### Added — high-level API
 
-Scanpy-style `sqd.pp / sqd.tl / sqd.pl` namespaces. Users no longer need to
+Scanpy-style `sjd.pp / sjd.tl / sjd.pl` namespaces. Users no longer need to
 construct model objects, training loops, or plotting code manually.
 
-**`sqd.pp`**
+**`sjd.pp`**
 - `prepare_trajectory()` — normalize → HVG → PCA → kNN → DPT in one call.
   Auto-handles NaN pseudotime, normalizes output to [0, 1].
 
-**`sqd.tl`**
+**`sjd.tl`**
 - `fit_drift()` — trains DriftField, builds Jacobian tensor, runs semi-NMF archetype
   decomposition, computes instability gene scores, stores everything in `adata.uns`.
   Automatically derives a pseudotime-gradient velocity prior when no RNA velocity
@@ -29,7 +29,7 @@ construct model objects, training loops, or plotting code manually.
 - `load_network()` — loads CollecTRI (decoupler) → TRRUST v2 → built-in
   hematopoiesis network.
 
-**`sqd.pl`**
+**`sjd.pl`**
 - `summary_figure()` — four-panel drift field summary.
 - `drift_field()` — streamplot (default) or quiver on PCA/UMAP. Uses
   pseudotime-gradient velocity for PCA plots to avoid noisy 50D→2D projection.
@@ -40,7 +40,7 @@ construct model objects, training loops, or plotting code manually.
   `regulator_scatter()`, `regulator_profiles()`, `regulator_network()`.
 
 **CLI**
-- `scqdiff drift` and `scqdiff bridge` — full pipeline in one command.
+- `scjdo drift` and `scjdo bridge` — full pipeline in one command.
   Produces annotated `adata.h5ad`, ranked CSV tables, and all figures.
 
 ---
@@ -99,4 +99,4 @@ construct model objects, training loops, or plotting code manually.
 ## [0.2.0] — initial public release
 
 Core models: `DriftField`, `SchrodingerBridge`, `FourierScoreNet`, `HybridGRN`.
-CLI entry points: `scqdiff-train`, `scqdiff-bridge`, `scqdiff-atlas`.
+CLI entry points: `scjdo-train`, `scjdo-bridge`, `scjdo-atlas`.

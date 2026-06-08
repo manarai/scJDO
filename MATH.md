@@ -1,8 +1,8 @@
-# Mathematical Foundations of scQDiff
+# Mathematical Foundations of scJDO
 
-**scQDiff** (“single-cell Inference of Differential operators”) learns a *time-dependent drift field*
+**scJDO** (“single-cell Inference of Differential operators”) learns a *time-dependent drift field*
 that governs how cellular states move through latent space.  
-Unlike trajectory methods, scQDiff focuses on the **local Jacobian operators** of this drift,
+Unlike trajectory methods, scJDO focuses on the **local Jacobian operators** of this drift,
 which encode stability, fragility, and fate-controlling regulatory modes.
 
 RNA velocity and Schrödinger-Bridge constraints may be used to guide drift learning,
@@ -45,13 +45,13 @@ $$
 = -\nabla\!\cdot(\rho_t f) + \beta\,\Delta \rho_t.
 $$
 
-scQDiff learns $f(x,t)$ so that this stochastic flow explains the observed distribution of single cells across pseudotime.
+scJDO learns $f(x,t)$ so that this stochastic flow explains the observed distribution of single cells across pseudotime.
 
 ---
 
 ## 3. Local regulatory operators (Jacobians)
 
-The central object in scQDiff is the **Jacobian of the drift**
+The central object in scJDO is the **Jacobian of the drift**
 
 $$
 J(x,t) = \frac{\partial f(x,t)}{\partial x}.
@@ -77,25 +77,40 @@ Thus Jacobians directly quantify **stability, sensitivity, and commitment**.
 
 ## 4. Temporal Jacobian tensor
 
-Sampling Jacobians along pseudotime gives
+Per-cell Jacobians $\{J_i = \nabla_x f_\theta(x_i, \tau_i)\}_{i=1}^N$ are
+aggregated across pseudotime by an **adaptive Gaussian kernel**:
 
 $$
-J(t_1),\,J(t_2),\,\ldots,\,J(t_T).
+\bar J(\tau; h) \;=\; \frac{\sum_i w_i(\tau)\,J_i}{\sum_i w_i(\tau)},
+\qquad w_i(\tau) = \exp\!\Big(-\tfrac{(\tau_i-\tau)^2}{2 h^2}\Big),
 $$
 
-These form the **temporal Jacobian tensor**
+evaluated on a fixed grid $\tau_1,\ldots,\tau_T$ to give the **temporal
+Jacobian tensor**
 
 $$
-\mathcal{J} \in \mathbb{R}^{d \times d \times T},
+\mathcal{J} \in \mathbb{R}^{T \times d \times d},
+\qquad \mathcal{J}_t = \bar J(\tau_t; h).
 $$
 
-which captures how regulatory sensitivities change over time.
+The bandwidth $h$ is chosen automatically to maximise
+
+$$
+S(h) \;=\; R(h)\cdot C(h)\cdot L(h)
+$$
+
+— bootstrap reproducibility, peak contrast, and peak localisation — under
+an effective-sample-size constraint $n_\mathrm{eff}(\tau) = (\sum_i w_i)^2 / \sum_i w_i^2 \ge n_\mathrm{min}$.
+The grid $\{\tau_t\}$ is a continuous temporal resolution, not a count of
+independent observations, and curves derived from $\mathcal{J}$ are reported
+with bootstrap uncertainty bands. The legacy fixed-window scheme remains
+available via `windowing='fixed'` in `fit_drift`.
 
 ---
 
 ## 5. Operator archetypes
 
-scQDiff factorizes this tensor as
+scJDO factorizes this tensor as
 
 $$
 \mathcal{J} \;\approx\; \sum_{k=1}^{K} A_k \, c_k(t),
@@ -148,7 +163,7 @@ Velocity improves directional alignment but does not alter Jacobian or archetype
 
 ## 8. Endpoint-constrained dynamics (optional Schrödinger Bridge)
 
-If start and end populations $\rho_0$ and $\rho_1$ are known, scQDiff can enforce them by minimizing
+If start and end populations $\rho_0$ and $\rho_1$ are known, scJDO can enforce them by minimizing
 
 $$
 \min_u \; \mathbb{E}\!\int_0^1 \|u(X_t,t)\|^2\,dt
@@ -173,7 +188,7 @@ This modifies only the drift field; **Jacobian operators and archetypes are comp
 
 ## 9. Interpretation
 
-scQDiff treats cell fate as a **dynamical control problem**.
+scJDO treats cell fate as a **dynamical control problem**.
 Instead of clustering states or tracing paths, it identifies
 
 - where the system is **stable**  

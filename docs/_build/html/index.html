@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>scQDiff — Operator-level single-cell dynamics in Python &#8212; scQDiff</title>
+    <title>scJDO — Operator-level single-cell dynamics in Python &#8212; scJDO</title>
   
   
   
@@ -124,7 +124,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -248,7 +248,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -260,7 +260,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -404,7 +404,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -416,7 +416,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -453,21 +453,21 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="scqdiff-operator-level-single-cell-dynamics-in-python">
-<h1>scQDiff — Operator-level single-cell dynamics in Python<a class="headerlink" href="#scqdiff-operator-level-single-cell-dynamics-in-python" title="Link to this heading">#</a></h1>
-<div class="scqdiff-hero">
-<p class="scqdiff-tagline"><strong>scQDiff</strong> infers time-varying dynamical operators from single-cell transcriptomic data. It learns a drift field over pseudotime, computes local Jacobian operators, decomposes them into recurrent regulatory archetypes, and links instability-driving genes to upstream transcription factors.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="scjdo-operator-level-single-cell-dynamics-in-python">
+<h1>scJDO — Operator-level single-cell dynamics in Python<a class="headerlink" href="#scjdo-operator-level-single-cell-dynamics-in-python" title="Link to this heading">#</a></h1>
+<div class="scjdo-hero">
+<p class="scjdo-tagline"><strong>scJDO</strong> infers time-varying dynamical operators from single-cell transcriptomic data. It learns a drift field over pseudotime, computes local Jacobian operators, decomposes them into recurrent regulatory archetypes, and links instability-driving genes to upstream transcription factors.</p>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scanpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sc</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">scqdiff</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sqd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scjdo</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sjd</span>
 
 <span class="n">adata</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">paul15</span><span class="p">()</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">prepare_trajectory</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;paul15_clusters&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;7MEP&#39;</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_drift</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_archetypes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
-<span class="n">sqd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">summary_figure</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;figure3.pdf&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">prepare_trajectory</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby</span><span class="o">=</span><span class="s1">&#39;paul15_clusters&#39;</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;7MEP&#39;</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">tl</span><span class="o">.</span><span class="n">fit_drift</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_archetypes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_epochs</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+<span class="n">sjd</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">summary_figure</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="s1">&#39;figure3.pdf&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>scQDiff follows the familiar Scanpy-style namespace convention: preprocessing lives in <code class="docutils literal notranslate"><span class="pre">sqd.pp</span></code>, analysis methods live in <code class="docutils literal notranslate"><span class="pre">sqd.tl</span></code>, and plotting functions live in <code class="docutils literal notranslate"><span class="pre">sqd.pl</span></code>. This documentation site is structured for a ReadTheDocs deployment similar to the stable Scanpy documentation, with a landing page, tutorial guide, usage principles, and an API reference grouped by namespace.<a class="footnote-reference brackets" href="#scanpy" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
+<p>scJDO follows the familiar Scanpy-style namespace convention: preprocessing lives in <code class="docutils literal notranslate"><span class="pre">sjd.pp</span></code>, analysis methods live in <code class="docutils literal notranslate"><span class="pre">sjd.tl</span></code>, and plotting functions live in <code class="docutils literal notranslate"><span class="pre">sjd.pl</span></code>. This documentation site is structured for a ReadTheDocs deployment similar to the stable Scanpy documentation, with a landing page, tutorial guide, usage principles, and an API reference grouped by namespace.<a class="footnote-reference brackets" href="#scanpy" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Workflow</p></th>
@@ -477,15 +477,15 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Drift-field analysis</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqd.tl.fit_drift</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sjd.tl.fit_drift</span></code></p></td>
 <td><p>Which local regulatory operators and instability genes drive a pseudotime trajectory?</p></td>
 </tr>
 <tr class="row-odd"><td><p>Schrödinger Bridge analysis</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqd.tl.fit_bridge</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sjd.tl.fit_bridge</span></code></p></td>
 <td><p>How do forward and backward endpoint-constrained dynamics differ between source and target populations?</p></td>
 </tr>
 <tr class="row-even"><td><p>Regulatory inference</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqd.tl.infer_regulators</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sjd.tl.infer_regulators</span></code></p></td>
 <td><p>Which transcription factors explain instability-driving genes and archetype-specific programs?</p></td>
 </tr>
 </tbody>
@@ -502,15 +502,15 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sqd.pp</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sjd.pp</span></code></p></td>
 <td><p>Single-cell preprocessing and pseudotime preparation</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">prepare_trajectory</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sqd.tl</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sjd.tl</span></code></p></td>
 <td><p>Drift, bridge, instability-gene, and regulator analysis</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">fit_drift</span></code>, <code class="docutils literal notranslate"><span class="pre">fit_bridge</span></code>, <code class="docutils literal notranslate"><span class="pre">infer_regulators</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sqd.pl</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sjd.pl</span></code></p></td>
 <td><p>Reusable plotting panels and summary figures</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">summary_figure</span></code>, <code class="docutils literal notranslate"><span class="pre">bridge_summary</span></code>, <code class="docutils literal notranslate"><span class="pre">regulator_network</span></code></p></td>
 </tr>
@@ -670,7 +670,7 @@
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

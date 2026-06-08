@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 # ── Project metadata ──────────────────────────────────────────────────────────
 [project]
-name = "scqdiff"
+name = "scjdo"
 version = "0.3.0"
-description = "scQDiff: Schrödinger-Bridge-inspired learning of drift fields and regulatory archetypes from single-cell data"
+description = "scJDO (single-cell Jacobian drift operators): Schrödinger-Bridge-inspired learning of drift fields and regulatory archetypes from single-cell data"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
@@ -38,8 +38,8 @@ dependencies = [
 [project.optional-dependencies]
 
 # Fast approximate nearest-neighbour search for KNNVelocity
-# Install: pip install "scqdiff[faiss-cpu]"   (CPU-only)
-#          pip install "scqdiff[faiss-gpu]"   (GPU, requires CUDA)
+# Install: pip install "scjdo[faiss-cpu]"   (CPU-only)
+#          pip install "scjdo[faiss-gpu]"   (GPU, requires CUDA)
 faiss-cpu = ["faiss-cpu>=1.7"]
 faiss-gpu = ["faiss-gpu>=1.7"]
 
@@ -66,15 +66,15 @@ docs = [
 # ── Package discovery ─────────────────────────────────────────────────────────
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["scqdiff*"]
-exclude = ["scIDiff*", "tests*", "notebooks*", "examples*"]
+include = ["scjdo*"]
+exclude = ["tests*", "notebooks*", "examples*"]
 
 # ── Console scripts ───────────────────────────────────────────────────────────
 [project.scripts]
-scqdiff          = "scqdiff.cli.main:main"
-scqdiff-train    = "scqdiff.pipeline.train_from_anndata:main"
-scqdiff-bridge   = "scqdiff.pipeline.train_bridge:main"
-scqdiff-atlas    = "scqdiff.atlas.build_atlas_cli:main"
+scjdo          = "scjdo.cli.main:main"
+scjdo-train    = "scjdo.pipeline.train_from_anndata:main"
+scjdo-bridge   = "scjdo.pipeline.train_bridge:main"
+scjdo-atlas    = "scjdo.atlas.build_atlas_cli:main"
 
 # ── Pytest ────────────────────────────────────────────────────────────────────
 [tool.pytest.ini_options]

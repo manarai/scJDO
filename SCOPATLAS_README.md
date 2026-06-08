@@ -1,6 +1,6 @@
 # scOpAtlas: Stable Operator Atlas
 
-**scOpAtlas** (Stable Operator Atlas) is an analytical layer within the **scqdiff** framework that defines cellular states by their **local stability structure** rather than expression patterns alone.
+**scOpAtlas** (Stable Operator Atlas) is an analytical layer within the **scjdo** framework that defines cellular states by their **local stability structure** rather than expression patterns alone.
 
 ## Overview
 
@@ -18,7 +18,7 @@ This reveals:
 
 ## Mathematical Foundation
 
-From the learned drift field `f(x,t)` in scqdiff, we compute the temporal Jacobian:
+From the learned drift field `f(x,t)` in scjdo, we compute the temporal Jacobian:
 
 ```
 J(x,t) = ∂f/∂x
@@ -46,12 +46,12 @@ At each cell location, we extract four key metrics from the eigenvalue spectrum 
 
 ## Installation
 
-scOpAtlas is included in the scqdiff package:
+scOpAtlas is included in the scjdo package:
 
 ```bash
 # Clone repository
-git clone https://github.com/manarai/scQDiff.git
-cd scQDiff
+git clone https://github.com/manarai/scJDO.git
+cd scJDO
 
 # Install dependencies
 pip install -r requirements.txt
@@ -80,8 +80,8 @@ pip install -e .
 ```python
 import torch
 import anndata as ad
-from scqdiff.models.drift import DriftField
-from scqdiff.atlas import StableOperatorAtlas
+from scjdo.models.drift import DriftField
+from scjdo.atlas import StableOperatorAtlas
 
 # Load data and trained drift model
 adata = ad.read_h5ad("your_data.h5ad")
@@ -106,7 +106,7 @@ atlas.save("atlas_results.h5ad")
 
 ```bash
 # Build atlas from trained model
-python -m scqdiff.atlas.build_atlas_cli \
+python -m scjdo.atlas.build_atlas_cli \
     --h5ad data.h5ad \
     --model my_model.pt \
     --pseudotime-key pseudotime \
@@ -117,12 +117,12 @@ python -m scqdiff.atlas.build_atlas_cli \
 
 ## Workflow
 
-### 1. Train scqdiff Drift Model
+### 1. Train scjdo Drift Model
 
-First, train a drift field model using scqdiff:
+First, train a drift field model using scjdo:
 
 ```bash
-python -m scqdiff.pipeline.train_from_anndata \
+python -m scjdo.pipeline.train_from_anndata \
     --h5ad your_data.h5ad \
     --use-velocity-prior \
     --ptime-key pseudotime \
@@ -133,7 +133,7 @@ python -m scqdiff.pipeline.train_from_anndata \
 ### 2. Build Operator Atlas
 
 ```python
-from scqdiff.atlas import StableOperatorAtlas
+from scjdo.atlas import StableOperatorAtlas
 
 atlas = StableOperatorAtlas(
     adata=adata,
@@ -169,7 +169,7 @@ This tests:
 ### 4. Visualize Results
 
 ```python
-from scqdiff.atlas.visualization import (
+from scjdo.atlas.visualization import (
     plot_operator_regimes,
     plot_stability_depth_map,
     plot_plasticity_map,
@@ -200,7 +200,7 @@ plot_nonredundancy_comparison(
 Compute eigenvalue-derived metrics from the Jacobian of the drift field:
 
 ```python
-from scqdiff.atlas import OperatorMetrics
+from scjdo.atlas import OperatorMetrics
 
 metrics_computer = OperatorMetrics(drift_model, epsilon=0.1)
 metrics = metrics_computer.compute_all_metrics(X, t)
@@ -217,7 +217,7 @@ stable_dim = metrics['stable_dim']           # Stable subspace dimension
 Classify cells into operator regimes:
 
 ```python
-from scqdiff.atlas import OperatorRegimeClassifier
+from scjdo.atlas import OperatorRegimeClassifier
 
 classifier = OperatorRegimeClassifier(
     threshold_unstable=0.1,
@@ -243,7 +243,7 @@ comparison = atlas.compare_conditions(
 Analyze how operator metrics evolve along pseudotime:
 
 ```python
-from scqdiff.atlas.visualization import plot_temporal_evolution
+from scjdo.atlas.visualization import plot_temporal_evolution
 
 plot_temporal_evolution(
     adata,
@@ -484,8 +484,8 @@ See `examples/tutorial_scopatlas.py` for a complete tutorial.
 If you use scOpAtlas in your research, please cite:
 
 ```bibtex
-@article{scQDiff2024,
-  title={scQDiff: Learning Single-Cell Regulatory Dynamics with Hybrid Drift Fields},
+@article{scJDO2024,
+  title={scJDO: Learning Single-Cell Regulatory Dynamics with Hybrid Drift Fields},
   author={Terooatea, Tommy W. and Redd, David},
   journal={bioRxiv},
   year={2024}
@@ -495,7 +495,7 @@ If you use scOpAtlas in your research, please cite:
 ## Support
 
 For questions and issues:
-- GitHub Issues: [github.com/manarai/scQDiff/issues](https://github.com/manarai/scQDiff/issues)
+- GitHub Issues: [github.com/manarai/scJDO/issues](https://github.com/manarai/scJDO/issues)
 - Email: tommy.terooatea@byu.edu
 
 ## License
@@ -504,4 +504,4 @@ MIT License
 
 ## Acknowledgments
 
-scOpAtlas builds on the scqdiff framework for learning continuous-time cellular dynamics from single-cell data.
+scOpAtlas builds on the scjdo framework for learning continuous-time cellular dynamics from single-cell data.

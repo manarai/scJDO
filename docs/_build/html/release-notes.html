@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Release notes &#8212; scQDiff</title>
+    <title>Release notes &#8212; scJDO</title>
   
   
   
@@ -125,7 +125,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -249,7 +249,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -261,7 +261,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -403,7 +403,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -415,7 +415,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -496,7 +496,7 @@
 <h1>Release notes<a class="headerlink" href="#release-notes" title="Link to this heading">#</a></h1>
 <section id="version-0-3-0-2026-05-15">
 <h2>Version 0.3.0 — 2026-05-15<a class="headerlink" href="#version-0-3-0-2026-05-15" title="Link to this heading">#</a></h2>
-<p>Version 0.3.0 introduces the Scanpy-style <code class="docutils literal notranslate"><span class="pre">sqd.pp</span></code>, <code class="docutils literal notranslate"><span class="pre">sqd.tl</span></code>, and <code class="docutils literal notranslate"><span class="pre">sqd.pl</span></code> API. Users can now run complete drift, bridge, plotting, and regulator-inference workflows without manually constructing model objects or training loops.</p>
+<p>Version 0.3.0 introduces the Scanpy-style <code class="docutils literal notranslate"><span class="pre">sjd.pp</span></code>, <code class="docutils literal notranslate"><span class="pre">sjd.tl</span></code>, and <code class="docutils literal notranslate"><span class="pre">sjd.pl</span></code> API. Users can now run complete drift, bridge, plotting, and regulator-inference workflows without manually constructing model objects or training loops.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Area</p></th>
@@ -505,22 +505,22 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Preprocessing</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqd.pp.prepare_trajectory</span></code> performs normalization, HVG selection, PCA, neighbors, UMAP, and DPT pseudotime preparation.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sjd.pp.prepare_trajectory</span></code> performs normalization, HVG selection, PCA, neighbors, UMAP, and DPT pseudotime preparation.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Drift analysis</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqd.tl.fit_drift</span></code> trains the drift field, computes Jacobians, runs semi-NMF archetype decomposition, and stores results in <code class="docutils literal notranslate"><span class="pre">adata.uns</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sjd.tl.fit_drift</span></code> trains the drift field, computes Jacobians, runs semi-NMF archetype decomposition, and stores results in <code class="docutils literal notranslate"><span class="pre">adata.uns</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p>Bridge analysis</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqd.tl.fit_bridge</span></code> computes forward and backward bridge dynamics and direction-specific instability gene tables.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sjd.tl.fit_bridge</span></code> computes forward and backward bridge dynamics and direction-specific instability gene tables.</p></td>
 </tr>
 <tr class="row-odd"><td><p>Regulator inference</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqd.tl.infer_regulators</span></code> scores transcription factors using six metrics and can infer de novo co-instability edges.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sjd.tl.infer_regulators</span></code> scores transcription factors using six metrics and can infer de novo co-instability edges.</p></td>
 </tr>
 <tr class="row-even"><td><p>Plotting</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">sqd.pl</span></code> includes drift, bridge, and regulator summary figures plus standalone plotting panels.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sjd.pl</span></code> includes drift, bridge, and regulator summary figures plus standalone plotting panels.</p></td>
 </tr>
 <tr class="row-odd"><td><p>CLI</p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">scqdiff</span> <span class="pre">drift</span></code> and <code class="docutils literal notranslate"><span class="pre">scqdiff</span> <span class="pre">bridge</span></code> run complete pipelines from <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> files.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scjdo</span> <span class="pre">drift</span></code> and <code class="docutils literal notranslate"><span class="pre">scjdo</span> <span class="pre">bridge</span></code> run complete pipelines from <code class="docutils literal notranslate"><span class="pre">.h5ad</span></code> files.</p></td>
 </tr>
 </tbody>
 </table>
@@ -625,7 +625,7 @@
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

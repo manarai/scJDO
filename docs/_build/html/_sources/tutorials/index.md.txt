@@ -6,7 +6,7 @@ These tutorials mirror the project workflows used in the repository examples. Th
 |---|---|---|
 | [Drift field analysis](drift.md) | Scanpy Paul15 hematopoiesis | Drift vectors, Jacobian tensor, archetypes, instability genes, regulator figures |
 | [Schrödinger Bridge analysis](bridge.md) | Paul15 or any source/target populations | Forward and backward trajectories, instability curves, gene comparisons |
-| [Plotting panels](plotting.md) | Any fitted scQDiff object | Individual figures for manuscripts and supplementary panels |
+| [Plotting panels](plotting.md) | Any fitted scJDO object | Individual figures for manuscripts and supplementary panels |
 
 ```{toctree}
 :maxdepth: 1

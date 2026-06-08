@@ -2,10 +2,10 @@
 
 The preprocessing namespace contains the high-level trajectory preparation entry point.
 
-## `scqdiff.pp.prepare_trajectory`
+## `scjdo.pp.prepare_trajectory`
 
 ```{eval-rst}
-.. autofunction:: scqdiff.pp.prepare_trajectory
+.. autofunction:: scjdo.pp.prepare_trajectory
 ```
 
 ## Summary

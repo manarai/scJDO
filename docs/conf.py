@@ -5,9 +5,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-project = 'scQDiff'
+project = 'scJDO'
 author = 'Tommy W. Terooatea, David Redd, and contributors'
-copyright = '2026, scQDiff developers'
+copyright = '2026, scJDO developers'
 release = '0.3.0'
 version = '0.3.0'
 
@@ -40,21 +40,21 @@ html_static_path = ['_static']
 html_css_files = ['custom.css']
 
 html_theme = 'pydata_sphinx_theme'
-html_title = 'scQDiff'
+html_title = 'scJDO'
 html_show_sourcelink = True
 html_theme_options = {
     'show_toc_level': 2,
     'navigation_depth': 4,
     'collapse_navigation': False,
     'navbar_align': 'left',
-    'github_url': 'https://github.com/manarai/scQDiff',
+    'github_url': 'https://github.com/manarai/scJDO',
     'logo': {
-        'text': 'scQDiff',
+        'text': 'scJDO',
     },
     'icon_links': [
         {
             'name': 'GitHub',
-            'url': 'https://github.com/manarai/scQDiff',
+            'url': 'https://github.com/manarai/scJDO',
             'icon': 'fa-brands fa-github',
         },
     ],

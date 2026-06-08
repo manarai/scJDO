@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Usage principles &#8212; scQDiff</title>
+    <title>Usage principles &#8212; scJDO</title>
   
   
   
@@ -125,7 +125,7 @@
   
   
   
-    <p class="title logo__title">scQDiff</p>
+    <p class="title logo__title">scJDO</p>
   
 </a></div>
     
@@ -249,7 +249,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -261,7 +261,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -403,7 +403,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
         <li class="nav-item">
@@ -415,7 +415,7 @@
           
           
           
-          <a href="https://github.com/manarai/scQDiff" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+          <a href="https://github.com/manarai/scJDO" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
             <span class="sr-only">GitHub</span></a>
         </li>
 </ul></div>
@@ -494,10 +494,10 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="usage-principles">
 <h1>Usage principles<a class="headerlink" href="#usage-principles" title="Link to this heading">#</a></h1>
-<p>scQDiff is designed for operator-level interpretation of cell-state dynamics. It should be used after careful single-cell quality control and with explicit attention to how pseudotime, source-target definitions, and latent representations affect the learned dynamical system.</p>
+<p>scJDO is designed for operator-level interpretation of cell-state dynamics. It should be used after careful single-cell quality control and with explicit attention to how pseudotime, source-target definitions, and latent representations affect the learned dynamical system.</p>
 <section id="recommended-workflow">
 <h2>Recommended workflow<a class="headerlink" href="#recommended-workflow" title="Link to this heading">#</a></h2>
-<p>The recommended workflow begins with an <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object containing raw or normalized expression values and a biologically meaningful grouping variable. Users should prepare pseudotime with <code class="docutils literal notranslate"><span class="pre">sqd.pp.prepare_trajectory</span></code> or supply a precomputed pseudotime in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>. They should then fit either drift dynamics or a Schrödinger Bridge, extract instability genes, and finally run regulator inference if a transcription factor target network is available.</p>
+<p>The recommended workflow begins with an <code class="docutils literal notranslate"><span class="pre">AnnData</span></code> object containing raw or normalized expression values and a biologically meaningful grouping variable. Users should prepare pseudotime with <code class="docutils literal notranslate"><span class="pre">sjd.pp.prepare_trajectory</span></code> or supply a precomputed pseudotime in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>. They should then fit either drift dynamics or a Schrödinger Bridge, extract instability genes, and finally run regulator inference if a transcription factor target network is available.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Principle</p></th>
@@ -526,7 +526,7 @@
 </section>
 <section id="data-expectations">
 <h2>Data expectations<a class="headerlink" href="#data-expectations" title="Link to this heading">#</a></h2>
-<p>scQDiff expects cells to be embedded in a continuous latent space, usually <code class="docutils literal notranslate"><span class="pre">adata.obsm['X_pca']</span></code>. Pseudotime should be monotonic along the biological process being analyzed, and source-target labels should represent meaningful endpoint distributions for bridge analysis.</p>
+<p>scJDO expects cells to be embedded in a continuous latent space, usually <code class="docutils literal notranslate"><span class="pre">adata.obsm['X_pca']</span></code>. Pseudotime should be monotonic along the biological process being analyzed, and source-target labels should represent meaningful endpoint distributions for bridge analysis.</p>
 </section>
 <section id="result-storage">
 <h2>Result storage<a class="headerlink" href="#result-storage" title="Link to this heading">#</a></h2>
@@ -538,13 +538,13 @@
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">adata.uns['scqdiff']</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">adata.uns['scjdo']</span></code></p></td>
 <td><p>Drift Jacobians, archetypes, eigenvalues, instability scores, and gene rankings</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">adata.uns['scqdiff_bridge']</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">adata.uns['scjdo_bridge']</span></code></p></td>
 <td><p>Forward and backward bridge Jacobians, archetypes, trajectories, and gene tables</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">adata.uns['scqdiff_regulators']</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">adata.uns['scjdo_regulators']</span></code></p></td>
 <td><p>Ranked transcription-factor table and network metadata</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">adata.obsm['X_drift']</span></code></p></td>
@@ -646,7 +646,7 @@
 
   <p class="copyright">
     
-      © Copyright 2026, scQDiff developers.
+      © Copyright 2026, scJDO developers.
       <br/>
     
   </p>

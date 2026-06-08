@@ -1,17 +1,17 @@
 # Core models
 
-Most users should use the high-level `sqd.tl` API. The core model classes are documented for users who need to extend scQDiff or integrate it into custom training pipelines.
+Most users should use the high-level `sjd.tl` API. The core model classes are documented for users who need to extend scJDO or integrate it into custom training pipelines.
 
 ```{eval-rst}
-.. autoclass:: scqdiff.DriftConfig
+.. autoclass:: scjdo.DriftConfig
    :members:
 
-.. autoclass:: scqdiff.DriftField
+.. autoclass:: scjdo.DriftField
    :members:
 
-.. autoclass:: scqdiff.SchrodingerBridgeConfig
+.. autoclass:: scjdo.SchrodingerBridgeConfig
    :members:
 
-.. autoclass:: scqdiff.SchrodingerBridge
+.. autoclass:: scjdo.SchrodingerBridge
    :members:
 ```

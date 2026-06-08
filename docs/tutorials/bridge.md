@@ -1,26 +1,26 @@
 # Schrödinger Bridge analysis
 
-Schrödinger Bridge analysis fits endpoint-constrained stochastic dynamics between source and target populations. In scQDiff, the bridge workflow computes both forward and backward Jacobian tensors, enabling asymmetric instability analysis across a transition.
+Schrödinger Bridge analysis fits endpoint-constrained stochastic dynamics between source and target populations. In scJDO, the bridge workflow computes both forward and backward Jacobian tensors, enabling asymmetric instability analysis across a transition.
 
 ## Quantile-based source and target populations
 
 ```python
 import scanpy as sc
-import scqdiff as sqd
+import scjdo as sjd
 
 adata = sc.datasets.paul15()
-sqd.pp.prepare_trajectory(adata, groupby='paul15_clusters', root='7MEP')
+sjd.pp.prepare_trajectory(adata, groupby='paul15_clusters', root='7MEP')
 
-sqd.tl.fit_bridge(
+sjd.tl.fit_bridge(
     adata,
     src_quantile=0.20,
     tgt_quantile=0.80,
     n_archetypes=4,
 )
 
-sqd.pl.bridge_summary(adata, save='results/bridge_summary.pdf')
+sjd.pl.bridge_summary(adata, save='results/bridge_summary.pdf')
 
-df_fwd, df_bwd = sqd.tl.get_bridge_instability_genes(adata)
+df_fwd, df_bwd = sjd.tl.get_bridge_instability_genes(adata)
 df_fwd.to_csv('results/genes_forward.csv', index=False)
 df_bwd.to_csv('results/genes_backward.csv', index=False)
 ```
@@ -30,7 +30,7 @@ df_bwd.to_csv('results/genes_backward.csv', index=False)
 When the biological comparison is defined by a condition or cell-type label, use `src_group`, `tgt_group`, and `groupby` instead of pseudotime quantiles.
 
 ```python
-sqd.tl.fit_bridge(
+sjd.tl.fit_bridge(
     adata,
     groupby='condition',
     src_group='young',
@@ -41,20 +41,20 @@ sqd.tl.fit_bridge(
 
 ## Direction-specific regulator inference
 
-Bridge results can be passed to `infer_regulators` by setting `key='scqdiff_bridge'`. Direction can be `forward`, `backward`, or `both`.
+Bridge results can be passed to `infer_regulators` by setting `key='scjdo_bridge'`. Direction can be `forward`, `backward`, or `both`.
 
 ```python
-sqd.tl.infer_regulators(
+sjd.tl.infer_regulators(
     adata,
-    key='scqdiff_bridge',
+    key='scjdo_bridge',
     direction='forward',
-    key_added='scqdiff_regulators_fwd',
+    key_added='scjdo_regulators_fwd',
 )
 
-sqd.pl.regulator_network(
+sjd.pl.regulator_network(
     adata,
-    key='scqdiff_regulators_fwd',
-    scqdiff_key='scqdiff_bridge',
+    key='scjdo_regulators_fwd',
+    scjdo_key='scjdo_bridge',
     save='results/regulator_network_forward.pdf',
 )
 ```

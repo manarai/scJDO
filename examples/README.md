@@ -1,6 +1,6 @@
 # Example Notebooks
 
-Five end-to-end tutorials covering all scQDiff workflows.
+Five end-to-end tutorials covering all scJDO workflows.
 Each notebook uses the high-level API — 4–6 function calls, no boilerplate.
 
 | # | Notebook | Dataset | Analysis | Key outputs |
@@ -16,7 +16,7 @@ Each notebook uses the high-level API — 4–6 function calls, no boilerplate.
 ## Running the notebooks
 
 ```bash
-conda activate scQDiff
+conda activate scJDO
 jupyter lab
 ```
 
