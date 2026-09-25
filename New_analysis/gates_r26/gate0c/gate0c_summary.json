@@ -1,0 +1,139 @@
+{
+  "R": 10,
+  "K": 5,
+  "consensus_threshold_R": 8,
+  "arm_V0": {
+    "vel_scale": 0.0,
+    "clusters": [
+      {
+        "label": 1,
+        "R_cluster": 10,
+        "intra_cos": 0.8559610584536685,
+        "n_members": 46,
+        "reps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "label": 2,
+        "R_cluster": 1,
+        "intra_cos": 1.0,
+        "n_members": 1,
+        "reps": [
+          1
+        ]
+      },
+      {
+        "label": 3,
+        "R_cluster": 1,
+        "intra_cos": 1.0,
+        "n_members": 1,
+        "reps": [
+          4
+        ]
+      },
+      {
+        "label": 4,
+        "R_cluster": 1,
+        "intra_cos": 1.0,
+        "n_members": 1,
+        "reps": [
+          5
+        ]
+      },
+      {
+        "label": 5,
+        "R_cluster": 1,
+        "intra_cos": 1.0,
+        "n_members": 1,
+        "reps": [
+          8
+        ]
+      }
+    ],
+    "n_consensus_clusters": 1,
+    "mean_intra_cos_passing": 0.8559610584536685,
+    "dup_within_rep_per_passing": [
+      10
+    ]
+  },
+  "arm_V2": {
+    "vel_scale": 2.0,
+    "clusters": [
+      {
+        "label": 1,
+        "R_cluster": 10,
+        "intra_cos": 0.844161424893999,
+        "n_members": 46,
+        "reps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "label": 2,
+        "R_cluster": 1,
+        "intra_cos": 1.0,
+        "n_members": 1,
+        "reps": [
+          1
+        ]
+      },
+      {
+        "label": 3,
+        "R_cluster": 1,
+        "intra_cos": 1.0,
+        "n_members": 1,
+        "reps": [
+          4
+        ]
+      },
+      {
+        "label": 4,
+        "R_cluster": 1,
+        "intra_cos": 1.0,
+        "n_members": 1,
+        "reps": [
+          5
+        ]
+      },
+      {
+        "label": 5,
+        "R_cluster": 1,
+        "intra_cos": 1.0,
+        "n_members": 1,
+        "reps": [
+          8
+        ]
+      }
+    ],
+    "n_consensus_clusters": 1,
+    "mean_intra_cos_passing": 0.844161424893999,
+    "dup_within_rep_per_passing": [
+      10
+    ]
+  },
+  "chosen_default_arm": "V0",
+  "chosen_vel_scale": 0.0,
+  "n_consensus_clusters_V0": 1,
+  "n_consensus_clusters_V2": 1,
+  "mean_intra_cos_V0": 0.8559610584536685,
+  "mean_intra_cos_V2": 0.844161424893999
+}
