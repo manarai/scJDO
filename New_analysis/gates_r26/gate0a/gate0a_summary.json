@@ -1,0 +1,79 @@
+{
+  "per_seed_diffs": {
+    "0": {
+      "v_ref_max_abs": 1.0987982749938965,
+      "v_ref_bitwise_identical": false,
+      "state_dict_max_abs_param": 1.0987982749938965,
+      "state_dict_n_identical": 3,
+      "state_dict_n_total": 53,
+      "top15_overlap": 13,
+      "A_top5": [
+        "RP11-1I2.1",
+        "CLU",
+        "IGHM",
+        "MEG3",
+        "CRHBP"
+      ],
+      "B_top5": [
+        "RP11-1I2.1",
+        "CLU",
+        "MEG3",
+        "IGHM",
+        "CRHBP"
+      ],
+      "A_peak_max_eig": -0.045357078313827515,
+      "B_peak_max_eig": -0.030811088159680367
+    },
+    "1": {
+      "v_ref_max_abs": 1.0987982749938965,
+      "v_ref_bitwise_identical": false,
+      "state_dict_max_abs_param": 1.0987982749938965,
+      "state_dict_n_identical": 3,
+      "state_dict_n_total": 53,
+      "top15_overlap": 14,
+      "A_top5": [
+        "HBB",
+        "AHSP",
+        "CA1",
+        "FAM178B",
+        "APOC1"
+      ],
+      "B_top5": [
+        "HBB",
+        "AHSP",
+        "CA1",
+        "FAM178B",
+        "APOC1"
+      ],
+      "A_peak_max_eig": -0.018985288217663765,
+      "B_peak_max_eig": -0.025614650920033455
+    },
+    "2": {
+      "v_ref_max_abs": 1.0987982749938965,
+      "v_ref_bitwise_identical": false,
+      "state_dict_max_abs_param": 1.0987982749938965,
+      "state_dict_n_identical": 3,
+      "state_dict_n_total": 53,
+      "top15_overlap": 14,
+      "A_top5": [
+        "HBB",
+        "AHSP",
+        "CA1",
+        "FAM178B",
+        "APOC1"
+      ],
+      "B_top5": [
+        "HBB",
+        "AHSP",
+        "CA1",
+        "FAM178B",
+        "APOC1"
+      ],
+      "A_peak_max_eig": -0.023224687203764915,
+      "B_peak_max_eig": -0.023062778636813164
+    }
+  },
+  "v_identical_across_all_seeds": false,
+  "weights_identical_across_all_seeds": false,
+  "verdict": "Case 3: bias reaches model and produces different weights; any top-K basin equivalence is dominated by seed, not bias"
+}
