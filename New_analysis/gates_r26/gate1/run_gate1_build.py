@@ -78,51 +78,53 @@ def build_myeloid_h5ad():
 
 
 def _preprocess_and_save(mye):
-    print("[build] subsampling for tractable pseudotime...")
+    print("[build] subsampling for tractable pseudotime + scJDO fit (compute-scale)...")
     t0 = time.time()
     rng = np.random.default_rng(0)
-    # keep: all day-2 with any clone, all Neut/Mono at any day, subsample Undiff
     has_clone = np.asarray(mye.obsm["X_clone"].sum(axis=1)).flatten() > 0
     d = mye.obs["day"].values
     ct = mye.obs["cell_type"].values
 
-    keep_d2_clone = (d == 2) & has_clone                           # ~4.6K
-    keep_late_diff = (d != 2) & np.isin(ct, ["Neutrophil", "Monocyte"])   # ~41K
+    keep_d2_clone = (d == 2) & has_clone                            # ~4.6K
+    # subsample Neut/Mono at day-4/6 — 2000 each for terminal anchors
+    neut_idx = np.where((d != 2) & (ct == "Neutrophil"))[0]
+    mono_idx = np.where((d != 2) & (ct == "Monocyte"))[0]
+    neut_sample = rng.choice(neut_idx, size=min(2000, len(neut_idx)), replace=False)
+    mono_sample = rng.choice(mono_idx, size=min(2000, len(mono_idx)), replace=False)
+    keep_terminals = np.zeros(mye.n_obs, dtype=bool)
+    keep_terminals[neut_sample] = True; keep_terminals[mono_sample] = True
+    # subsample late Undiff and day-2 Undiff without clone
     late_undiff_idx = np.where((d != 2) & (ct == "Undifferentiated"))[0]
-    n_undiff_keep = min(10000, len(late_undiff_idx))
-    late_undiff_sample = rng.choice(late_undiff_idx, size=n_undiff_keep, replace=False)
-    keep_late_undiff = np.zeros(mye.n_obs, dtype=bool)
-    keep_late_undiff[late_undiff_sample] = True
-    # also keep day-2 Undiff cells (without clone) — they anchor the progenitor pool
+    late_undiff_sample = rng.choice(late_undiff_idx,
+                                    size=min(2000, len(late_undiff_idx)),
+                                    replace=False)
     d2_undiff_idx = np.where((d == 2) & (ct == "Undifferentiated") & ~has_clone)[0]
-    n_d2_undiff_keep = min(5000, len(d2_undiff_idx))
-    d2_undiff_sample = rng.choice(d2_undiff_idx, size=n_d2_undiff_keep, replace=False)
-    keep_d2_undiff = np.zeros(mye.n_obs, dtype=bool)
-    keep_d2_undiff[d2_undiff_sample] = True
+    d2_undiff_sample = rng.choice(d2_undiff_idx,
+                                  size=min(2000, len(d2_undiff_idx)),
+                                  replace=False)
+    keep_intermediates = np.zeros(mye.n_obs, dtype=bool)
+    keep_intermediates[late_undiff_sample] = True
+    keep_intermediates[d2_undiff_sample] = True
 
-    keep = keep_d2_clone | keep_late_diff | keep_late_undiff | keep_d2_undiff
+    keep = keep_d2_clone | keep_terminals | keep_intermediates
     print(f"[build] subsample: total={int(keep.sum())} "
           f"(d2_clone={int(keep_d2_clone.sum())}, "
-          f"late_neut_mono={int(keep_late_diff.sum())}, "
-          f"late_undiff_sample={n_undiff_keep}, "
-          f"d2_undiff_sample={n_d2_undiff_keep})")
+          f"terminals_neut={len(neut_sample)}, terminals_mono={len(mono_sample)}, "
+          f"late_undiff={len(late_undiff_sample)}, d2_undiff={len(d2_undiff_sample)})")
     mye = mye[keep].copy()
 
-    print("[build] normalize + log + HVG(2000) + scale + PCA(50) + FA(30)...")
+    print("[build] normalize + log + HVG(2000) + PCA(30) as X_fa rep (memory-safe)...")
     sc.pp.normalize_total(mye, target_sum=1e4)
     sc.pp.log1p(mye)
     sc.pp.highly_variable_genes(mye, n_top_genes=2000, flavor="seurat",
                                  batch_key=None, subset=False)
     mye = mye[:, mye.var["highly_variable"]].copy()
     print(f"[build] after HVG: {mye.shape}")
-    # scale is now feasible: n ~55K x 2000 float32 ~ 440 MB
-    sc.pp.scale(mye, max_value=10, zero_center=True)
-    sc.tl.pca(mye, n_comps=50, random_state=0)
-    from sklearn.decomposition import FactorAnalysis
-    fa = FactorAnalysis(n_components=30, random_state=0)
-    X_fa = fa.fit_transform(mye.obsm["X_pca"]).astype(np.float32)
-    mye.obsm["X_fa"] = X_fa
-    mye.uns["fa_components_on_pca"] = fa.components_.astype(np.float32)
+    # arpack on sparse: implicit zero-centering, no densification
+    sc.tl.pca(mye, n_comps=30, random_state=0, svd_solver="arpack",
+              use_highly_variable=False)
+    mye.obsm["X_fa"] = mye.obsm["X_pca"].astype(np.float32)
+    mye.varm["fa_loadings"] = mye.varm["PCs"].astype(np.float32)
     mye.write_h5ad(H5AD_PATH_PP)
     print(f"[build] wrote {H5AD_PATH_PP}  {mye.shape}  preproc time {time.time()-t0:.1f}s")
     return mye
@@ -197,9 +199,9 @@ def fit_scjdo_features(mye, seed):
             time_key="pseudotime", groupby="cell_fate",
             progenitor_cluster="Progenitor",
             terminal_clusters={name: name for name in branches},
-            bias_strength=1.5, n_archetypes=K_ARCH, n_epochs=5000,
+            bias_strength=1.5, n_archetypes=K_ARCH, n_epochs=3000,
             vel_scale=0.0, hidden=256, depth=4, sigma=0.10,
-            windowing="kernel", bandwidth="auto", grid_size=200,
+            windowing="kernel", bandwidth="auto", grid_size=150,
             seed=seed, verbose=False,
         )
     out = {}
