@@ -1,0 +1,20 @@
+{
+  "n_cells": 1500,
+  "n_seeds": 3,
+  "mean_angular_drift_forward": -0.00017011526506394148,
+  "mean_angular_drift_reverse": -0.00017447758000344038,
+  "spread_across_seeds_forward": 2.2545878891833127e-05,
+  "spread_across_seeds_reverse": 1.5491159501834773e-05,
+  "antisymmetry_ratio": 2.0256432892007616,
+  "predicted": false,
+  "per_seed_forward_mean": [
+    -0.00020184270397294313,
+    -0.00015151310071814805,
+    -0.0001569897576700896
+  ],
+  "per_seed_reverse_mean": [
+    -0.0001912076404551044,
+    -0.00015386342420242727,
+    -0.00017836212646216154
+  ]
+}
