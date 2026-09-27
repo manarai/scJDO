@@ -80,3 +80,5 @@ Per Gate 3's Step 8 (2026-09-27), three follow-up items were queued. All three r
 Aggregate decision unchanged: **Calibration paper with negatives.** Two positive nuances beyond the aggregate FAIL, worth writing in:
 1. Gate 0d's Hungarian 1-to-1 matching reveals 4/5 marrow Ery archetypes are actually consensus-stable under real pseudotime (min signed cos ≥ 0.7). Gate 0c's "K_eff = 1" was an artefact of single-linkage agglomerative clustering that chained everything into one cluster.
 2. Precision-matrix baseline strengthens Gate 0b: the Jacobian is not covariance content AND not precision content on this substrate (median cos 0.36).
+
+Gate 0c's consensus was methodologically flawed (absolute cosine, single linkage). Gate 0d with a block-permutation null and held-out gain gives K_eff = 1.
