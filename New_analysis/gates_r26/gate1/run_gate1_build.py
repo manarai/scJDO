@@ -409,21 +409,46 @@ def main():
     palantir_pseudotime(mye, seed=0)
     tau = mye.obs["pseudotime"].values.astype(np.float32)
 
-    # scJDO features × 3 seeds
+    # scJDO features × 3 seeds — per-seed subprocess call with cache + wall-clock cap
+    import subprocess, pickle
+    HELPER = Path(__file__).parent / "_scjdo_one_seed.py"
     per_seed_features = {}
+    # Palantir pseudotime + branch probs saved to preproc h5ad so subprocess can load
+    if "pseudotime" not in mye.obs or "branch_probs" not in mye.obsm:
+        raise RuntimeError("Palantir outputs missing from mye")
+    mye.write_h5ad(H5AD_PATH_PP)
     for seed in SCJDO_SEEDS:
+        ckpt = OUT / f"gate1_scjdo_seed{seed}.pkl"
+        if ckpt.exists():
+            print(f"\n[scjdo] seed={seed} loading cache {ckpt.name}")
+            per_seed_features[seed] = pickle.loads(ckpt.read_bytes())
+            continue
+        print(f"\n[scjdo] seed={seed} → subprocess {HELPER.name}")
         t_s = time.time()
-        print(f"\n[scjdo] seed={seed} fit_drift_branches...")
-        per_seed_features[seed] = fit_scjdo_features(mye, seed)
-        print(f"  seed {seed} done in {time.time()-t_s:.1f}s")
+        try:
+            subprocess.run(
+                [sys.executable, "-u", str(HELPER), str(seed)],
+                cwd=str(REPO), check=True, timeout=2700,  # 45 min
+            )
+        except subprocess.TimeoutExpired:
+            print(f"  seed {seed} TIMEOUT after 45 min — skipping"); continue
+        except subprocess.CalledProcessError as e:
+            print(f"  seed {seed} FAILED: {e}"); continue
+        if ckpt.exists():
+            per_seed_features[seed] = pickle.loads(ckpt.read_bytes())
+            print(f"  seed {seed} done in {time.time()-t_s:.1f}s → cached")
+    if not per_seed_features:
+        raise RuntimeError("All scJDO seeds failed")
 
     branches = list(next(iter(per_seed_features.values())).keys())
     print(f"branches: {branches}")
 
-    # consensus archetype per branch across the 3 seeds
+    # consensus archetype per branch across the completed seeds
+    available_seeds = sorted(per_seed_features.keys())
+    print(f"[consensus] using {len(available_seeds)} seeds: {available_seeds}")
     consensus_result = {}
     for branch in branches:
-        per_seed = [per_seed_features[s][branch] for s in SCJDO_SEEDS]
+        per_seed = [per_seed_features[s][branch] for s in available_seeds]
         res = consensus_archetype_activation(per_seed, branch, mye.n_obs, tau)
         consensus_result[branch] = res
         if res is None:
@@ -466,10 +491,9 @@ def main():
             S_blocks.append(consensus_result[branch]["activation_per_cell"][:, None])
             S_names.append(f"S_{branch}_consensus_arch_act")
 
-    # For evaluation, we present features per-seed (3 versions of S) so we can
-    # report AUROC spread. Encoding: dict of seed → feature matrix.
+    # For evaluation, we present features per-seed (per completed scJDO seed).
     S_per_seed = {}
-    for s in SCJDO_SEEDS:
+    for s in available_seeds:
         cols = []; names = []
         for branch in branches:
             f_re = per_seed_features[s][branch]["re_lambda_max"]
@@ -480,7 +504,7 @@ def main():
                 cols.append(consensus_result[branch]["activation_per_cell"][:, None])
                 names.append(f"S_{branch}_consensus_arch_act")
         S_per_seed[s] = np.concatenate(cols, axis=1).astype(np.float32)
-        if s == SCJDO_SEEDS[0]:
+        if s == available_seeds[0]:
             print(f"S feature bundle per seed: {S_per_seed[s].shape}  ({names})")
 
     # Save everything
@@ -490,9 +514,6 @@ def main():
         "X_fa": mye.obsm["X_fa"].astype(np.float32),
         "cov_features": covariance_feats.astype(np.float32),
         "cellrank_features": cr_feats.astype(np.float32),
-        "S_seed0": S_per_seed[SCJDO_SEEDS[0]],
-        "S_seed1": S_per_seed[SCJDO_SEEDS[1]],
-        "S_seed2": S_per_seed[SCJDO_SEEDS[2]],
         "cohort_mask": mask,
         "cohort_label": cell_label,
         "cohort_group": cell_group,
@@ -501,7 +522,10 @@ def main():
         "consensus_passing_neut": np.array([consensus_result[branches[0]] is not None]),
         "consensus_passing_mono": np.array([consensus_result[branches[1]] is not None]) if len(branches) > 1 else np.array([False]),
         "branches": np.array(branches, dtype=object),
+        "available_seeds": np.array(available_seeds, dtype=np.int32),
     }
+    for s in available_seeds:
+        save_kw[f"S_seed{s}"] = S_per_seed[s]
     np.savez(OUT / "gate1_features.npz", **{k: v for k, v in save_kw.items() if not isinstance(v, (list, tuple))})
     print(f"[done] wrote {OUT / 'gate1_features.npz'}  total {time.time()-t0:.1f}s")
 
