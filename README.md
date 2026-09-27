@@ -225,6 +225,19 @@ for the derivation and side-by-side validation.
 
 ---
 
+## Known limitations (v0.3.x)
+
+scJDO is a snapshot-derived Jacobian estimator. What that means, in terms measured against real datasets during r22–r26 calibration and the wrap-up tasks:
+
+- **Leading-direction loadings are seed-dependent under default settings.** The 30 "leading-direction loadings" produced by a single `fit_drift` run are not a stable object across random seeds at default `n_epochs=5000` and `bandwidth='auto'`. Report multi-seed statistics (≥3 seeds, spread or CI), the mask status, the bandwidth-sweep result, and the prior settings whenever gene lists derived from the Jacobian are shown.
+- **The sensitive mask does not fire on the benchmark datasets used in the manuscript.** All gene lists in the figures come from the unmasked fallback path in `sjd.tl.infer_regulators`. Consumers who rely on the mask should treat it as opt-in, not opt-out, and verify per dataset.
+- **`bias_strength` and `vel_scale` behaviour as measured in r24 / Gate 0a.** The additive pseudotime-gradient prior slot (formerly "velocity prior") *is* wired into the model (`V_ref` and 50/53 state_dict tensors differ between `bias_strength=1.5` and `bias_strength=0` at the same seed), but which basin the training lands in is dominated by the seed at these fit parameters. Do not read `vel_scale × bias_strength` interactions as attractor structure — they are training basins of a non-convex fit.
+- **Fig 3 requires Palantir 1.4.4 and MAGIC imputation to reproduce.** The regulator table and archetype panels of Fig 3 use `palantir.utils.run_diffusion_maps` / `determine_multiscale_space` at 1.4.4, followed by MAGIC on the branch-restricted expression matrix, per the r24-pinned pipeline. Different Palantir versions may give different terminal-cell assignments and slightly different pseudotime; the downstream operator statistics inherit this dependence.
+- **What snapshot-derived Jacobians CAN be trusted for**: covariance structure of local operators; estimator fidelity on synthetic ground truth; and (with velocity supervision) time-varying operators whose leading direction agrees per-window with a supervision reference. See `EVIDENCE_LEDGER.md` for the full list of established, qualified, and negative findings.
+- **What they CANNOT be trusted for** on snapshot data alone: predicting downstream fate or velocity beyond what an expression baseline recovers; identifying commitment before differentiation onset from covariance softening; recovering rotation direction from pseudotime without an additive prior.
+
+---
+
 ## Citation
 
 If you use scJDO, please cite:

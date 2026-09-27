@@ -1,5 +1,29 @@
 # Changelog
 
+## [Unreleased] — 2026-09-27 (calibration-paper wrap-up)
+
+### Fixed (from r25 review)
+
+- **`infer_regulators` empty-instability guard** (`scjdo/tl/_regulators.py`) — added the `instab_matrix.ndim == 2 and instab_matrix.shape[1] > 0` check at line 356 and the bounds check on `gi_list` before indexing. Prevents the `IndexError` when the sensitive mask leaves the instability matrix with zero columns (observed on marrow Ery and DC datasets when using the r25 masked path with narrow gene sets).
+- **`infer_regulators` empty-result return** (`scjdo/tl/_regulators.py`) — replaced the `ValueError("No regulator results")` raise at line 867 with an empty-DataFrame return + `UserWarning`. Downstream code no longer needs a try/except around the call when no path produces results.
+- **`sjd.tl.rank_fusion` public export** (`scjdo/tl/__init__.py`, r20) — now importable as `sjd.tl.rank_fusion` for RRF-based ensemble scoring; matches the docs.
+
+### Documented — Known limitations (v0.3.x)
+
+Written into `README.md` (Known limitations section). Summary:
+- Leading-direction loadings are seed-dependent at default settings; multi-seed reporting is mandatory (Gate 0a; EVIDENCE_LEDGER EL04, EL15).
+- The sensitive mask does not fire on the manuscript benchmark datasets; all shown gene lists come from the unmasked fallback path.
+- The additive pseudotime-gradient prior slot (previously called "velocity prior") is wired to the model; `vel_scale × bias_strength` outcomes are training basins of the SGD fit, not dynamical-system attractors (Gate 0a; EL04, EL20, EL21).
+- Fig 3 reproduction requires Palantir 1.4.4 + MAGIC imputation on the branch-restricted expression matrix.
+
+### Changed — terminology (paper-and-README-only, no API change)
+
+- "Two attractors" → "training basins" throughout narrative documentation.
+- "Sensitivity genes" → "leading-direction loadings" throughout narrative documentation.
+- "Velocity prior" → "additive pseudotime-gradient prior" throughout narrative documentation.
+
+The Python API symbols (`vel_scale`, `bias_strength`, `V_ref`, `sensitive_mask`) are unchanged for backward compatibility.
+
 ## [0.3.0] — 2026-05-15
 
 ### Added — high-level API

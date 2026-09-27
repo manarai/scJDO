@@ -1,0 +1,62 @@
+{
+  "Ery": {
+    "tf_ranks": {
+      "KLF1": 127,
+      "GATA2": 392,
+      "GATA1": 135,
+      "TAL1": 218
+    },
+    "top10": [
+      "MARCKSL1",
+      "RPL11",
+      "RPS9",
+      "HMGB1",
+      "RPS16",
+      "TPT1",
+      "RPL30",
+      "RPL34",
+      "AJ006998.2",
+      "PTMA"
+    ],
+    "n_cells": 1151
+  },
+  "DC": {
+    "tf_ranks": {
+      "IRF8": 247,
+      "IRF7": 10229
+    },
+    "top10": [
+      "RPS18",
+      "KBTBD11",
+      "LGALS1",
+      "RPL30",
+      "RPL13",
+      "PTMA",
+      "TMSB10",
+      "ADA",
+      "RPS4X",
+      "CRHBP"
+    ],
+    "n_cells": 1903
+  },
+  "Mono": {
+    "tf_ranks": {
+      "IRF8": 1510,
+      "CEBPE": 6269,
+      "CEBPA": 1132
+    },
+    "top10": [
+      "RPL13",
+      "MT-ND2",
+      "MZB1",
+      "RPL11",
+      "RPL30",
+      "RPL35A",
+      "HCST",
+      "MT-CO1",
+      "RPL31",
+      "RPL34"
+    ],
+    "n_cells": 2008
+  }
+}
