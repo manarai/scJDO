@@ -9,7 +9,8 @@
 | 0a — bias-plumbing empirical | marrow Ery, A1 vs B1 | Case 3 (bias reaches model; seed dominates basin) | `2a41fa1` |
 | 0b — local-covariance baseline | marrow Ery Jacobian vs cov tensor | PROCEED (Jacobian ≠ local covariance; mean matched cos = 0.16) | `9d4e5ab` |
 | 0c — consensus archetypes | marrow Ery, V0 vs V2 arms | Default = V0 (vel_scale=0); K_eff = 1 stable mode, 4 archetypes are seed-noise | `598a160` |
-| 1 — LARRY early fate prediction | LARRY day-2 neut vs mono | **FAIL** (S mean 0.62 vs E mean 0.83; S − E = −0.22, CI [−0.27, −0.16]) | `44e05f7` |
+| 1 — LARRY early fate prediction (v1) | LARRY day-2 neut vs mono | **FAIL** (S mean 0.62 vs E mean 0.83; S − E = −0.22, CI [−0.27, −0.16]) | `44e05f7` |
+| 1 — LARRY early fate prediction (v2, canonical rows) | same substrate | **FAIL, sharper** — E_PCA 0.8254 / **E_FA 0.8299 (best)** / E_scVI 0.8281 / **S_FA 0.5076** / E_FA + S_FA 0.8293; S_FA − E_FA = −0.32, CI [−0.36, −0.28] | `3be140b` |
 | 2 — scNT-seq metabolic labelling | scNT-seq Neu, R vs G vs L | **FAIL on all 3 predictions** (P1: cos 0.34 < 0.5; P2: Δ_L−G = −0.057 CI negative; P3: var_L/var_G = 16.6) | `315b8d5` |
 
 ## Decision-table read-out
@@ -29,7 +30,7 @@ Positive (all gate 0 outcomes):
 - The `vel_scale = 0` (no velocity prior) configuration is at least as consensus-stable as `vel_scale = 2` on the reference substrate (Gate 0c tiebreak: intra-cluster |cos| 0.856 vs 0.844).
 
 Negative (all downstream tests):
-- **Fate prediction (LARRY)**: scJDO's per-cell Jacobian features (Re λ_max + leading-J projection + consensus archetype activation) do NOT beat expression baselines for neut-vs-mono clone-fate prediction at day 2. S mean AUROC 0.62, E (PCA30) 0.83, K (Palantir fate probs) 0.78, C (local covariance) 0.62. Adding S to E slightly HURTS (CI on E+S − E excludes 0 in negative direction).
+- **Fate prediction (LARRY)**: scJDO's per-cell Jacobian features (Re λ_max + leading-J projection + consensus archetype activation) do NOT beat expression baselines for neut-vs-mono clone-fate prediction at day 2. v2 canonical rows: E_PCA 0.83, E_FA 0.83, E_scVI 0.83 (all three linear/scVI reps agree within 0.005 AUROC). **S_FA 0.51 — essentially chance; per-seed 0.46/0.48/0.58 shows scJDO fit-instability, not signal.** E_FA + S_FA equals E_FA (Δ = −0.0006, CI includes 0) — S_FA is dominated by regularisation when combined with E_FA.
 - **Labelling-anchored operator agreement (scNT-seq)**: scJDO's geometry-only Jacobian does not agree with a labelling-derived reference on data-determined outputs (median leading-eigvec cos = 0.34, Spearman on Re λ_max = 0.13). Injecting the labelling reference as V_ref makes disagreement worse (cos → 0.03) and destabilises fits across seeds (var_L / var_G = 16.6).
 
 ## What the manuscript cannot claim
