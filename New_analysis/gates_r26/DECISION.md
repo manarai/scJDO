@@ -65,3 +65,18 @@ Every gate directory contains: `PREREG_Gate<N>.md`, `run_gate<N>*.py`, `gate<N>_
 - No new tags until manuscript is rewritten around the decision.
 - Manuscript rewrite proceeds against the calibration-with-negatives frame, incorporating the three deferred corrections above.
 - No further gate work until the rewrite is drafted.
+
+## Gate 3 downstream chain — closed
+
+Per Gate 3's Step 8 (2026-09-27), three follow-up items were queued. All three ran and reported:
+
+| Item | Commit | Verdict |
+|:---:|:---:|:---:|
+| Gate 3 strict (LARRY day-2, covariance-only) | `6edbb1e` | **FAIL** — C and Ic add 0 beyond E (all ΔAUROC ≈ 0, CI includes 0) |
+| Gate 2 redo (velocity-matching loss, expression baseline) | `376796e` | **FAIL** on P1 & P3; P2 passes but baseline_E dominates (cos = 0.99) |
+| Cell-cycle reversal calibration figure | `fc17265` | vanilla scJDO does NOT encode pseudotime direction as rotation (DSM only) |
+| Gate 0d (Hungarian 1-to-1 + folds + null + precision) | `93d15f7` | **FAIL** (shuffled null degenerate) — but Hungarian shows 4/5 archetypes CV-stable under REAL (K_eff correction of Gate 0c), J ≠ precision (median cos 0.36) |
+
+Aggregate decision unchanged: **Calibration paper with negatives.** Two positive nuances beyond the aggregate FAIL, worth writing in:
+1. Gate 0d's Hungarian 1-to-1 matching reveals 4/5 marrow Ery archetypes are actually consensus-stable under real pseudotime (min signed cos ≥ 0.7). Gate 0c's "K_eff = 1" was an artefact of single-linkage agglomerative clustering that chained everything into one cluster.
+2. Precision-matrix baseline strengthens Gate 0b: the Jacobian is not covariance content AND not precision content on this substrate (median cos 0.36).
