@@ -1,0 +1,59 @@
+{
+  "shape": [
+    3060,
+    30
+  ],
+  "bandwidth": 0.1,
+  "P1": {
+    "G": {
+      "median_cos_leading_eigvec_per_seed": [
+        0.4762592911720276,
+        0.34539324045181274,
+        0.19810321927070618
+      ],
+      "spearman_re_lmax_per_seed": [
+        0.11997866571847637,
+        0.13477043424152185,
+        0.12022390525068397
+      ],
+      "median_cos_leading_eigvec_mean": 0.3399185836315155,
+      "spearman_re_lmax_mean": 0.12499100173689408
+    },
+    "L": {
+      "median_cos_leading_eigvec_per_seed": [
+        0.03885578736662865,
+        0.0340610072016716,
+        0.016165301203727722
+      ],
+      "spearman_re_lmax_per_seed": [
+        -0.6522975242541779,
+        -0.7228170468834773,
+        -0.3598753766438706
+      ],
+      "median_cos_leading_eigvec_mean": 0.029694030061364174,
+      "spearman_re_lmax_mean": -0.5783299825938419
+    }
+  },
+  "P1_pass": false,
+  "P2": {
+    "mean_cos_vG_R": -0.17640185356140137,
+    "mean_cos_vL_R": -0.23355433344841003,
+    "delta_mean_per_cell": -0.057152505964040756,
+    "delta_95ci": [
+      -0.07215538937598467,
+      -0.04167560720816255
+    ],
+    "pass": false
+  },
+  "P3": {
+    "var_G_mean": 0.01587405428290367,
+    "var_L_mean": 0.30643486976623535,
+    "median_var_ratio": 16.62123680114746,
+    "median_var_ratio_95ci": [
+      16.361631393432617,
+      16.802219724655153
+    ],
+    "pass": false
+  },
+  "verdict": "FAIL Gate 2"
+}

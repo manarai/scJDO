@@ -65,13 +65,9 @@ def run_dynamo_reference(adata):
     dyn.tl.moments(adata)
 
     X_pca = np.asarray(adata.obsm["X_pca"]).astype(np.float32)      # (N, D_REP)
-    # HVG-filtered PCA loadings for projecting per-gene signals into PCA
     hvg = adata.var["use_for_pca"].values if "use_for_pca" in adata.var else np.ones(adata.n_vars, dtype=bool)
-    PCs = np.asarray(adata.varm["PCs"]).astype(np.float32)          # (n_hvg, D_REP)
-    if PCs.shape[0] == adata.n_vars:
-        PCs_hvg = PCs[hvg]
-    else:
-        PCs_hvg = PCs
+    PCs = np.asarray(adata.uns["PCs"]).astype(np.float32)           # (n_hvg or n_var, D_REP)
+    PCs_hvg = PCs[hvg] if PCs.shape[0] == adata.n_vars else PCs
     print(f"[R] X_pca={X_pca.shape}  PCs_hvg={PCs_hvg.shape}  HVG count={int(hvg.sum())}", flush=True)
 
     # M_n is the moment-smoothed new-transcript matrix
@@ -331,7 +327,14 @@ def main():
     verdict = "PASS Gate 2" if all_pass else "FAIL Gate 2"
     print(f"\nVerdict: {verdict}  (P1={p1_pass}, P2={p2_pass}, P3={p3_pass})")
 
-    (OUT / "gate2_summary.json").write_text(json.dumps({
+    def _to_native(v):
+        if isinstance(v, (np.floating,)): return float(v)
+        if isinstance(v, (np.integer,)): return int(v)
+        if isinstance(v, np.ndarray): return v.tolist()
+        if isinstance(v, (list, tuple)): return [_to_native(x) for x in v]
+        if isinstance(v, dict): return {k: _to_native(x) for k, x in v.items()}
+        return v
+    payload = _to_native({
         "shape": list(X_pca.shape), "bandwidth": bw,
         "P1": p1, "P1_pass": bool(p1_pass),
         "P2": {"mean_cos_vG_R": mean_cos_G, "mean_cos_vL_R": mean_cos_L,
@@ -342,7 +345,8 @@ def main():
                 "median_var_ratio": float(np.nanmedian(ratio)),
                 "median_var_ratio_95ci": ci_p3, "pass": bool(p3_pass)},
         "verdict": verdict,
-    }, indent=2))
+    })
+    (OUT / "gate2_summary.json").write_text(json.dumps(payload, indent=2))
     np.savez(OUT / "gate2_arms.npz",
               J_R=J_R, R_v_ref=R["v_ref"], X_pca=X_pca, tau=tau, t_centers=t_centers,
               **{f"G_seed{s}_J": G_arms[s]["J_tensor"] for s in SEEDS},
