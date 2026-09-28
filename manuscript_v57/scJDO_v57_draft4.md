@@ -1,0 +1,213 @@
+# Snapshot-derived Jacobians determine local covariance structure, not flow: identifiability limits and a ground-truth benchmark for single-cell operator inference
+
+Redd D., Green S., Terooatea T. W.
+
+## Abstract
+
+Single-cell snapshots are widely used to infer dynamical operators such as the Jacobian of a drift field, but a snapshot constrains only part of that operator. We show that, in a local Lyapunov gauge, the stationary density and noise covariance fix the symmetric part of the Jacobian while the antisymmetric part, which carries flow direction, oscillatory phase and rotational structure, is set by the estimator's prior; we give the algebra for the two-dimensional case and the experimental information needed to recover the remainder. Using scJDO, an estimator that assembles a pseudotime-indexed Jacobian tensor from snapshot data, we test these predictions against analytic, lineage-tracing and metabolic-labeling ground truth. The learned Jacobian reproduces the analytic Jacobian evaluated at sampled cells, yet no cell-evaluated Jacobian, learned or exact, localizes a bifurcation. Operator features add nothing to expression for predicting clone fate in LARRY hematopoiesis, default outputs are seed-dependent, and only one stable temporal component survives a permutation null. Velocity supervision stabilizes the operator but cannot exceed its reference. We provide a reporting checklist for Jacobian-derived claims.
+
+## 1. Introduction
+
+Cell state trajectories inferred from single-cell RNA sequencing have driven a decade of methods for reading dynamics out of snapshot data — velocity from splicing kinetics [1], from metabolic labeling [2], and from geometric neighborhoods [3]. The Jacobian of the inferred drift field promises more than a pseudotime axis: an operator whose leading direction points from a cell to its likely successor, whose eigenvalue crossings mark bifurcations, and whose spatial and temporal derivatives locate the genes that drive transitions [4, 5]. Two lines of prior work bound what is achievable from a snapshot alone. Weinreb et al. 2018 [6] established the identifiability limit itself: the same density is consistent with many velocity fields, so dynamics are not determined by a snapshot without further assumptions. Weinreb et al. 2020 [7] provided the LARRY in vitro lineage-tracing atlas we use in §2.4 as a ground-truth cohort for that limit. Balubaid et al. 2025 [8] showed empirically that operator methods often recover neighborhood statistics rather than dynamics. A separate line of prior art on inferring drift structure from steady-state covariance via a continuous Lyapunov equation (Varando & Hansen 2020 [16]) provides the algebraic vocabulary we use in §2.1. Neither line of prior work states the identifiability ambiguity exactly for the snapshot-Jacobian problem, nor tracks it through a specific estimator on ground-truth data.
+
+The problem is straightforward to state, and its algebraic core is known. The graphical continuous Lyapunov models of Varando & Hansen 2020 [16] treat the stationary covariance as the solution of a continuous Lyapunov equation `M Σ + Σ M^T + C = 0` parametrized by the drift matrix `M` and the noise covariance `C`; Dettling et al. 2023 [17] proved that the drift matrix is globally identifiable from `Σ` if and only if its sparsity graph is simple (no directed two-cycles). What we bring to the snapshot-Jacobian problem is not a new identifiability result, but the application of these classical facts to a specific class of single-cell operator estimators. A stationary distribution together with a diffusion tensor determines the symmetric part of the drift Jacobian in a Lyapunov gauge; the antisymmetric part — which encodes flow direction, rotational structure and time-of-arrival on the diagonalizing basis — is a free choice not resolvable from marginal density alone. Every operator-inference method picks that choice implicitly, through a smoothing kernel over a monotone pseudotime, a velocity prior anchored to k-nearest-neighbours, an assumption about which cluster is the progenitor, or a training basin selected by the seed of the fit. Users of the outputs generally cannot tell which numbers came from the data and which came from the choice.
+
+This paper's contribution is fourfold. First, we apply the continuous-Lyapunov identifiability framework of Varando & Hansen 2020 [16] and Dettling et al. 2023 [17] to single-cell Jacobian estimators, making the ambiguity concrete in the Lyapunov gauge `J = (−D/2 + A) Σ^{−1}` where the antisymmetric matrix `A(x)` is unidentified from marginal densities. Second, we derive the `ψ ∝ ρ` instance in closed form and count the experimental perturbations needed to fix each component of `A`: the pointwise trace of the drift Jacobian is preserved, the determinant sign satisfies `det ∇f′ = (D² + c²) det H`, and the antisymmetric scalar `Q` tracks the single free parameter `c` (supplement S1). Third, we test scJDO — a scored drift-field estimator that assembles a temporal Jacobian tensor from a snapshot — on a synthetic toggle-SDE bifurcation where the analytic Jacobian is known, on lineage-tracing hematopoiesis where clone fate is known, on scNT-seq metabolic labeling of KCl-stimulated cortical neurons where a per-cell nascent-transcript projection is directly measured, and on a synthetic circular substrate where the sign of rotation is stipulated by construction. Fourth, we propose a reporting checklist that turns the identifiability limit into a design principle: state what the snapshot determined, state what the prior selected, and state which of your outputs would change if you swapped priors.
+
+The result of the second exercise is that the outputs of scJDO — and, we argue, of any snapshot-derived Jacobian method — cluster into three groups. Some are determined by the snapshot and reproducible up to fit noise. Some are selected by the prior and would change if the prior were changed. Some can be recovered with additional data of a specifiable form. Our recommendation is that only the first two categories be reported, that the second be marked as prior-selected, and that experiments intended to fix the third category be designed accordingly. Palantir [3] and CellRank [9] are pseudotime and fate-probability inference methods and do not attempt to compute a drift field or its Jacobian; we cite them as substrate providers, not as comparators for what the operator machinery claims to add.
+
+## 2. Results
+
+### 2.1 Theory: the Lyapunov gauge, `ψ ∝ ρ` algebra, and the price of `A`
+
+We model the observed cell distribution `p(x, τ)` at each pseudotime as the stationary distribution of an Itô diffusion with noise covariance `D(x)`. In the Lyapunov gauge the drift and its Jacobian factor as
+
+- `f(x) = −( D(x)/2 − A(x) ) · ∇V(x)`,
+- `J(x) = ( −D(x)/2 + A(x) ) · Σ(x)^{−1}`,
+
+where `V(x) = −log p(x)`, `D(x)` is the noise covariance (`dX_t = f(X_t) dt + σ(X_t) dW_t` with `D = σ σ^T`), `Σ(x) = ⟨(x−μ_x)(x−μ_x)^T⟩` is the local covariance, and `A(x)` is antisymmetric. The symmetric part of the whitened Jacobian, `sym(Σ^{−1/2} J Σ^{1/2}) = −½ Σ^{−1/2} D Σ^{−1/2}`, is uniquely determined by `p` and `D`. The antisymmetric part `A(x)` is not: any local rotation of the diagonalizing basis leaves the marginal density invariant. This is the graphical continuous Lyapunov statement of Varando & Hansen 2020 [16] and Dettling et al. 2023 [17]: without a constraint on the drift's sparsity graph, the covariance does not recover the drift; here we specialise it to the pointwise Jacobian used by single-cell operator estimators.
+
+On the `ψ ∝ ρ` subfamily (`d = 2`), the algebra collapses to a single scalar `c(x)` per point that parametrizes `A(x)`. Three pointwise invariants organise what a snapshot can and cannot recover (supplement S1): (i) `tr J(x)` is preserved for every choice of `c`, so the trace is a snapshot-determined scalar at every cell; (ii) the determinant of the transformed drift Jacobian satisfies `det ∇f′ = (D² + c²) det H`, where `H = −∇²V` is the Hessian of `−V`, so the sign of `det ∇f′` is preserved regardless of `c`; and (iii) the antisymmetric scalar `Q(x)` tracks `c(x)` monotonically and is the free parameter of the family. Recovering the rotation from the marginal density therefore requires evidence outside the snapshot: (`d − 1`) static perturbations, one time-resolved perturbation, per-cell velocity information whose reference is not a linear function of the input representation, or lineage-tracking displacement. Fig 1 lays out this price schedule; the algebra behind panels A and B is Table S1.
+
+**Established.** scJDO's Jacobian archetypes are structurally distinct from local-covariance archetypes on marrow Ery: mean matched cosine 0.16 across 5 semi-NMF pairs, top-15 gene-loading Jaccard ≤ 0.22, zero of five pairs at cos ≥ 0.9 [ EL01 ]. They are also distinct from local precision matrices: median matched cosine 0.36 [ EL02 ]. The Jacobian is neither `Σ` nor `Σ^{−1}` content up to the semi-NMF basis. The whitened symmetric part of scJDO's Jacobian shows partial agreement at the matrix level with the Lyapunov prediction `−½ Σ^{−1/2} D̂ Σ^{−1/2}`: leading-eigenvector `|cos|` 0.33 ± 0.15 across six real fits (3 folds × 2 seeds), Frobenius correlation 0.46 ± 0.01, better than the local-precision baseline (`|cos|` 0.28 ± 0.07, Frobenius correlation −0.38 ± 0.00). The leading direction is not reliably recovered, but the matrix-level agreement is better than the naive alternative [ EL03 ].
+
+**Fig 1** — Lyapunov-gauge cartoon; `ψ ∝ ρ` price schedule; scJDO cross-comparison table.
+
+### 2.2 Estimator fidelity on synthetic ground truth
+
+Per-cell aggregation of the learned Jacobian reproduces the analytic at-cells `Re λ_max` profile. On the interior toggle-SDE estimator-fidelity benchmark (Methods; supplement S3), the argmax of `Re λ_max(τ)` from the learned per-cell aggregation lies within 0.01–0.09 of the oracle argmax across 3 fitting seeds [ EL07 ].
+
+The two-branch pitchfork V2-fixed benchmark isolates a separate question — where the bifurcation shows up on which readout — and gives a negative answer. On a toggle-SDE ramp with `τ_crit ∈ {0.1, 0.3, 0.5}` and two seeds each (six conditions), the analytic Jacobian evaluated at the symmetric fixed point crosses zero at the pre-declared tolerance for every condition (6 / 6). The analytic Jacobian evaluated at sampled cell states, by contrast, does not cross zero on the interior grid (0 / 6), and the learned Jacobian evaluated at cells does not either (0 / 6) [ EL08 ]. Reading through: the eigenvalue crossing that marks the bifurcation is a property of the geometry of the symmetric fixed point, not of the operator evaluated at cell states — and no cell-evaluated Jacobian, learned or oracle, localizes the bifurcation on this substrate. This is a property of where cells sit in a snapshot, not of the estimator.
+
+**Fig 2** — three-panel: oracle-at-fixed-point crossings vs `τ_crit` (Panel A, 6/6 within `±0.05` tolerance) [ EL08 ]; oracle-at-cells and learned-at-cells traces on the interior grid (Panel B, both flat, 0/6 crossings each) [ EL08 ]; learned-vs-oracle argmax agreement across 3 seeds on the interior toggle-SDE benchmark (Panel C) [ EL07 ].
+
+### 2.3 Real-data stability and archetype identifiability on marrow Ery
+
+On the marrow Ery branch of a hematopoiesis snapshot [3] we refit scJDO under three-fold cross-validation of cells (two seeds per fold, six total real fits) and two nulls: a block permutation of pseudotime with block width equal to the kernel bandwidth, and a circular shift of pseudotime. Ten draws per null per fold.
+
+**Real-data reproducibility of the eigenvalue curve.** Under the default configuration and three scJDO seeds on marrow Ery, the per-cell aggregation of the learned Jacobian yields a `Re λ_max(τ)` curve whose peak sits at the pseudotime boundary (peak-τ 0.020 ± 0.000 across the three seeds; pairwise curve Pearson 0.806) [ EL09 ]. The peak is at the pseudotime boundary, not at an interior maximum — an observation to be read alongside §2.2's cell-vs-fixed-point crossing scorecard when the peak location is used to argue for a regime transition.
+
+**Prior audit at default settings.** Under the default hematopoiesis pipeline (Methods), the leading-eigenvector agreement across seeds is `|cos| = 0.44` and the top-15 gene Jaccard is 0.29 [ EL04 ]. The peak eigenvalue changes sign with the training seed under the default configuration: the seed-42 fit used in the original analysis has peak `Re λ_max = +0.044`, while three audit seeds (0, 1, 2) give peak values `−0.045`, `−0.019`, `−0.023` respectively (supplement S3). Combined with the peak-at-boundary reproducibility above, this places scJDO's leading-direction summary in the prior-selected column of Box 1 rather than the snapshot-determined column: at default settings the leading direction — and even the sign of its peak eigenvalue — is a training-basin selection under the fitting seed [ EL04 ].
+
+**Rank of the temporal operator.** Real and null tensors are both approximately rank one: the held-out reconstruction gain at `K = 1` is +0.938 on real data vs +0.937 on the block-null (essentially equal), and for `K ≥ 2` the real gain never exceeds the block-null 95th percentile [ EL15 ]. No temporal operator structure beyond a constant operator is detectable on this substrate. Hungarian one-to-one signed-cosine matching gives a stability fraction of 0.667 on real data at tolerance 0.85; both nulls yield HIGHER stability fractions (0.820 for block, 0.800 for circular). This is diagnostic: nulls that preserve the marginal density of pseudotime collapse to trivially consistent archetypes because kernel windowing produces a near-constant operator across bins.
+
+The whitened symmetric-part comparison of §2.1 identifies the substrate as one where the operator is consistent with the Lyapunov-gauge prediction from a Poisson-noise diffusion tensor at the matrix level, and inconsistent with local precision as the naive alternative [ EL03 ]. But the leading-direction summary and the archetype pattern basis, when interpreted as biological invariants at the default configuration, are prior-selected under the fitting seed.
+
+**Fig 3** — three-panel: seed / prior audit of leading-direction loadings; held-out gain curve with block-null band; whitened-symmetric vs `Σ^{−1}` and vs `−½ Σ^{−1/2} D̂ Σ^{−1/2}`.
+
+### 2.4 Lineage ground truth
+
+The LARRY in vitro lineage-tracing atlas [7] provides clone identity across three time points. We use it two ways: as a fate-prediction test at day 2, and as a soft-mode falsification of a commitment marker at the same time.
+
+**Fate prediction at day 2.** Five feature sets on day-2 cells, clone-grouped five-fold cross-validation × five CV shuffle seeds; scJDO features from three fitting seeds. On the 154-cell / 106-clone compute-subsampled cohort, expression baselines (30-dimensional PCA, FA, and scVI latents [10]) reach mean AUROC ≈ 0.83 and scJDO's per-cell features reach AUROC 0.51 (per-seed 0.46, 0.48, 0.58) [ EL10 ]. On the full eligible cohort (970 classified cells across 632 eligible clones; scJDO fit substrate = 4,638 barcoded day-2 cells + 9,362 unbarcoded fill = 14,000 total; expression baselines on all 28,249 day-2 cells), the primary pre-registered contrast — whether scJDO on top of E_FA improves fate prediction — is ΔAUROC(E_FA + S_FA − E_FA) = −0.001 with 95 % CI [−0.002, +0.000], straddling zero; adding scJDO to the FA baseline does not improve fate prediction [ EL10b ]. Secondary readouts: E_PCA 0.867, E_FA 0.864, E_scVI 0.879 (best baseline), S_FA 0.554; ΔAUROC(S_FA − E_scVI) = −0.325 with 95 % CI [−0.340, −0.309] and ΔAUROC(S_FA − E_FA) = −0.310 with 95 % CI [−0.324, −0.297] — S_FA alone is far below expression, and the negative direction of the compute-subsampled cohort is preserved on the full eligible cohort [ EL10b ].
+
+**Cohort table** (side by side)
+
+| Cohort | Cells fit on (scJDO substrate) | Cells classified | Barcoded cells retained | Eligible clones | Positive fraction | Source |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| Compute-subsampled | 12,550 (myeloid subsample) | 154 | 4,550 (day-2, barcoded, in fit substrate) | 106 | Neut 0.61 / Mono 0.39 | EL10 |
+| Full eligible cohort | 14,000 (4,638 barcoded + 9,362 unbarcoded fill) | 970 | 4,638 (100 %) | 632 | Neut 0.54 / Mono 0.46 | EL10b |
+
+**Soft-mode falsification.** Day-2 local covariance softness (top-eigenvalue ratio to global) and the Mojtahedi critical-transition index [11] on the same 50-nearest-neighbour set add nothing to Factor-Analysis expression for predicting whether a clone is still mixed at day 4/6. Arm 1 (E) AUROC = 0.646; Arm 2 (E + C) ΔAUROC = +0.0001, 95 % paired-bootstrap CI [−0.012, +0.012]; Arm 3 (E + Ic) ΔAUROC = +0.0004, CI [−0.002, +0.003]; log loss unchanged [ EL11 ]. Sanity checks pass: both C and Ic track pseudotime at Spearman ρ ≈ 0.5, so the features are not broken; they are simply redundant with expression at the clone level.
+
+**Fig 4** — LARRY day-2 fate-prediction bar chart (five rows, two cohorts) with clone-grouped bootstrap CIs; soft-mode arm table; softness-vs-pseudotime scatter as sanity control.
+
+### 2.5 Labeling ground truth on scNT-seq KCl-stimulated cortical neurons, and a synthetic circular substrate with a known rotation
+
+Metabolic-labeling (scNT-seq) [2] on cortical neurons under KCl stimulation provides a nascent-transcript layer. `R` is the nascent-transcript matrix projected onto the same PCA basis the geometric methods read: on this dataset, `R = log1p(M_n_hvg) @ PCs_hvg`, where `M_n_hvg` is the new-count matrix restricted to the highly-variable-gene subset and `PCs_hvg` is the loadings matrix of the PCA computed on the log-normalized total-count expression matrix. The 3,060-cell cohort spans a KCl-stimulation time course from 0 to 120 min. On this dataset, Dynamo's kinetic velocity pipeline collapses ("4 genes have finite velocity") because the recorded `time` column encodes post-stimulation time and not labeling duration; a full kinetic velocity is not defined on this cohort [ EL32 ]. `R` is therefore the projection of the nascent-transcript readout onto the same input representation that scJDO reads, not an independent kinetic reference — and this places a fundamental limit on what a labeling comparison here can test.
+
+We compare three arms: `R` (labeling reference), `G` (geometry-only scJDO, `vel_scale = 0`), and `L` (scJDO with a velocity-matching loss `L_match = 1 − cos(f_θ(x, t), v_ref)`, `λ_match = 1`; Methods). The velocity-matching loss produces a Jacobian tensor whose per-window leading direction agrees with `R` (median `|cos(v_L, v_R)|` = 0.974) [ EL06 ] and whose temporal contrast — `‖J(τ) − J̄‖_F / ‖J̄‖_F` — is larger than `R`'s own (median 0.532 vs 0.234, ratio 2.27) and whose across-seed spread is halved compared to geometry-only [ EL06 ]. The velocity-matching arm does what the loss says: it produces a time-varying, seed-stable operator directionally aligned with the reference.
+
+But: `R` on this cohort is nearly a linear function of the same PCA basis that `X_pca` occupies, by construction. A plain `LinearRegression(X_pca → v_ref)` reaches per-cell cosine 0.993 to `R`, and 5-fold `RidgeCV` on expression reaches held-out `R² = 0.920`. scJDO's `L` Jacobian features reach held-out `R² = 0.434` [ EL13 ]. On this dataset, and against this particular reference type, the operator machinery does not add value beyond what a linear map already captures. This is a property of the reference and the cohort (`R` is `X_pca`-projected nascent transcripts under KCl-driven stimulation, not a splicing-based per-cell velocity on a spontaneously differentiating trajectory), not a scJDO failing. It also means the comparison here can only test whether scJDO recovers the nascent-transcript projection with more information than a linear map — it cannot test whether scJDO recovers a per-cell velocity direction outside the span of `X_pca`, because no such reference exists on this cohort.
+
+**Synthetic circular substrate — direction is prior-selected.** On a synthetic 30-dimensional circular substrate with 1,500 cells and a known rotation (details in Methods; substrate generator seed 42), the antisymmetric part of the Jacobian projected onto the cycle plane (`A_12`) reverses sign when pseudotime is reversed if and only if the additive pseudotime-gradient prior is active: at `vel_scale = 2`, forward-τ median `A_12` = +0.149, reverse-τ = −0.204 (three seeds each) [ EL05 ]; at `vel_scale = 0`, both magnitudes are within an order of magnitude of zero and do not consistently discriminate [ EL14 ]. Rotation direction on cyclic substrates is prior-selected under the `vel_scale` slot.
+
+**Fig 5** — three-panel: (A) temporal contrast profiles for R / G / L on the KCl-stimulation cohort; (B) per-window `|cos(v_L, v_R)|`; (C) synthetic-circular-substrate `A_12` sign flip (vel0 forward / reverse vs vel2 forward / reverse). The interpretive summary that appeared as a fourth panel in draft 1 has been moved to the two paragraphs immediately above.
+
+## 3. Discussion
+
+**What snapshot-derived Jacobians can be trusted for.**
+- The symmetric part of the whitened Jacobian, at the matrix level. §2.1 shows partial agreement with the Lyapunov-gauge prediction `−½ Σ^{−1/2} D̂ Σ^{−1/2}` on marrow Ery (leading-eigenvector `|cos|` 0.33 ± 0.15; Frobenius corr 0.46 ± 0.01; better than the local-precision baseline) [ EL03 ]. It is a covariance-derived object.
+- Per-cell aggregation of the learned Jacobian tracking the analytic at-cells `Re λ_max` curve, with reproducible temporal argmax across seeds. §2.2 [ EL07 ].
+- With velocity supervision (§2.5), the learned Jacobian tensor becomes time-varying and its per-window leading direction agrees with the supervision reference. Read as a circular-agreement caveat, not as an independent recovery of the reference: on the scNT-seq KCl-neuron cohort the reference `R` is a linear projection into the same PCA basis the estimator reads, so per-window agreement is a consistency check between two linear maps of the same input, not evidence that the operator recovers a per-cell velocity direction outside that input span [ EL06, EL13 ].
+
+**What snapshot-derived Jacobians cannot be trusted for.**
+- Localising a bifurcation using cell-evaluated Jacobians. On the V2-fixed benchmark, neither the analytic Jacobian evaluated at cells nor the learned one crosses zero on the interior grid at the bifurcation, while the analytic Jacobian at the symmetric fixed point does. This is a property of where cells sit in a snapshot, not of the estimator [ EL08 ]. Papers claiming a scJDO eigenvalue crossing marks a bifurcation must state the evaluation point (fixed-point or cell-averaged) explicitly.
+
+**What velocity supervision changes and what it does not.**
+Velocity supervision reduces across-seed spread of the operator (halves it in our test [ EL06 ]) and pins the leading-direction rotation to the supervision reference. It does NOT overcome the identifiability of the antisymmetric part when the reference itself lies in the linear span of the input representation. On the scNT-seq KCl-stimulated neuron cohort we use, `R` is the log1p nascent-transcript matrix projected onto the same PCA basis as `X_pca`, and a `RidgeCV(X_pca) → v_ref` reaches `R² = 0.92` where scJDO Jacobian features reach 0.43 [ EL13 ]. Supervision fixes the direction; it does not confer discriminating power a linear regression on the same input does not already have. This particular labeling scenario cannot distinguish between "scJDO recovers a per-cell velocity beyond `X_pca`" and "scJDO recovers the nascent-transcript projection into `X_pca`", because no reference outside `X_pca` exists on this cohort.
+
+**Reporting checklist for Jacobian-derived gene lists.**
+Any leading-direction loading or activation-time gene list should be reported alongside (a) multi-seed statistics (≥ 3 seeds, mean ± spread or 95 % CI), (b) the mask status (whether the sensitive-mask path fired), (c) the bandwidth sweep (a leading-direction loading whose top-15 genes shift by more than 30 % across the pre-declared bandwidth grid is not a claim about the operator), (d) the prior settings (`vel_scale`, `bias_strength`, external `V_ref`), and (e) a companion table showing which entries survive the same reporting under a shuffled-time or block-permutation null.
+
+**Experimental-design implication.**
+The identifiability price schedule of §2.1 gives an experimental route to any output currently classified as prior-selected. To fix the rotation direction on a snapshot, add either (i) `d − 1` static perturbations of independently controlled inputs, (ii) one time-resolved perturbation, (iii) per-cell velocity from metabolic labeling or splicing kinetics with a reference that is NOT a linear function of the input representation, or (iv) lineage-tracing displacement. Metabolic labeling projected onto the input PCA basis on a KCl-stimulation neuron cohort is a near-degenerate satisfier of route (iii); a labeling reference whose new-transcript components fall outside the leading 30 principal components would be non-degenerate. This is a design principle for the next iteration of scNT-seq / SLAM-seq / MERFISH-velocity experiments intended to disambiguate the operator, not a claim about the ones we have.
+
+**Limitations of this study.**
+The marrow Ery calibration is on a small substrate (1,151 cells) with a specific pipeline (Palantir 1.4.4 [3] + MAGIC imputation [12] on the branch-restricted expression matrix); different pseudotime constructions may shift `K_eff` and the symmetric-part comparison. The LARRY fate-prediction cohort at day 2 was originally 154 cells across 106 clones after compute-driven subsampling of the myeloid trajectory; the full eligible cohort (970 cells, 632 clones, all 4,638 barcoded day-2 cells retained in the scJDO fit substrate) confirms the direction of the negative with ΔAUROC(S_FA − E_scVI) = −0.325 and a 95 % CI [−0.340, −0.309] that excludes zero on the negative side [ EL10b ]. Dynamo [5] could not be added as a comparator to the fate-prediction cohort because the Klein LARRY release lacks spliced/unspliced and metabolic-labeling layers [ EL16 ]. The velocity-matching loss result is on the scNT-seq KCl-neuron dataset alone with a labeling reference that is a linear function of the input PCs [ EL13 ]; further datasets with a labeling reference outside the input span are needed to test whether the operator machinery adds discriminating power. SpliceJAC [13] and CellRank [9] are per-cluster or per-state Jacobian methods and do not produce a temporal Jacobian tensor comparable to scJDO's; we discuss them in the introduction as neighbouring approaches, not as head-to-head comparators.
+
+## 4. Methods
+
+Full dataset accessions, pinned software versions and per-substrate preprocessing recipes are given in the supplement (methods_facts). The paragraphs below cover model composition, training objective, kernel aggregation of the Jacobian tensor, archetype decomposition, the toggle-switch synthetic system with its oracle Jacobian, the synthetic circular substrate, and the classifier / bootstrap setup used in §2.4.
+
+**Model composition.** scJDO models cellular dynamics as `dx(τ) = f_θ(x, τ) dτ + σ_drift dW_τ`, where `τ ∈ [0, 1]` is a supplied pseudotime and `σ_drift` is the SDE diffusion scale. The surrogate drift field whose Jacobian is the analytical object of the paper factors as three components,
+
+`f_θ(x, τ) = β · s_θ(x, τ, σ_0) + r_θ(x, τ) + γ · v_prior(x, τ),`
+
+with the score component `s_θ` targeting the conditional perturbation score at pseudotime `τ`, a residual deterministic head `r_θ` trained jointly with a pseudotime-gradient consistency term, and an optional additive pseudotime-gradient prior `v_prior` from a k-nearest-neighbour pseudotime gradient (default `k = 15`; the same slot accepts an external velocity reference and drives the velocity-matching loss below). The score-component scale `β = 0.1`, the additive prior weight `γ = vel_scale = 2.0` when the prior is enabled and `0.0` otherwise, and the control-energy weight on `‖f_θ‖²` is `α_control = 0.001`. The residual head breaks the symmetry of the score component's Jacobian and allows `f_θ` to carry non-equilibrium rotational structure. Architecture: a time-conditioned MLP with four layers of width 256 and SiLU activations, residual skip connections, FiLM-style conditioning on `(τ, σ)`, and spectral normalisation on the final layer.
+
+**Training objective.** The score component is trained with conditional denoising score matching (DSM),
+
+`L_DSM = E_{x,τ,ε,σ} ‖ σ · s_θ(x + σ ε, τ, σ) + ε ‖² / σ²,`
+
+with `ε ∼ N(0, I_d)` and `σ` log-uniform on `[10⁻³, 5·10⁻¹]` at training. At inference the score component is evaluated at a small nuisance scale `σ_0 = 10⁻³`. The residual head is trained under a soft pseudotime-gradient consistency penalty,
+
+`L_pt = E_{x,τ} ( ⟨ r_θ(x, τ), ∇_x τ(x) ⟩ − ‖∇_x τ(x)‖² )²,`
+
+where `∇_x τ` is the k-NN-estimated pseudotime gradient in latent space (`k = 15`). The full loss is
+
+`L = L_DSM + α_control · L_control + λ_pt · L_pt + λ_vel · L_vel,`
+
+with `λ_pt = 1.0` and `λ_vel = 2.0` when velocity guidance is enabled (`0.0` otherwise). Optimiser: `AdamW`, learning rate `2·10⁻⁴`, weight decay `10⁻⁴`, batch size 512, cosine-annealing schedule, gradient clipping at 1.0, 5,000 epochs. The velocity-matching loss used in §2.5 is a direction-only cosine, `L_match = mean_i ( 1 − cos( f_θ(x_i, τ_i), v_ref_i ) )`, with `λ_match = 1.0` and `v_ref` supplied through the same additive-prior slot.
+
+**Jacobian and kernel aggregation.** Local Jacobians `J_i = ∇_x f_θ(x_i, τ_i)` are computed by automatic differentiation. The temporal Jacobian tensor at grid points `τ_c` is the kernel-weighted average
+
+`J(τ_c) = Σ_i K_h(τ_c − τ_i) J_i / Σ_i K_h(τ_c − τ_i), with K_h(δ) = exp(−δ² / 2h²).`
+
+Bandwidth `h` is selected on the grid `(0.01, 0.02, 0.03, 0.05, 0.08, 0.10)` by maximising the composite score `S(h) = R(h) · C(h) · L(h)` (bootstrap reproducibility × peak contrast × peak localisation), subject to an effective-sample-size floor `n_eff,min = 30`, with `n_eff(τ) = (Σ_i w_i)² / Σ_i w_i²`. Because peak contrast enters the objective, the reported peak locations are not independent of the smoother choice; the supplement reports the bandwidth sweep as a diagnostic.
+
+**Archetype decomposition (semi-NMF).** Smoothed Jacobians are stacked into `J ∈ R^{T×d×d}` and unfolded to `J̃ ∈ R^{T×d²}`. We factor `J̃ ≈ W H` with `W ≥ 0` and `H` signed (semi-nonnegative matrix factorisation). Optimisation alternates a closed-form least-squares update for `H` and a column-wise non-negative least-squares update for `W` (Lawson–Hanson via `scipy.optimize.nnls`), which is a monotone descent of the Frobenius reconstruction error. We run **five random restarts** and retain the restart with the lowest final reconstruction error. Across restarts we match archetypes one-to-one by Hungarian assignment on `|pattern cosine|`, and post-convergence rescale rows of `H` to unit `ℓ₂` norm to resolve the `(W, H)` scale ambiguity. `K = 5` archetypes and 5 restarts throughout; an optional total-variation penalty on the temporal derivatives of `W` is available as an opt-in and is not used in the main analyses. The five-restart-with-best-retained procedure is the algorithmic contribution here; the consensus-NMF idea of Kotliar et al. 2019 [15] is related work that motivates multi-restart matching but is not the procedure we use, which comes from Ding, Li & Jordan 2010 [14].
+
+**Toggle-switch SDE + α ramp + oracle Jacobian.** The synthetic bifurcation system used in §2.2 is a symmetric toggle-switch SDE
+
+`dx = [α(τ)/(1 + y⁴) − x] dτ + σ dW,  dy = [α(τ)/(1 + x⁴) − y] dτ + σ dW,`
+
+with `α` ramped linearly from `α_min` (single stable symmetric fixed point) through `α_crit = 3^{−1/4} (1 + 1/3) ≈ 1.013` (pitchfork) to `α_max`. The analytic pitchfork sits at `τ_crit = (α_crit − α_min) / (α_max − α_min)`. The **oracle Jacobian** is the analytic derivative of this drift evaluated at the requested state: at each sampled cell `(x_i, y_i, α(τ_i))` (`oracle-at-cells`), and at the symmetric fixed point `(s(α), s(α))` where `s(α)` is the symmetric root of the deterministic system (`oracle-at-fixed-point`). Both readouts are used in §2.2 without any learned model. Cells are generated by Euler–Maruyama integration with `σ_SDE = 0.20`; a random duration per cell distributes `τ` approximately uniformly on `[0, 1]`. For the V2-fixed benchmark of §2.2 (`τ_crit ∈ {0.1, 0.3, 0.5}`, two seeds each), the two-dimensional toggle state is embedded into a 200-D observation space via a random linear projection with observation noise `σ = 0.3` and reduced to 20-D by PCA before the estimator runs.
+
+**Synthetic circular substrate (§2.5).** The circular reversal test uses 1,500 cells arranged on a rotating cycle in a 30-dimensional ambient space (substrate generator seed 42, deterministic). Cells are sampled uniformly along a phase variable `φ ∈ [0, 2π)` mapped through a fixed random orthogonal embedding; pseudotime `τ_i = φ_i / (2π)`. The reverse-τ arm swaps the pseudotime coordinate for `1 − τ_i` and leaves the cells otherwise identical, so any change in the inferred Jacobian between forward and reverse arms is a consequence of the ordering, not the geometry.
+
+**Latent representation and preprocessing.** All main analyses use Factor Analysis (FA) with 30 components as the latent representation, selected in the v56 latent-benchmark based on tightest across-noise variance on synthetic operator recovery and on high branch specificity on hematopoiesis (Ery ∩ DC top-20 = ∅). Raw counts are normalised to counts per 10,000, log-transformed, and restricted to the top 2,000 highly variable genes (Scanpy, Seurat flavor). For the marrow Ery calibration substrate, Palantir 1.4.4 provides pseudotime and fate probabilities on the Palantir/Setty marrow (start cell `Run5_164698952452459`), and MAGIC imputation (`t = 3`, `n_pca = 30`) is applied to the branch-restricted expression matrix as a defensive preprocessing step in proliferative tissue.
+
+**Fate-prediction classifier and bootstrap (§2.4).** The five feature sets are E_PCA (30 PCA components), E_FA (30 FA components), E_scVI (30-dim scVI latent trained on raw day-2 counts), S_FA (per-cell scJDO features on the FA-space fit: `Re λ_max` and leading-direction projection per cell; and consensus archetype activation per branch), and E_FA + S_FA (concatenation). The classifier is `LogisticRegression(penalty="l2", C=1.0, class_weight="balanced", solver="liblinear", max_iter=1000)` with `StandardScaler` fit on train and applied to test. Evaluation uses 5-fold `GroupKFold` grouped by clone, repeated over five CV shuffle seeds, and the S_FA features are averaged over three scJDO fitting seeds within each outer fold. Paired-arm 95 % confidence intervals on ΔAUROC come from a 2,000-resample clone-level bootstrap. The block-permutation null used for the archetype rank test in §2.3 partitions pseudotime `[0, 1]` into blocks of width equal to the kernel bandwidth, permutes block order, and preserves within-block cell order; ten draws per outer fold.
+
+**Gate 3 soft-mode falsification label construction (§2.4).** For the 520-clone soft-mode test, clones are labeled at day 4/6 as "mixed" if the fraction of Neut among mature descendants (Neut ∪ Mono, restricted to the rarefied major-lineage-groups labelling) falls into the interior `(0.2, 0.8)` interval; clones with ≥ 80 % Neut are `Neut-biased` and ≤ 20 % are `Mono-biased`. The eligibility rule for a clone to enter the cohort is `≥ 5` mature descendants and `≥ 1` barcoded day-2 cell; the positive fraction of "mixed" clones under this labelling is 0.275.
+
+## Box 1 — What is determined by the snapshot, what is selected by the prior, and what is recoverable
+
+| Determined by the snapshot | Selected by the prior | Recoverable with added information |
+|:---|:---|:---|
+| Whitened symmetric operator `sym(Σ^{−1/2} J Σ^{1/2})` [ EL03 ] | Leading-direction loadings at default settings (cos 0.44 across seeds) [ EL04 ] | Antisymmetric part `A(x)` — with `(d − 1)` static perturbations (§2.1, S1) |
+| Local covariance structure `Σ(τ)` [ EL03 ] | Ranked gene lists derived from leading eigenvector (top-15 Jaccard 0.29 across seeds) [ EL04 ] | Rotation direction — with 1 time-resolved perturbation (§2.1, S1) |
+| Estimator fidelity to the analytic Jacobian on synthetic ground truth [ EL07 ] | Archetype activation timing across pseudotime [ EL15 ] | Per-cell velocity direction — with metabolic labeling whose reference is NOT collinear with the input rep (§2.1, S1) |
+| Rank of the temporal operator (`K_eff = 1` under block-null) [ EL15 ]; real-data reproducibility of the per-cell-aggregation `Re λ_max` curve on marrow Ery (peak-τ 0.020 ± 0.000; pairwise Pearson 0.806) [ EL09 ] | Sign flip of `A_12` on cyclic pseudotime [ EL05 ] | Lineage displacement — with barcoded clone tracking (§2.1, S1) |
+| Trace of `J(x)` and sign of `det ∇f′` on the `ψ ∝ ρ` subfamily (S1) | Archetype pattern basis at default settings [ EL04, EL15 ] | Sign of `A` on non-cyclic substrates — with any of the four routes above (§2.1, S1) |
+
+Note (out of table): the bifurcation location computed from cell-evaluated Jacobians — learned or oracle — is not resolvable on a two-branch pitchfork substrate; only the analytic Jacobian at the symmetric fixed point crosses zero at `τ_crit`, while both oracle-at-cells and learned-at-cells never cross on the interior grid [ EL08 ]. Every table cell is anchored to a ledger row or to §2.1/S1. Bandwidth is not in the "determined by the snapshot" column: the kernel bandwidth is a fitting hyperparameter chosen by the reproducibility × contrast × localization criterion of §Methods, and does not fall out of the snapshot.
+
+## Front matter
+
+**Affiliations.** [TODO:Tom].
+
+**Correspondence.** T. W. Terooatea, `tommy.terooatea@byu.edu`.
+
+**CRediT contributions.** [TODO:Tom].
+
+**Funding.** [TODO:Tom].
+
+**Competing interests.** The authors declare no competing interests.
+
+**Data availability.** All datasets used are public.
+
+| Dataset | Accession | Section using it |
+|:---|:---|:---|
+| LARRY in vitro state-fate | Klein-lab public: <https://kleintools.hms.harvard.edu/paper_websites/state_fate2020/> — `stateFate_inVitro_normed_counts.mtx.gz`, `stateFate_inVitro_gene_names.txt.gz`, `stateFate_inVitro_metadata.txt.gz`, `stateFate_inVitro_clone_matrix.mtx.gz` | §2.4, §3 |
+| scNT-seq neuron labeling | `dynamo.sample_data.scNT_seq_neuron_labeling()` — auto-downloads `neuron_labeling.h5ad` | §2.5, §3 |
+| Palantir marrow | Included with Palantir 1.4.4 example data (`marrow_sample_scseq_counts.h5ad`) | §2.1, §2.3 |
+| SCP295 (Single-Cell Portal) | broad.io/singlecellportal SCP295 (cited as illustration only; not part of main-text claims) | Supplement S4 |
+| Replogle 2022 K562 Perturb-seq | GSE178155 (cited as illustration only) | Supplement S4 |
+
+**Code availability.** scJDO v0.3.x, source at `github.com/manarai/scJDO`, tag [TODO:Tom — pin at Draft-4 submission commit]. The submission bundle includes preregistered protocols, reports, and per-gate runners under a versioned reproducibility directory in the source repository.
+
+**Acknowledgements.** [TODO:Tom].
+
+
+## References
+
+[1] La Manno G. et al. (2018). RNA velocity of single cells. *Nature* 560, 494–498.
+[2] Qiu Q. et al. (2020). Massively parallel and time-resolved RNA sequencing of single cells by scNT-seq. *Nature Methods* 17, 991–1001.
+[3] Setty M. et al. (2019). Characterization of cell fate probabilities in single-cell data with Palantir. *Nature Biotechnology* 37, 451–460.
+[4] Bergen V. et al. (2020). Generalizing RNA velocity to transient cell states through dynamical modelling. *Nature Biotechnology* 38, 1408–1414.
+[5] Qiu X. et al. (2022). Mapping transcriptomic vector fields of single cells (Dynamo). *Cell* 185, 690–711.
+[6] Weinreb C. et al. (2018). Fundamental limits on dynamic inference from single-cell snapshots. *Proceedings of the National Academy of Sciences* 115, E2467–E2476.
+[7] Weinreb C. et al. (2020). Lineage tracing on transcriptional landscapes links state to fate during differentiation. *Science* 367, eaaw3381.
+[8] Balubaid A, Bernal Tamayo JP, Kumar R, Agboola H, Gomez Cabrero D, Kiani N, Tegner J. Fundamental Limits of Inferring Dynamical Gene Regulatory Models from Single-Cell Data. *bioRxiv*. 2025. doi:10.1101/2025.09.12.674509.
+[9] Lange M. et al. (2022). CellRank for directed single-cell fate mapping. *Nature Methods* 19, 159–170.
+[10] Lopez R. et al. (2018). Deep generative modeling for single-cell transcriptomics (scVI). *Nature Methods* 15, 1053–1058.
+[11] Mojtahedi M. et al. (2016). Cell fate decision as high-dimensional critical state transition. *PLoS Biology* 14, e2000640.
+[12] van Dijk D. et al. (2018). Recovering gene interactions from single-cell data using data diffusion (MAGIC). *Cell* 174, 716–729.
+[13] Bocci F, Zhou P, Nie Q. spliceJAC: transition genes and state-specific gene regulation from single-cell transcriptome data. *Molecular Systems Biology*. 2022;18(11):e11176. doi:10.15252/msb.202211176.
+[14] Ding C., Li T., Jordan M. I. (2010). Convex and semi-nonnegative matrix factorizations. *IEEE Transactions on Pattern Analysis and Machine Intelligence* 32, 45–55.
+[15] Kotliar D. et al. (2019). Identifying gene expression programs of cell-type identity and cellular activity with consensus non-negative matrix factorization. *eLife* 8, e43803.
+[16] Varando G., Hansen N. R. (2020). Graphical continuous Lyapunov models. *Proceedings of the 36th Conference on Uncertainty in Artificial Intelligence (UAI)*, PMLR 124, 989–998. arXiv:2005.10483.
+[17] Dettling P., Homs R., Améndola C., Drton M., Hansen N. R. (2023). Identifiability in continuous Lyapunov models. *SIAM Journal on Matrix Analysis and Applications* 44, 1799–1821. doi:10.1137/22M1520311; arXiv:2209.03835.
+[18] Redd D., Green S., Terooatea T. W. (2026). scJDO software v0.3.x. Source code at `github.com/manarai/scJDO`.
