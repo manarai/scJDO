@@ -51,9 +51,21 @@ These are the 759 target cells / 494 clones referenced in the original Gate 1 pr
 
 - Preprocess + FA + PCA + scVI: ~15 min (scVI on 28K cells).
 - Palantir on day-2 X_FA: ~1 min.
-- scJDO × 3 seeds on 28,249 cells: ~30-40 min per seed × 3 = ~90-120 min. Per-seed subprocess with 45-min wall-clock cap (as Gate 1 v2).
+- scJDO × 3 seeds on 28,249 cells: ~30-40 min per seed × 3 = ~90-120 min. Per-seed subprocess with 60-min wall-clock cap.
 - Classifier eval: <5 min.
 - **Total: ~2.5 hours.**
+
+## Compute-scale amendment (recorded before scJDO features are extracted)
+
+First run: scJDO fit_drift on 28,249 day-2 cells OOM-killed 2 of 3 seeds at ~4.3 GB peak (36-GB machine, competing background processes). To keep the 3-seed prereg AND all clone-cohort cells, the scJDO FIT SUBSTRATE is subsampled to **~14,000 day-2 cells** while E baselines (E_PCA, E_FA, E_scVI) remain on all 28,249 cells:
+
+- keep = (all 4,638 day-2 cells carrying any clone barcode — the 759 cohort cells are a strict subset) ∪ (random ~9,400 day-2 Undifferentiated cells without clone, seed 0), total ~14,000.
+- FA and PCA and scVI are computed on all 28,249 day-2 cells (unchanged; E_FA/E_PCA/E_scVI features are extracted at cohort cells from these full-cohort reps).
+- Palantir pseudotime is recomputed on the ~14,000-cell subsample so scJDO sees a self-consistent pseudotime.
+- scJDO fit_drift on ~14,000 cells; per-cell J_tensor/eigvec features for cohort cells extracted via nearest-bin from the fit's pseudotime bins.
+
+This is a scale-only amendment; all 759 target cells / 494 clones are in the scJDO fit substrate. It preserves the "3 seeds" and the "day-2 only" constraints. Recorded before scJDO features exist.
+
 
 ## Ledger integration (frozen)
 
