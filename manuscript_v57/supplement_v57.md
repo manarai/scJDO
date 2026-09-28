@@ -4,17 +4,17 @@
 
 **Table S1a. Algebra of the `ψ ∝ ρ` subfamily (`d = 2`).**
 
-Let `p(x) ∝ exp(−V(x))` be the stationary density and `D(x)` the diffusion tensor. In the Lyapunov gauge:
+Let `p(x) ∝ exp(−V(x))` be the stationary density of an Itô diffusion `dX_t = f(X_t) dt + σ(X_t) dW_t` with **noise covariance** `D(x) = σ(x) σ(x)^T`. In the Lyapunov gauge:
 
-- `f(x) = −(D(x) − 2 A(x)) · ∇V(x)`,
-- `J(x) = (−D(x)/2 + A(x)) · Σ(x)^{−1}`,
+- `f(x) = −( D(x)/2 − A(x) ) · ∇V(x)`,
+- `J(x) = ( −D(x)/2 + A(x) ) · Σ(x)^{−1}`,
 
-with `A(x)` antisymmetric and `Σ(x) = ⟨(x−μ_x)(x−μ_x)^T⟩` the local covariance in the linearised neighbourhood. On the `ψ ∝ ρ` subfamily, the antisymmetric part carries a single scalar `Q(x)` = the (1,2) entry of `A(x)`. Under the transformation `f(x) → f′(x) := f(x) + 2 A(x) ∇V(x)`, three pointwise algebraic invariants control what the snapshot can and cannot resolve:
+with `A(x)` antisymmetric and `Σ(x) = ⟨(x−μ_x)(x−μ_x)^T⟩` the local covariance in the linearised neighbourhood. On the `ψ ∝ ρ` subfamily, the antisymmetric part carries a single scalar `Q(x)` = the (1,2) entry of `A(x)`. Under the family of transformations that vary `A(x)` while holding `p` and `D` fixed, three pointwise algebraic invariants control what the snapshot can and cannot resolve:
 
 | Invariant | Statement | Consequence for the snapshot |
 |:---|:---|:---|
-| Trace preservation | `tr J′(x) = tr J(x)` at every `x` | The pointwise trace of the drift Jacobian is a snapshot-determined scalar. Any snapshot-derived estimator that agrees with `p` and `D` reproduces `tr J`. |
-| Determinant identity | `det ∇f′(x) = (D² + c²) det H(x)`, where `H = −∇²V` is the Hessian of `V` and `c` is the scalar free parameter of `Q(x)` | The sign of `det ∇f′` is preserved regardless of `c`; adding rotational content does not change classification of `x` as saddle / node / spiral. |
+| Trace preservation | `tr J(x)` is invariant under changes of `c(x)` at every `x` | The pointwise trace of the drift Jacobian is a snapshot-determined scalar. Any snapshot-derived estimator that agrees with `p` and `D` reproduces `tr J`. |
+| Determinant identity | `det ∇f′(x) = (D² + c²) det H(x)`, where `H = −∇²V` is the Hessian of `−V` and `c(x)` is the scalar free parameter of `Q(x)` | The sign of `det ∇f′` is preserved regardless of `c`; adding rotational content does not change classification of `x` as saddle / node / spiral. |
 | `Q` tracks `c` | `Q(x) = c(x)` (up to a fixed diffusion factor) | The antisymmetric scalar is exactly the free parameter of the family; recovering it requires evidence outside the snapshot. |
 
 For `d = 2` the antisymmetric matrix `A(x)` has one degree of freedom (`c(x)`, equivalently a scalar rotation rate `ω(x)`). The identifiability price schedule (Fig 1B) enumerates the routes to recover `Q`:

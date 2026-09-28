@@ -1,6 +1,6 @@
-# LEDGER_MAP.md — ledger ID → v57 draft-2 manuscript location
+# LEDGER_MAP.md — ledger ID → v57 draft-3 manuscript location
 
-Every ledger ID from `EVIDENCE_LEDGER.md` used in `manuscript_v57/scJDO_v57_draft2.md`, with its location(s) in the draft. Updated for draft 2: EL03 rewording; EL07/EL08 added (Task C); EL10b added (Task A); Box 1 rebuilt from ledger rows.
+Every ledger ID from `EVIDENCE_LEDGER.md` used in `manuscript_v57/scJDO_v57_draft3.md`, with its location(s) in the draft. Updated for draft 3: EL07 moved off Fig 2C's marrow Round A framing (Round A is now under Fig 3D as real-data eigenvalue-curve reproducibility with a boundary peak, not estimator fidelity); Fig 2C now shows r11 learned-vs-oracle argmax agreement. Box 1 has been rebuilt so the third column cites §2.1 / S1 only; "bifurcation location on cell-evaluated Jacobians" is moved out of the table into an [ EL08 ] note under it. Reference numbering renumbered; [16] Varando & Hansen 2020 replaces the prior [17].
 
 | Ledger ID | Manuscript location(s) |
 |:---:|:---|
@@ -10,8 +10,8 @@ Every ledger ID from `EVIDENCE_LEDGER.md` used in `manuscript_v57/scJDO_v57_draf
 | EL04 | §2.3 — prior audit at default settings (leading-eigvec cos 0.44 across seeds; top-15 Jaccard 0.29); §Methods — bias-strength pathway reaches model, seed dominates basin; Box 1 (row 1 and row 2 middle column); §S2 |
 | EL05 | §2.5 — synthetic circular substrate: rotation reversal at `vel_scale = 2` (A_12 forward +0.149, reverse −0.204); Fig 5C; Box 1 (row 5 middle column); §3 experimental-design implication; §Methods |
 | EL06 | §2.5 — velocity-matching loss produces time-varying seed-stable operator (median `|cos(v_L, v_R)|` = 0.974; L median contrast 0.532; L across-seed SD 0.011); Fig 5A/B; §3 "What velocity supervision changes and what it does not" |
-| EL07 | §2.2 — per-cell aggregation of learned Jacobian tracks analytic at-cells `Re λ_max` curve (argmax within 0.01–0.09 of oracle, 3 seeds); Round A on marrow Ery (peak-τ 0.020 ± 0.000, pairwise curve Pearson 0.806, 3 seeds); Fig 2C; Box 1 (row 3 and row 5 right column); §3 "What snapshot-derived Jacobians can be trusted for" |
-| EL08 | §2.2 — V2-fixed crossing scorecard: oracle-at-FP 6/6, oracle-at-cells 0/6, learned-at-cells 0/6 (modality limit; no cell-evaluated Jacobian localises the bifurcation); Fig 2A/B; Box 1 (row 4 middle column — bifurcation location prior-selected); §3 "What snapshot-derived Jacobians cannot be trusted for" |
+| EL07 | §2.2 — r11 interior estimator-fidelity comparison: learned per-cell aggregation argmax within 0.01–0.09 of oracle argmax, 3 seeds (Fig 2C). §2.3 — real-data reproducibility on marrow Ery: peak-τ 0.020 ± 0.000, pairwise curve Pearson 0.806, 3 seeds (Fig 3D). Box 1 (row 3 left column). |
+| EL08 | §2.2 — V2-fixed crossing scorecard: oracle-at-FP 6/6, oracle-at-cells 0/6, learned-at-cells 0/6; Fig 2A/B; §3 "What snapshot-derived Jacobians cannot be trusted for"; Box 1 out-of-table note (bifurcation location on cell-evaluated Jacobians). |
 | EL10 | §2.4 — LARRY day-2 fate prediction on the 154-cell v2 cohort: S_FA 0.51 vs E_FA 0.83; cohort table first row; superseded by EL10b as canonical numbers |
 | EL10b | §2.4 — full eligible LARRY cohort (970 cells / 632 eligible clones; scJDO fit substrate 4,638 barcoded + 9,362 unbarcoded fill = 14,000); E_PCA 0.867 / E_FA 0.864 / E_scVI 0.879 / S_FA 0.554 / E_FA+S_FA 0.863; ΔAUROC(S_FA − E_scVI) = −0.325 [−0.340, −0.309]; cohort table row 2; §3 Limitations; Fig 4A |
 | EL11 | §2.4 — Gate 3 strict: C and Ic add 0 beyond E; Fig 4 arm table; §3 "What snapshot-derived Jacobians cannot be trusted for" |
