@@ -1,0 +1,258 @@
+{
+  "estimator_family": "fixed-design 2-branch pitchfork benchmark v2",
+  "base_tag": "scjdo-v56-submission-20260922-r12",
+  "branch": "saddle-blind-benchmark",
+  "n_epochs": 5000,
+  "n_eff_min": 30.0,
+  "tolerance": 0.05,
+  "alpha_max": 2.013,
+  "total_seconds": 4826.383969068527,
+  "results": [
+    {
+      "condition": "v2fixed_tau_crit_0.1_seed_42",
+      "tau_crit": 0.1,
+      "seed": 42,
+      "alpha_min": 0.9020158305949517,
+      "alpha_max": 2.013,
+      "post_crit_alpha_range": 0.9998857524645433,
+      "seeded_balance_A_over_N": 0.5,
+      "true_fate_balance_A_over_N": 0.5213333333333333,
+      "adaptive_bandwidth": 0.01,
+      "seminmf_r2": 0.9692135437742087,
+      "n_epochs": 5000,
+      "n_eff_min": 30.0,
+      "tolerance": 0.05,
+      "readouts": {
+        "oracle_FP_eigenvalue": {
+          "readout": "oracle_FP_eigenvalue",
+          "crossing_or_argmax": 0.09326967640890338,
+          "err_from_tau_crit": 0.006730323591096626,
+          "pass": true
+        },
+        "oracle_at_cells": {
+          "readout": "oracle_at_cells",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_cells_percell": {
+          "readout": "learned_at_cells_percell",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_estimated_FP": {
+          "readout": "learned_at_estimated_FP",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        }
+      }
+    },
+    {
+      "condition": "v2fixed_tau_crit_0.1_seed_43",
+      "tau_crit": 0.1,
+      "seed": 43,
+      "alpha_min": 0.9020158305949517,
+      "alpha_max": 2.013,
+      "post_crit_alpha_range": 0.9998857524645433,
+      "seeded_balance_A_over_N": 0.5,
+      "true_fate_balance_A_over_N": 0.502,
+      "adaptive_bandwidth": 0.01,
+      "seminmf_r2": 0.9701431134296478,
+      "n_epochs": 5000,
+      "n_eff_min": 30.0,
+      "tolerance": 0.05,
+      "readouts": {
+        "oracle_FP_eigenvalue": {
+          "readout": "oracle_FP_eigenvalue",
+          "crossing_or_argmax": 0.09326967640890338,
+          "err_from_tau_crit": 0.006730323591096626,
+          "pass": true
+        },
+        "oracle_at_cells": {
+          "readout": "oracle_at_cells",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_cells_percell": {
+          "readout": "learned_at_cells_percell",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_estimated_FP": {
+          "readout": "learned_at_estimated_FP",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        }
+      }
+    },
+    {
+      "condition": "v2fixed_tau_crit_0.3_seed_42",
+      "tau_crit": 0.3,
+      "seed": 42,
+      "alpha_min": 0.5845917821935095,
+      "alpha_max": 2.013,
+      "post_crit_alpha_range": 0.9998857524645433,
+      "seeded_balance_A_over_N": 0.5,
+      "true_fate_balance_A_over_N": 0.5026666666666667,
+      "adaptive_bandwidth": 0.01,
+      "seminmf_r2": 0.9706409723397313,
+      "n_epochs": 5000,
+      "n_eff_min": 30.0,
+      "tolerance": 0.05,
+      "readouts": {
+        "oracle_FP_eigenvalue": {
+          "readout": "oracle_FP_eigenvalue",
+          "crossing_or_argmax": 0.294629841860633,
+          "err_from_tau_crit": 0.005370158139366976,
+          "pass": true
+        },
+        "oracle_at_cells": {
+          "readout": "oracle_at_cells",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_cells_percell": {
+          "readout": "learned_at_cells_percell",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_estimated_FP": {
+          "readout": "learned_at_estimated_FP",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        }
+      }
+    },
+    {
+      "condition": "v2fixed_tau_crit_0.3_seed_43",
+      "tau_crit": 0.3,
+      "seed": 43,
+      "alpha_min": 0.5845917821935095,
+      "alpha_max": 2.013,
+      "post_crit_alpha_range": 0.9998857524645433,
+      "seeded_balance_A_over_N": 0.5,
+      "true_fate_balance_A_over_N": 0.5006666666666667,
+      "adaptive_bandwidth": 0.01,
+      "seminmf_r2": 0.9722019998011172,
+      "n_epochs": 5000,
+      "n_eff_min": 30.0,
+      "tolerance": 0.05,
+      "readouts": {
+        "oracle_FP_eigenvalue": {
+          "readout": "oracle_FP_eigenvalue",
+          "crossing_or_argmax": 0.294629841860633,
+          "err_from_tau_crit": 0.005370158139366976,
+          "pass": true
+        },
+        "oracle_at_cells": {
+          "readout": "oracle_at_cells",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_cells_percell": {
+          "readout": "learned_at_cells_percell",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_estimated_FP": {
+          "readout": "learned_at_estimated_FP",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        }
+      }
+    },
+    {
+      "condition": "v2fixed_tau_crit_0.5_seed_42",
+      "tau_crit": 0.5,
+      "seed": 42,
+      "alpha_min": 0.013228495070913393,
+      "alpha_max": 2.013,
+      "post_crit_alpha_range": 0.9998857524645433,
+      "seeded_balance_A_over_N": 0.5,
+      "true_fate_balance_A_over_N": 0.498,
+      "adaptive_bandwidth": 0.01,
+      "seminmf_r2": 0.9691713835885101,
+      "n_epochs": 5000,
+      "n_eff_min": 30.0,
+      "tolerance": 0.05,
+      "readouts": {
+        "oracle_FP_eigenvalue": {
+          "readout": "oracle_FP_eigenvalue",
+          "crossing_or_argmax": 0.4959971429576066,
+          "err_from_tau_crit": 0.004002857042393393,
+          "pass": true
+        },
+        "oracle_at_cells": {
+          "readout": "oracle_at_cells",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_cells_percell": {
+          "readout": "learned_at_cells_percell",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_estimated_FP": {
+          "readout": "learned_at_estimated_FP",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        }
+      }
+    },
+    {
+      "condition": "v2fixed_tau_crit_0.5_seed_43",
+      "tau_crit": 0.5,
+      "seed": 43,
+      "alpha_min": 0.013228495070913393,
+      "alpha_max": 2.013,
+      "post_crit_alpha_range": 0.9998857524645433,
+      "seeded_balance_A_over_N": 0.5,
+      "true_fate_balance_A_over_N": 0.488,
+      "adaptive_bandwidth": 0.01,
+      "seminmf_r2": 0.9712384821144567,
+      "n_epochs": 5000,
+      "n_eff_min": 30.0,
+      "tolerance": 0.05,
+      "readouts": {
+        "oracle_FP_eigenvalue": {
+          "readout": "oracle_FP_eigenvalue",
+          "crossing_or_argmax": 0.4959971429576066,
+          "err_from_tau_crit": 0.004002857042393393,
+          "pass": true
+        },
+        "oracle_at_cells": {
+          "readout": "oracle_at_cells",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_cells_percell": {
+          "readout": "learned_at_cells_percell",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        },
+        "learned_at_estimated_FP": {
+          "readout": "learned_at_estimated_FP",
+          "crossing_or_argmax": NaN,
+          "err_from_tau_crit": NaN,
+          "pass": false
+        }
+      }
+    }
+  ]
+}

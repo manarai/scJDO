@@ -58,13 +58,27 @@ Left in place for historical reproducibility; NOT part of the calibration paper'
 | Directory | Content |
 |:---|:---|
 | `reproducibility/operator_claims_benchmark/` | r22 Operator/archetype/Constructed-Obstruction benchmark (contains `run_operator_claims.py` used by gates 0a/0b/0c/0d) |
-| `reproducibility/blind_saddle_benchmark/` | r13 / r14 blinded saddle-identification |
+| `reproducibility/blind_saddle_benchmark/` | r13 / r14 blinded saddle-identification (V2-fixed benchmark restored to main for EL08 evidence — see restored-file provenance below) |
 | `reproducibility/regulator_benchmark/` | r14-r21 regulator-benchmark suite (retrospective; see EVIDENCE_LEDGER for status) |
 | `reproducibility/r10_saddle_audit/` | r10 saddle audit outputs |
-| `reproducibility/code/` | Ad-hoc simulation and follow-up scripts (G-series, FOLLOWUP-series) |
-| `reproducibility/data/` | Cached intermediate results referenced by the above |
+| `reproducibility/code/` | Ad-hoc simulation and follow-up scripts (G-series, FOLLOWUP-series; FOLLOWUP6_aggregation is the r11 per-cell aggregation source for EL07) |
+| `reproducibility/data/` | Cached intermediate results referenced by the above (FOLLOWUP6_aggregation.json ships the r11 per-cell / matrix argmax table for EL07) |
 | `reproducibility/figures/` | Historical figure PDFs from earlier rounds |
 | `reproducibility/tests/` | Legacy tests |
+
+## Restored files (Task C)
+
+Files brought back onto `main` from the pre-cherry-pick backup so that EL07 and EL08 have first-class evidence paths. Each row lists the original commit on the backup ref, the backup ref name, and the new commit on `main`.
+
+| File on `main` | Original commit (on backup ref) | Backup ref | New commit on `main` |
+|:---|:---:|:---:|:---:|
+| `reproducibility/blind_saddle_benchmark/REPORT_V2FIXED.md` | `363f870` | `pre-cherrypick-r26-backup` | Task C |
+| `reproducibility/blind_saddle_benchmark/outputs/V2FIXED_SUMMARY.json` | `363f870` | `pre-cherrypick-r26-backup` | Task C |
+| `reproducibility/operator_claims_benchmark/REPORT_OPERATOR_CLAIMS.md` | `3775e4e` | `pre-cherrypick-r26-backup` | Task C |
+| `reproducibility/operator_claims_benchmark/outputs/roundA_temporal_summary.json` | `3775e4e` | `pre-cherrypick-r26-backup` | Task C |
+| `reproducibility/operator_claims_benchmark/outputs/roundA_temporal_curves.npz` | `3775e4e` | `pre-cherrypick-r26-backup` | Task C |
+
+Note: the paths on the backup ref lived under `New_analysis/blind_saddle_benchmark/` and `New_analysis/operator_claims_benchmark/`; Task 6 (`ed1499c`) relocated the parent tree under `reproducibility/`. Only the report/output files listed above were carried back; the pre-r26 saddle-branch scripts remain outside the calibration-paper evidence base.
 
 ## How to reproduce
 
