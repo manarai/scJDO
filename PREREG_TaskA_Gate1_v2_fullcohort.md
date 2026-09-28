@@ -57,14 +57,14 @@ These are the 759 target cells / 494 clones referenced in the original Gate 1 pr
 
 ## Compute-scale amendment (recorded before scJDO features are extracted)
 
-First run: scJDO fit_drift on 28,249 day-2 cells OOM-killed 2 of 3 seeds at ~4.3 GB peak (36-GB machine, competing background processes). To keep the 3-seed prereg AND all clone-cohort cells, the scJDO FIT SUBSTRATE is subsampled to **~14,000 day-2 cells** while E baselines (E_PCA, E_FA, E_scVI) remain on all 28,249 cells:
+First run at 28K OOM-killed 2 of 3 seeds. Second attempt at 14K also OOM'd on subsequent reruns (system-level memory pressure). **Revised**: scJDO FIT SUBSTRATE = all 4,638 day-2 clone-barcoded cells + 5,000 random day-2 Undifferentiated without clone = **~9,638 total** (seed 0 for the fill sample). E baselines (E_PCA, E_FA, E_scVI) still on all 28,249 day-2 cells; only the scJDO fit is subsampled.
 
-- keep = (all 4,638 day-2 cells carrying any clone barcode — the 759 cohort cells are a strict subset) ∪ (random ~9,400 day-2 Undifferentiated cells without clone, seed 0), total ~14,000.
-- FA and PCA and scVI are computed on all 28,249 day-2 cells (unchanged; E_FA/E_PCA/E_scVI features are extracted at cohort cells from these full-cohort reps).
-- Palantir pseudotime is recomputed on the ~14,000-cell subsample so scJDO sees a self-consistent pseudotime.
-- scJDO fit_drift on ~14,000 cells; per-cell J_tensor/eigvec features for cohort cells extracted via nearest-bin from the fit's pseudotime bins.
+- keep = (all 4,638 day-2 cells with any clone barcode — the 759 cohort cells are a strict subset) ∪ (5,000 random day-2 Undiff without clone, seed 0).
+- Palantir pseudotime recomputed on the ~9,638-cell subsample.
+- scJDO fit_drift on ~9,638 cells with `grid_size=100`, `n_epochs=1500` (reduced from 150/3000 for compute headroom).
+- Per-cell J_tensor/eigvec features for FULL 28,249 cohort computed via nearest-bin lookup after computing a lightweight full-cohort Palantir pseudotime once (cached).
 
-This is a scale-only amendment; all 759 target cells / 494 clones are in the scJDO fit substrate. It preserves the "3 seeds" and the "day-2 only" constraints. Recorded before scJDO features exist.
+This preserves 3 seeds, day-2 only, and 100% of the target 759 / 494 cohort in the scJDO fit substrate. Grid+epochs reduction is a compute headroom trade — does not change the shape of the prediction being tested.
 
 
 ## Ledger integration (frozen)
