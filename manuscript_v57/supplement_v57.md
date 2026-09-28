@@ -2,23 +2,33 @@
 
 ## S1 — Constructed obstruction tables
 
-**Table S1.** Parametrisation of the `ψ ∝ ρ` subfamily as the `d = 2` instance of the Lyapunov gauge.
+**Table S1a. Algebra of the `ψ ∝ ρ` subfamily (`d = 2`).**
 
-Let `p(x) ∝ exp(−V(x))` and `D(x)` be the diffusion tensor. In the Lyapunov gauge:
+Let `p(x) ∝ exp(−V(x))` be the stationary density and `D(x)` the diffusion tensor. In the Lyapunov gauge:
 
-- `f(x) = −(D(x) − 2 A(x)) · ∇V(x)`
-- `J(x) = (−D(x)/2 + A(x)) · Σ(x)^{−1}`, with `Σ(x)` the local covariance in the linearised neighbourhood.
+- `f(x) = −(D(x) − 2 A(x)) · ∇V(x)`,
+- `J(x) = (−D(x)/2 + A(x)) · Σ(x)^{−1}`,
 
-For `d = 2` the antisymmetric matrix `A(x)` has one degree of freedom (a scalar rotation rate `ω(x)`). The identifiability price schedule (Fig 1B) enumerated in analytic form:
+with `A(x)` antisymmetric and `Σ(x) = ⟨(x−μ_x)(x−μ_x)^T⟩` the local covariance in the linearised neighbourhood. On the `ψ ∝ ρ` subfamily, the antisymmetric part carries a single scalar `Q(x)` = the (1,2) entry of `A(x)`. Under the transformation `f(x) → f′(x) := f(x) + 2 A(x) ∇V(x)`, three pointwise algebraic invariants control what the snapshot can and cannot resolve:
+
+| Invariant | Statement | Consequence for the snapshot |
+|:---|:---|:---|
+| Trace preservation | `tr J′(x) = tr J(x)` at every `x` | The pointwise trace of the drift Jacobian is a snapshot-determined scalar. Any snapshot-derived estimator that agrees with `p` and `D` reproduces `tr J`. |
+| Determinant identity | `det ∇f′(x) = (D² + c²) det H(x)`, where `H = −∇²V` is the Hessian of `V` and `c` is the scalar free parameter of `Q(x)` | The sign of `det ∇f′` is preserved regardless of `c`; adding rotational content does not change classification of `x` as saddle / node / spiral. |
+| `Q` tracks `c` | `Q(x) = c(x)` (up to a fixed diffusion factor) | The antisymmetric scalar is exactly the free parameter of the family; recovering it requires evidence outside the snapshot. |
+
+For `d = 2` the antisymmetric matrix `A(x)` has one degree of freedom (`c(x)`, equivalently a scalar rotation rate `ω(x)`). The identifiability price schedule (Fig 1B) enumerates the routes to recover `Q`:
 
 | Output | Requires |
 |:---|:---|
-| `A(x)` at any single point | `d − 1 = 1` static perturbation of one input coordinate |
+| `A(x)` at any single point | `d − 1 = 1` static perturbation of one input coordinate at that point |
 | Sign of `ω(x)` (rotation direction) | 1 time-resolved perturbation observed at two times |
 | Per-cell velocity vector | metabolic labelling with a reference that is NOT in the linear span of the input representation |
 | Per-cell lineage displacement | clonal barcode + late-time re-sampling |
 
-**Table S2.** Instance of the price schedule for the neuron-labelling cohort. The reference velocity `v_ref = log1p(M_n_hvg) · PCs_hvg` is a linear function of `X_pca` up to the log1p transform on new counts; a `LinearRegression(X_pca → v_ref)` reaches cell-wise cosine 0.993 and held-out R² 0.920. This makes the labelling reference on this cohort a near-degenerate satisfier of price schedule item 3.
+**Table S1b. Instance of the price schedule for the scNT-seq KCl-stimulated cortical-neuron cohort.** The reference velocity `v_ref = log1p(M_n_hvg) @ PCs_hvg` is by construction a linear function of `X_pca` up to the `log1p` transform on new counts. A `LinearRegression(X_pca → v_ref)` reaches cell-wise cosine 0.993 and held-out R² 0.920 (§2.5). This makes the labelling reference on this cohort a near-degenerate satisfier of price schedule item 3: it lies in the linear span of the input representation and therefore cannot fix `Q(x)` against a rotational alternative that is also linear in `X_pca`.
+
+**Table S1c. Empirical footprint of the invariants on marrow Ery.** On six real Gate 0d v2 fits (3 folds × 2 seeds), the whitened symmetric part of scJDO's Jacobian has leading-eigenvector `|cos|` of 0.33 ± 0.15 vs the Lyapunov-gauge prediction `−½ Σ^{−1/2} D̂ Σ^{−1/2}` and 0.28 ± 0.07 vs the local-precision baseline; the Frobenius correlation is 0.46 ± 0.01 vs the prediction and −0.38 ± 0.00 vs precision (Task B, `reproducibility/gates_r26/gate0d_v2/task_B_precision_allfits.json`). The matrix-level agreement is better than the naive alternative but the leading direction is not reliably recovered [ EL03 ].
 
 ## S2 — Prior / seed audit tables
 
@@ -70,13 +80,19 @@ Both are illustrations, not evidence. Any reader who wishes to include them as m
 
 ## S5 — Retracted-claims table
 
-Every v56-era claim retracted by evidence gathered in r22–r26 + Tasks 0–7, with the evidence pointer and ledger ID.
+Every v56-era claim retracted by evidence gathered in r22–r26 + Tasks 0–7 + draft-2 rewrite, with the evidence pointer and ledger ID.
 
-| Retracted v56 claim | Evidence that retracts it | Superseding ledger ID | Terminology change required |
+| Retracted v56 / draft-1 claim | Evidence that retracts it | Superseding ledger ID | Terminology / wording change |
 |:---|:---:|:---:|:---:|
-| "Two attractors" describing vel_scale × bias outcomes | Gate 0a Case 3 — basin dominated by seed; empirical V_ref delta 1.099 shows plumbing works | EL04 | Replace with "training basins" |
+| "Two attractors" describing `vel_scale × bias` outcomes | Gate 0a Case 3 — basin dominated by seed; empirical V_ref delta 1.099 and 50/53 state-dict tensors differ; plumbing works | EL04 | Replace with "training basins" |
 | "Bias is inert" as a bug hypothesis | Gate 0a Case 3 (bug refuted); r22 factorial audit; EL04 | EL04 | — |
-| "Round A = estimator fidelity" | r11 (synthetic learned-vs-oracle match) is estimator fidelity; Round A is real-data eigenvalue-curve reproducibility (a distinct calibration item) | (no single ID; split into §2.2 and §2.3 in v57) | — |
-| Gate 0c archetype-consensus statement of "K_eff = 1" as an intrinsic property | Gate 0c used absolute cosine + single linkage — methodologically flawed. Gate 0d v2 held-out gain confirms K_eff = 1 via a different, valid mechanism | EL15 | — |
+| "Round A = estimator fidelity" | r11 (per-cell aggregation of learned Jacobian on lifted-truth synthetic) is estimator fidelity; Round A is real-data eigenvalue-curve reproducibility (peak-τ across seeds); a separate calibration item | EL07 (both merged) | Draft 2 §2.2 now cites EL07 for the estimator-fidelity claim explicitly |
+| Gate 0c archetype-consensus statement of "K_eff = 1" as an intrinsic property | Gate 0c used absolute cosine + single linkage — methodologically flawed. Gate 0d v2 held-out gain confirms K_eff = 1 via a different, valid mechanism (real and null tensors both ≈ rank one) | EL15 | Add: "real and null tensors both approximately rank one" |
 | "Sensitivity genes" language | Terminology change; instruments produce leading-direction loadings, not "sensitivity genes" | — | Replace with "leading-direction loadings" |
 | "Velocity prior" language for the additive V_ref slot | Terminology change; the slot is an additive pseudotime-gradient prior with an external `V_ref` accepted through the same channel | — | Replace with "additive pseudotime-gradient prior" |
+| Draft-1 §2.2 claim "scJDO's per-cell Jacobian estimate matches the oracle to within fit noise once cells at the symmetric fixed point are provided with an oracle-rotation reference" | V2-fixed benchmark: oracle-at-cells 0/6 and learned-at-cells 0/6; only oracle-at-FP crosses (6/6). No cell-evaluated Jacobian localises the bifurcation on this substrate | EL08 | Replace with "per-cell aggregation reproduces the analytic at-cells `Re λ_max` profile; the crossing is a property of the fixed point, not of the estimator" |
+| Draft-1 abstract "the antisymmetric part … has not been reported honestly" | Editorial. The identifiability limit is a well-established property of snapshot inference; the abstract now cites Weinreb 2018 for the limit and drops the editorial line | (no ledger row; wording change) | Removed |
+| Draft-1 abstract "a scored estimator recovers the analytic Jacobian at the cell level once an oracle rotation is supplied" | V2-fixed benchmark contradicts the "recovers the analytic Jacobian at the cell level" reading; only per-cell aggregation of `Re λ_max` reproduces the analytic curve (EL07), while cell-evaluated crossings do not exist (EL08) | EL07, EL08 | Replaced by two-sentence EL07/EL08 statement in abstract |
+| Draft-1 §2.5 unqualified "labelling ground truth" framing | The scNT-seq KCl-neuron cohort's `R` is nascent-transcript projected onto `X_pca`; a linear regression on `X_pca` already reaches R² 0.92 to `R`. This bounds what the labelling comparison here can test | EL13 | Section title now labels the substrate; §2.5 states the limit; Discussion narrows the labelling paragraph to this dataset and reference type |
+| Draft-1 Box 1 "kernel-selected bandwidth" in the snapshot-determined column | Bandwidth is a fitting hyperparameter chosen by the reproducibility × contrast × localisation criterion; it does not fall out of the snapshot | — | Removed from Box 1 |
+| Draft-1 Box 1 "sign flip of `A_12`" in the snapshot-determined column | The sign flip requires the additive pseudotime-gradient prior to be active (`vel_scale = 2`); at `vel_scale = 0` there is no sign flip. The output is prior-selected | EL05, EL14 | Moved to the prior-selected column |
