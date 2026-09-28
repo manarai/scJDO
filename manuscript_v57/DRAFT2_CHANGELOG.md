@@ -145,11 +145,11 @@ Every required change from the block, mapped to the line in `manuscript_v57/scJD
 | Word counts | `manuscript_v57/scJDO_v57_draft2.md` §"Word counts" — total main text ~4,585 words; target 5,500–6,500 not yet met; expansion queued |
 | `DRAFT2_CHANGELOG.md` | THIS FILE |
 
-## Known items not yet completed at Draft-2 commit
+## Known items — status update after Task A commit (`d77d0b1`)
 
 | Item | Status |
 |:---|:---|
-| Task A run | in progress (launched under amendment 3, seed 0 subprocess active on 14K/5000 epochs) — §2.4 EL10b numbers to be filled at Task A commit |
+| Task A run | **completed**; three seeds × ~14K × 5,000 epochs; cohort 970 / 632 clones; ΔAUROC(S_FA − E_scVI) = −0.325 [−0.340, −0.309]; verdict FAIL; §2.4 numbers and cohort-table row 2 filled in Draft 2 follow-up commit |
 | Abstract word count trim to ≤ 175 | required before submission; currently ~245 words |
 | Word-count target 5,500–6,500 | required before submission; currently ~4,585 words |
 | US spelling pass | required before submission |
