@@ -29,7 +29,7 @@ def fit_one_seed(a_fit, seed):
         b, rep="X_fa", time_key="pseudotime",
         vel_scale=0.0, hidden=256, depth=4, sigma=0.10,
         windowing="kernel", bandwidth="auto", grid_size=100,
-        n_archetypes=5, n_epochs=1500,
+        n_archetypes=5, n_epochs=5000,
         seed=seed, verbose=False, key_added="scjdo_bulk",
     )
     res = b.uns["scjdo_bulk"]
@@ -106,7 +106,7 @@ def main():
     else:
         print(f"[seed {seed} TaskA] loading {H5AD_FIT.name} (~14K)", flush=True)
         a_fit = sc.read_h5ad(H5AD_FIT)
-        print(f"[seed {seed} TaskA] fit_drift on {a_fit.shape} (grid=100, epochs=2000)", flush=True)
+        print(f"[seed {seed} TaskA] fit_drift on {a_fit.shape} (grid=100, epochs=5000)", flush=True)
         feats = fit_one_seed(a_fit, seed)
         # Save fit-only cache BEFORE projection so a projection crash doesn't cost the fit
         fit_only_ck.write_bytes(pickle.dumps(feats))

@@ -109,19 +109,22 @@ def build_features_taskA():
     if "X_clone" in adata_day2.obsm:
         a.obsm["X_clone"] = adata_day2.obsm["X_clone"]
 
-    # ── Amendment (revised): scJDO fit substrate = all 4,638 barcoded day-2
-    #    cells + 5,000 random day-2 Undiff without clone = ~9,638 total.
-    #    Prior 14K attempt OOM'd; this preserves 100% of the cohort while
-    #    shrinking the fill to fit compute budget.
+    # ── Amendment 3: scJDO fit substrate = all barcoded day-2 cells
+    #    (~4,638) + unbarcoded day-2 cells subsampled to fill the substrate
+    #    to N_SUBSTRATE_TARGET total. Barcoded eligible cells are retained
+    #    in full; the subsample is applied only to unbarcoded cells.
+    N_SUBSTRATE_TARGET = 14000
     has_clone = np.asarray(a.obsm["X_clone"].sum(axis=1)).flatten() > 0
     rng = np.random.default_rng(0)
     all_no_clone_idx = np.where(~has_clone)[0]
-    n_fill = min(5000, len(all_no_clone_idx))
+    n_fill = max(0, min(N_SUBSTRATE_TARGET - int(has_clone.sum()),
+                        len(all_no_clone_idx)))
     fill_sample = rng.choice(all_no_clone_idx, size=n_fill, replace=False)
     keep_fit = has_clone.copy()
     keep_fit[fill_sample] = True
     print(f"[preproc] scJDO fit substrate subsample: total={int(keep_fit.sum())} "
-          f"(has_clone={int(has_clone.sum())}, fill={n_fill})")
+          f"(has_clone={int(has_clone.sum())}, fill={n_fill}, "
+          f"target={N_SUBSTRATE_TARGET})")
     a_fit = a[keep_fit].copy()
 
     # Palantir on the ~14K fit substrate's X_FA
