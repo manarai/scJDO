@@ -36,10 +36,29 @@ SCJDO_SEEDS = [0, 1, 2]
 
 def build_features_taskA():
     """Return the day-2 AnnData with X_PCA, X_FA, X_scVI, X_fa alias,
-    fa_loadings varm, palantir pseudotime, X_clone."""
-    if H5AD_PP_TA.exists():
-        print(f"[preproc] loading cached {H5AD_PP_TA.name}")
-        return sc.read_h5ad(H5AD_PP_TA)
+    fa_loadings varm, palantir pseudotime, X_clone. Also (re)builds the
+    ~14K scJDO fit substrate under amendment 3 when the fit cache is
+    absent or was written under an earlier amendment."""
+    fit_path = H5AD_PP_TA.parent / "larry_day2_preproc_taskA_fit.h5ad"
+    if H5AD_PP_TA.exists() and fit_path.exists():
+        # Both caches exist. Under amendment 3 the fit substrate must be
+        # ~14,000 cells; if it isn't, invalidate the fit cache and
+        # rebuild the subsample from the 28K baseline.
+        a_fit_probe = sc.read_h5ad(fit_path, backed="r")
+        if abs(a_fit_probe.n_obs - 14000) <= 100:
+            print(f"[preproc] loading cached {H5AD_PP_TA.name} + {fit_path.name} (n_fit={a_fit_probe.n_obs})")
+            a_fit_probe.file.close()
+            return sc.read_h5ad(H5AD_PP_TA)
+        else:
+            print(f"[preproc] fit cache ({a_fit_probe.n_obs} cells) does not match amendment 3 target (~14000) — invalidating")
+            a_fit_probe.file.close()
+            fit_path.unlink()
+    if H5AD_PP_TA.exists() and not fit_path.exists():
+        # 28K baseline is fresh; only need to rebuild the fit substrate.
+        print(f"[preproc] loading cached {H5AD_PP_TA.name} (28K baseline); rebuilding fit substrate")
+        a = sc.read_h5ad(H5AD_PP_TA)
+        _build_fit_substrate(a)
+        return a
 
     adata_day2, _ = build_day2_h5ad()
     print(f"[preproc] day-2 raw AnnData: {adata_day2.shape}")
@@ -109,10 +128,21 @@ def build_features_taskA():
     if "X_clone" in adata_day2.obsm:
         a.obsm["X_clone"] = adata_day2.obsm["X_clone"]
 
-    # ── Amendment 3: scJDO fit substrate = all barcoded day-2 cells
-    #    (~4,638) + unbarcoded day-2 cells subsampled to fill the substrate
-    #    to N_SUBSTRATE_TARGET total. Barcoded eligible cells are retained
-    #    in full; the subsample is applied only to unbarcoded cells.
+    # Write the full 28K baseline; the fit substrate is built by a
+    # separate helper (so it is regenerated when the amendment changes
+    # its size).
+    a.write_h5ad(H5AD_PP_TA)
+    print(f"[preproc] wrote {H5AD_PP_TA}  {a.shape}  (full-cohort baseline)")
+    _build_fit_substrate(a)
+    return a
+
+
+def _build_fit_substrate(a):
+    """Amendment-3 substrate: all barcoded day-2 cells (~4,638) +
+    unbarcoded day-2 cells subsampled to fill to N_SUBSTRATE_TARGET
+    (~14,000) total. Barcoded eligible cells are retained in full; the
+    subsample is applied only to unbarcoded cells. Recomputes Palantir
+    pseudotime on the subsample and writes the fit-substrate h5ad."""
     N_SUBSTRATE_TARGET = 14000
     has_clone = np.asarray(a.obsm["X_clone"].sum(axis=1)).flatten() > 0
     rng = np.random.default_rng(0)
@@ -127,7 +157,6 @@ def build_features_taskA():
           f"target={N_SUBSTRATE_TARGET})")
     a_fit = a[keep_fit].copy()
 
-    # Palantir on the ~14K fit substrate's X_FA
     import palantir
     print("[preproc] palantir pseudotime on fit substrate X_FA ...")
     dm = palantir.utils.run_diffusion_maps(
@@ -148,13 +177,9 @@ def build_features_taskA():
     print(f"  fit substrate pseudotime range: [{np.nanmin(a_fit.obs['pseudotime']):.3f}, "
           f"{np.nanmax(a_fit.obs['pseudotime']):.3f}]")
 
-    # Write TWO AnnDatas: the full 28k baseline (for E arms) and the fit substrate
-    a.write_h5ad(H5AD_PP_TA)
-    a_fit.write_h5ad(H5AD_PP_TA.parent / "larry_day2_preproc_taskA_fit.h5ad")
-    print(f"[preproc] wrote {H5AD_PP_TA}  {a.shape}  (full-cohort baseline)")
-    print(f"[preproc] wrote {H5AD_PP_TA.parent / 'larry_day2_preproc_taskA_fit.h5ad'}  "
-          f"{a_fit.shape}  (scJDO fit substrate)")
-    return a
+    fit_path = H5AD_PP_TA.parent / "larry_day2_preproc_taskA_fit.h5ad"
+    a_fit.write_h5ad(fit_path)
+    print(f"[preproc] wrote {fit_path}  {a_fit.shape}  (scJDO fit substrate)")
 
 
 def cohort_labels(adata_day2, clone_late):
@@ -216,7 +241,7 @@ def main():
         t_s = time.time()
         try:
             subprocess.run([sys.executable, "-u", str(HELPER), str(seed)],
-                            cwd=str(REPO), check=True, timeout=3600)  # 60 min cap
+                            cwd=str(REPO), check=True, timeout=28800)  # 8 h cap per seed
         except subprocess.TimeoutExpired:
             print(f"  seed {seed} TIMEOUT — skipping"); continue
         except subprocess.CalledProcessError as e:
@@ -229,6 +254,12 @@ def main():
     seeds = sorted(per_seed.keys())
     branches = list(per_seed[seeds[0]].keys())
     print(f"[scjdo] branches={branches}, seeds={seeds}")
+
+    # The per-seed subprocess wrote the full-cohort pseudotime back to
+    # H5AD_PP_TA (project_to_full_cohort). Reload `a` to pick it up.
+    if "pseudotime" not in a.obs.columns or np.isnan(a.obs["pseudotime"].values).any():
+        print("[main] reloading 28K cache to pick up projected pseudotime")
+        a = sc.read_h5ad(H5AD_PP_TA)
 
     # Consensus (single-branch, within-substrate across seeds)
     tau = a.obs["pseudotime"].values.astype(np.float32)
