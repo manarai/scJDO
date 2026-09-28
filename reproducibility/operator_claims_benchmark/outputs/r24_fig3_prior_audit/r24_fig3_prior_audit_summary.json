@@ -1,0 +1,569 @@
+{
+  "configs": [
+    {
+      "name": "A1_default_fig3",
+      "vel_scale": 2.0,
+      "bias_strength": 1.5,
+      "hidden": 256,
+      "sigma": 0.1,
+      "note": "Fig 3 as-published"
+    },
+    {
+      "name": "A2_no_vel_fig3",
+      "vel_scale": 0.0,
+      "bias_strength": 1.5,
+      "hidden": 256,
+      "sigma": 0.1,
+      "note": "Isolate vel_scale under Fig 3 bias"
+    },
+    {
+      "name": "A3_smaller_net",
+      "vel_scale": 2.0,
+      "bias_strength": 1.5,
+      "hidden": 128,
+      "sigma": 0.1,
+      "note": "Smaller network, Fig 3 bias"
+    },
+    {
+      "name": "A4_hi_sigma",
+      "vel_scale": 2.0,
+      "bias_strength": 1.5,
+      "hidden": 256,
+      "sigma": 0.2,
+      "note": "Higher sigma, Fig 3 bias"
+    },
+    {
+      "name": "B1_no_bias",
+      "vel_scale": 2.0,
+      "bias_strength": 0.0,
+      "hidden": 256,
+      "sigma": 0.1,
+      "note": "vel on, bias off (matches r22 'default')"
+    },
+    {
+      "name": "B2_neither",
+      "vel_scale": 0.0,
+      "bias_strength": 0.0,
+      "hidden": 256,
+      "sigma": 0.1,
+      "note": "vel off, bias off (matches r22 'no_vel')"
+    }
+  ],
+  "n_seeds_per_config": 3,
+  "within_config_reproducibility": {
+    "A1_default_fig3": {
+      "mean_eigvec_cos": 0.43692900737126666,
+      "mean_top15_jaccard": 0.2916666666666667
+    },
+    "A2_no_vel_fig3": {
+      "mean_eigvec_cos": 0.995445450146993,
+      "mean_top15_jaccard": 0.9166666666666666
+    },
+    "A3_smaller_net": {
+      "mean_eigvec_cos": 0.16719890385866165,
+      "mean_top15_jaccard": 0.06277630415561451
+    },
+    "A4_hi_sigma": {
+      "mean_eigvec_cos": 0.23564424614111582,
+      "mean_top15_jaccard": 0.07234081372012406
+    },
+    "B1_no_bias": {
+      "mean_eigvec_cos": 0.4366646309693654,
+      "mean_top15_jaccard": 0.2916666666666667
+    },
+    "B2_neither": {
+      "mean_eigvec_cos": 0.995445450146993,
+      "mean_top15_jaccard": 0.9166666666666666
+    }
+  },
+  "cross_config_stability_vs_A1_seed0": {
+    "A1_default_fig3": {
+      "eigvec_cos_vs_ref": 1.0,
+      "top15_jaccard_vs_ref": 1.0,
+      "top5_names": [
+        "RP11-1I2.1",
+        "CLU",
+        "IGHM",
+        "MEG3",
+        "CRHBP"
+      ]
+    },
+    "A2_no_vel_fig3": {
+      "eigvec_cos_vs_ref": 0.19973430037498474,
+      "top15_jaccard_vs_ref": 0.0,
+      "top5_names": [
+        "HBB",
+        "AHSP",
+        "CA1",
+        "FAM178B",
+        "APOC1"
+      ]
+    },
+    "A3_smaller_net": {
+      "eigvec_cos_vs_ref": 0.2561763823032379,
+      "top15_jaccard_vs_ref": 0.034482758620689655,
+      "top5_names": [
+        "UBE2C",
+        "TOP2A",
+        "MKI67",
+        "BIRC5",
+        "TK1"
+      ]
+    },
+    "A4_hi_sigma": {
+      "eigvec_cos_vs_ref": 0.53072190284729,
+      "top15_jaccard_vs_ref": 0.1111111111111111,
+      "top5_names": [
+        "HIST3H2A",
+        "H1F0",
+        "AC074183.4",
+        "IL1B",
+        "ZBTB20"
+      ]
+    },
+    "B1_no_bias": {
+      "eigvec_cos_vs_ref": 0.9963252544403076,
+      "top15_jaccard_vs_ref": 0.7647058823529411,
+      "top5_names": [
+        "RP11-1I2.1",
+        "CLU",
+        "MEG3",
+        "IGHM",
+        "CRHBP"
+      ]
+    },
+    "B2_neither": {
+      "eigvec_cos_vs_ref": 0.19973430037498474,
+      "top15_jaccard_vs_ref": 0.0,
+      "top5_names": [
+        "HBB",
+        "AHSP",
+        "CA1",
+        "FAM178B",
+        "APOC1"
+      ]
+    }
+  },
+  "per_config_per_seed": {
+    "A1_default_fig3": {
+      "top15_names_by_seed": [
+        [
+          "RP11-1I2.1",
+          "CLU",
+          "IGHM",
+          "MEG3",
+          "CRHBP",
+          "MDK",
+          "MZB1",
+          "PCDH9",
+          "AREG",
+          "HIST3H2A",
+          "IFITM3",
+          "NR4A2",
+          "BEX2",
+          "HIST1H1D",
+          "TUBB4B"
+        ],
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FAM89A",
+          "LMNA",
+          "HBD",
+          "EPCAM",
+          "FCER1A",
+          "APOE",
+          "KCNH2",
+          "BLVRB",
+          "NMU",
+          "CD36"
+        ],
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FAM89A",
+          "FCER1A",
+          "LMNA",
+          "EPCAM",
+          "HBD",
+          "APOE",
+          "KCNH2",
+          "BLVRB",
+          "NMU",
+          "GATA2"
+        ]
+      ],
+      "peak_tau_by_seed": [
+        0.019999999552965164,
+        0.6712563037872314,
+        0.6905527710914612
+      ],
+      "peak_max_eig_by_seed": [
+        -0.045357078313827515,
+        -0.018985288217663765,
+        -0.023224687203764915
+      ],
+      "sensitive_bins_by_seed": [
+        0,
+        0,
+        0
+      ]
+    },
+    "A2_no_vel_fig3": {
+      "top15_names_by_seed": [
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FCER1A",
+          "FAM89A",
+          "LMNA",
+          "EPCAM",
+          "HBD",
+          "APOE",
+          "KCNH2",
+          "GATA2",
+          "IL1B",
+          "NMU"
+        ],
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FAM89A",
+          "LMNA",
+          "FCER1A",
+          "HBD",
+          "EPCAM",
+          "APOE",
+          "KCNH2",
+          "BLVRB",
+          "NMU",
+          "IL1B"
+        ],
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FCER1A",
+          "FAM89A",
+          "LMNA",
+          "EPCAM",
+          "HBD",
+          "APOE",
+          "KCNH2",
+          "GATA2",
+          "NMU",
+          "IL1B"
+        ]
+      ],
+      "peak_tau_by_seed": [
+        0.6712563037872314,
+        0.6664321422576904,
+        0.6809045076370239
+      ],
+      "peak_max_eig_by_seed": [
+        -0.11561818420886993,
+        -0.06830929219722748,
+        -0.06616257131099701
+      ],
+      "sensitive_bins_by_seed": [
+        0,
+        0,
+        0
+      ]
+    },
+    "A3_smaller_net": {
+      "top15_names_by_seed": [
+        [
+          "UBE2C",
+          "TOP2A",
+          "MKI67",
+          "BIRC5",
+          "TK1",
+          "TUBB4B",
+          "NUSAP1",
+          "HBB",
+          "RRM2",
+          "CENPF",
+          "AURKB",
+          "TPX2",
+          "ASPM",
+          "CDKN3",
+          "GTSE1"
+        ],
+        [
+          "AVP",
+          "MPO",
+          "CD69",
+          "LGALS1",
+          "CRHBP",
+          "C1QTNF4",
+          "MYC",
+          "MZB1",
+          "CPA3",
+          "IL1B",
+          "ELANE",
+          "TK1",
+          "ZFP36",
+          "AREG",
+          "H1F0"
+        ],
+        [
+          "C1QTNF4",
+          "MZB1",
+          "IGHM",
+          "RP11-1I2.1",
+          "HOPX",
+          "CRHBP",
+          "MLLT3",
+          "TRBC2",
+          "MYC",
+          "CLU",
+          "PCDH9",
+          "FCER1A",
+          "MYO1G",
+          "FLT3",
+          "CD48"
+        ]
+      ],
+      "peak_tau_by_seed": [
+        0.9800000190734863,
+        0.019999999552965164,
+        0.019999999552965164
+      ],
+      "peak_max_eig_by_seed": [
+        0.1909252107143402,
+        0.15932169556617737,
+        0.14123626053333282
+      ],
+      "sensitive_bins_by_seed": [
+        146,
+        152,
+        60
+      ]
+    },
+    "A4_hi_sigma": {
+      "top15_names_by_seed": [
+        [
+          "HIST3H2A",
+          "H1F0",
+          "AC074183.4",
+          "IL1B",
+          "ZBTB20",
+          "YPEL3",
+          "ALDH1A1",
+          "MPO",
+          "HIST1H1D",
+          "EVI2B",
+          "HIST2H2BE",
+          "TUBB4B",
+          "CLSPN",
+          "RAB37",
+          "HIST1H2BG"
+        ],
+        [
+          "UBE2C",
+          "TK1",
+          "TOP2A",
+          "MKI67",
+          "TUBB4B",
+          "RRM2",
+          "BIRC5",
+          "NUSAP1",
+          "HIST1H1D",
+          "CENPF",
+          "LGALS1",
+          "AURKB",
+          "TPX2",
+          "CLSPN",
+          "HIST1H1B"
+        ],
+        [
+          "MYC",
+          "APOC1",
+          "KLF1",
+          "IL1B",
+          "PPP1R14A",
+          "CNRIP1",
+          "TK1",
+          "BLVRB",
+          "FAM178B",
+          "CD36",
+          "CA1",
+          "CSF2RB",
+          "ALDH1A1",
+          "TPM1",
+          "LYZ"
+        ]
+      ],
+      "peak_tau_by_seed": [
+        0.34321609139442444,
+        0.9800000190734863,
+        0.9800000190734863
+      ],
+      "peak_max_eig_by_seed": [
+        -0.000809051503892988,
+        0.020671145990490913,
+        0.02631492353975773
+      ],
+      "sensitive_bins_by_seed": [
+        0,
+        0,
+        0
+      ]
+    },
+    "B1_no_bias": {
+      "top15_names_by_seed": [
+        [
+          "RP11-1I2.1",
+          "CLU",
+          "MEG3",
+          "IGHM",
+          "CRHBP",
+          "AREG",
+          "MDK",
+          "MZB1",
+          "PCDH9",
+          "IFITM3",
+          "HIST3H2A",
+          "NR4A2",
+          "PTGS1",
+          "BEX2",
+          "SOCS2"
+        ],
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FAM89A",
+          "LMNA",
+          "FCER1A",
+          "HBD",
+          "EPCAM",
+          "APOE",
+          "KCNH2",
+          "NMU",
+          "IL1B",
+          "BLVRB"
+        ],
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FCER1A",
+          "FAM89A",
+          "LMNA",
+          "EPCAM",
+          "HBD",
+          "APOE",
+          "KCNH2",
+          "GATA2",
+          "NMU",
+          "IL1B"
+        ]
+      ],
+      "peak_tau_by_seed": [
+        0.019999999552965164,
+        0.6712563037872314,
+        0.6905527710914612
+      ],
+      "peak_max_eig_by_seed": [
+        -0.030811088159680367,
+        -0.025614650920033455,
+        -0.023062778636813164
+      ],
+      "sensitive_bins_by_seed": [
+        0,
+        0,
+        0
+      ]
+    },
+    "B2_neither": {
+      "top15_names_by_seed": [
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FCER1A",
+          "FAM89A",
+          "LMNA",
+          "EPCAM",
+          "HBD",
+          "APOE",
+          "KCNH2",
+          "GATA2",
+          "IL1B",
+          "NMU"
+        ],
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FAM89A",
+          "LMNA",
+          "FCER1A",
+          "HBD",
+          "EPCAM",
+          "APOE",
+          "KCNH2",
+          "BLVRB",
+          "NMU",
+          "IL1B"
+        ],
+        [
+          "HBB",
+          "AHSP",
+          "CA1",
+          "FAM178B",
+          "APOC1",
+          "FCER1A",
+          "FAM89A",
+          "LMNA",
+          "EPCAM",
+          "HBD",
+          "APOE",
+          "KCNH2",
+          "GATA2",
+          "NMU",
+          "IL1B"
+        ]
+      ],
+      "peak_tau_by_seed": [
+        0.6712563037872314,
+        0.6664321422576904,
+        0.6809045076370239
+      ],
+      "peak_max_eig_by_seed": [
+        -0.11561818420886993,
+        -0.06830929219722748,
+        -0.06616257131099701
+      ],
+      "sensitive_bins_by_seed": [
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}

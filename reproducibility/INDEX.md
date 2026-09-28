@@ -77,6 +77,9 @@ Files brought back onto `main` from the pre-cherry-pick backup so that EL07 and 
 | `reproducibility/operator_claims_benchmark/REPORT_OPERATOR_CLAIMS.md` | `3775e4e` | `pre-cherrypick-r26-backup` | Task C |
 | `reproducibility/operator_claims_benchmark/outputs/roundA_temporal_summary.json` | `3775e4e` | `pre-cherrypick-r26-backup` | Task C |
 | `reproducibility/operator_claims_benchmark/outputs/roundA_temporal_curves.npz` | `3775e4e` | `pre-cherrypick-r26-backup` | Task C |
+| `reproducibility/operator_claims_benchmark/REPORT_R24_FIG3_PRIOR_AUDIT.md` | `415dbb0` | `pre-cherrypick-r26-backup` | Draft 3b |
+| `reproducibility/operator_claims_benchmark/outputs/r24_fig3_prior_audit/r24_fig3_prior_audit_summary.json` | `415dbb0` | `pre-cherrypick-r26-backup` | Draft 3b |
+| `reproducibility/data/FOLLOWUP6_aggregation.json` (r11 estimator-fidelity source for EL07 / Fig 2C) | `30fd5e0` (r11 tag) | `pre-cherrypick-r26-backup` | already on main via `ed1499c` (Task 6 relocation from `New_analysis/data/`) |
 
 Note: the paths on the backup ref lived under `New_analysis/blind_saddle_benchmark/` and `New_analysis/operator_claims_benchmark/`; Task 6 (`ed1499c`) relocated the parent tree under `reproducibility/`. Only the report/output files listed above were carried back; the pre-r26 saddle-branch scripts remain outside the calibration-paper evidence base.
 
