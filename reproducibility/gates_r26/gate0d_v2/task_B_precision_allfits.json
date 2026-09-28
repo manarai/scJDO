@@ -1,0 +1,89 @@
+{
+  "n_fits": 6,
+  "per_fit": [
+    {
+      "fold": 0,
+      "seed": 0,
+      "bandwidth": 0.08,
+      "median_cos_vs_predicted": 0.5481835222612433,
+      "mean_frob_vs_predicted": 0.4672141234232898,
+      "median_cos_vs_precision": 0.20930991870954224,
+      "mean_frob_vs_precision": -0.3781918648081421
+    },
+    {
+      "fold": 0,
+      "seed": 1,
+      "bandwidth": 0.08,
+      "median_cos_vs_predicted": 0.17869055303301426,
+      "mean_frob_vs_predicted": 0.4818508519077503,
+      "median_cos_vs_precision": 0.18189356079057473,
+      "mean_frob_vs_precision": -0.3866845192706543
+    },
+    {
+      "fold": 1,
+      "seed": 0,
+      "bandwidth": 0.05,
+      "median_cos_vs_predicted": 0.18957004685809464,
+      "mean_frob_vs_predicted": 0.4535986701100177,
+      "median_cos_vs_precision": 0.3025760745110142,
+      "mean_frob_vs_precision": -0.38136968995646
+    },
+    {
+      "fold": 1,
+      "seed": 1,
+      "bandwidth": 0.05,
+      "median_cos_vs_predicted": 0.4483937014385603,
+      "mean_frob_vs_predicted": 0.4570885443936258,
+      "median_cos_vs_precision": 0.33816932520845594,
+      "mean_frob_vs_precision": -0.38403341126417756
+    },
+    {
+      "fold": 2,
+      "seed": 0,
+      "bandwidth": 0.08,
+      "median_cos_vs_predicted": 0.3783947967507578,
+      "mean_frob_vs_predicted": 0.4465866665904842,
+      "median_cos_vs_precision": 0.3101001521630772,
+      "mean_frob_vs_precision": -0.3763232550428579
+    },
+    {
+      "fold": 2,
+      "seed": 1,
+      "bandwidth": 0.08,
+      "median_cos_vs_predicted": 0.2335321259360742,
+      "mean_frob_vs_predicted": 0.4554484581412521,
+      "median_cos_vs_precision": 0.34272862962535533,
+      "mean_frob_vs_precision": -0.380245925556499
+    }
+  ],
+  "across_fit": {
+    "median_cos_vs_predicted": {
+      "mean": 0.3294607910462908,
+      "sd": 0.15223836639213145,
+      "median": 0.305963461343416,
+      "min": 0.17869055303301426,
+      "max": 0.5481835222612433
+    },
+    "mean_frob_vs_predicted": {
+      "mean": 0.46029788576106995,
+      "sd": 0.012482455967124731,
+      "median": 0.45626850126743895,
+      "min": 0.4465866665904842,
+      "max": 0.4818508519077503
+    },
+    "median_cos_vs_precision": {
+      "mean": 0.28079627683466996,
+      "sd": 0.06834091942148418,
+      "median": 0.3063381133370457,
+      "min": 0.18189356079057473,
+      "max": 0.34272862962535533
+    },
+    "mean_frob_vs_precision": {
+      "mean": -0.3811414443164652,
+      "sd": 0.0037909937971004645,
+      "median": -0.3808078077564795,
+      "min": -0.3866845192706543,
+      "max": -0.3763232550428579
+    }
+  }
+}
