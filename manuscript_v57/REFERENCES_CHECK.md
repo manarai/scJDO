@@ -33,4 +33,15 @@ Verification of every citation in `manuscript_v57/scJDO_v57_draft3.md`. For each
 
 ## Method for the verification pass
 
-For each entry: (i) locate the DOI on the journal's landing page; (ii) resolve the DOI to the PubMed record when available; (iii) cross-check title, journal, year, volume/issue, and page range as they appear on the journal page vs the reference list; (iv) flag discrepancies for a next-revision fix. This pass surfaced no fabricated records; the only outstanding item is the Balubaid title, which is verifiable only from the v56 draft in Tom's possession.
+For each entry: (i) locate the DOI on the journal's landing page; (ii) resolve the DOI to the PubMed record when available; (iii) cross-check title, journal, year, volume/issue, and page range as they appear on the journal page vs the reference list; (iv) flag discrepancies for a next-revision fix. This pass surfaced no fabricated records.
+
+## Second-pass URL/citation verification (Draft 4b, 2026-09-30)
+
+Live spot-check via web search on the four entries most likely to have citation issues:
+
+- **[8] Balubaid et al.** — title "Fundamental Limits of Inferring Dynamical Gene Regulatory Models from Single-Cell Data", posted 2025-09-12, all seven authors match, DOI 10.1101/2025.09.12.674509 resolves to `biorxiv.org/content/10.1101/2025.09.12.674509v1`. **Match.**
+- **[13] Bocci et al. spliceJAC** — DOI 10.15252/msb.202211176 resolves to Molecular Systems Biology, vol 18 (2022), article e11176, November 2022, Bocci F, Zhou P, Nie Q. **Match.**
+- **[16] Varando & Hansen** — UAI 2020 (PMLR 124) page range 989–998 confirmed via `proceedings.mlr.press/v124/varando20a`. **Match.**
+- **[17] Dettling et al.** — SIAM JMAA 44(4), 1799–1821, 2023; DOI 10.1137/22M1520311; arXiv 2209.03835. **Match.**
+
+No corrections needed to the reference list. The remaining Draft-4-era `TODO:Tom` on this file (a tag pin for the [18] scJDO software entry) is unaffected by the verification pass.

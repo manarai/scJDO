@@ -96,3 +96,16 @@ Every v56-era claim retracted by evidence gathered in r22–r26 + Tasks 0–7 + 
 | Draft-1 §2.5 unqualified "labelling ground truth" framing | The scNT-seq KCl-neuron cohort's `R` is nascent-transcript projected onto `X_pca`; a linear regression on `X_pca` already reaches R² 0.92 to `R`. This bounds what the labelling comparison here can test | EL13 | Section title now labels the substrate; §2.5 states the limit; Discussion narrows the labelling paragraph to this dataset and reference type |
 | Draft-1 Box 1 "kernel-selected bandwidth" in the snapshot-determined column | Bandwidth is a fitting hyperparameter chosen by the reproducibility × contrast × localisation criterion; it does not fall out of the snapshot | — | Removed from Box 1 |
 | Draft-1 Box 1 "sign flip of `A_12`" in the snapshot-determined column | The sign flip requires the additive pseudotime-gradient prior to be active (`vel_scale = 2`); at `vel_scale = 0` there is no sign flip. The output is prior-selected | EL05, EL14 | Moved to the prior-selected column |
+
+## S6 — Seed-eigenvalue audit under the default hematopoiesis pipeline
+
+**Table S6.** Peak `Re λ_max` on marrow Ery under the default hematopoiesis pipeline (Methods) across seeds. The seed-42 fit used in the original analysis carries a positive peak; three audit seeds carry negative peaks. This is the concrete source for the sign-flip statement in §2.3.
+
+| Fit | Seed | Peak `Re λ_max` | Sign |
+|:---|:---:|:---:|:---:|
+| Original analysis (seed-42) | 42 | +0.044 | positive |
+| Audit fit 1 | 0 | −0.045 | negative |
+| Audit fit 2 | 1 | −0.019 | negative |
+| Audit fit 3 | 2 | −0.023 | negative |
+
+Source: `reproducibility/operator_claims_benchmark/REPORT_R24_FIG3_PRIOR_AUDIT.md` (Task A+B; restored to `main` at commit `906285c` from `pre-cherrypick-r26-backup` @ `415dbb0`).
