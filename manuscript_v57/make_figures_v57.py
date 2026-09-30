@@ -112,10 +112,12 @@ def fig2_synthetic():
 
 
 def fig3_real_stability():
-    """Held-out gain vs block-null; whitened-symmetric comparison."""
+    """4-panel Fig 3: A stability-fraction bar; B held-out gain(K);
+    C whitened-symmetric agreement; D Round A per-cell Re lambda_max curves."""
     with open(REPO / "reproducibility" / "gates_r26" / "gate0d_v2" / "gate0d_v2_summary.json") as f:
         d = json.load(f)
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5), constrained_layout=True)
+    fig, axes_grid = plt.subplots(2, 2, figsize=(12, 9), constrained_layout=True)
+    axes = axes_grid.flatten()
 
     # Panel A: seed-diagnostic of leading-direction loadings (bar of stability fraction)
     ax = axes[0]
@@ -163,6 +165,30 @@ def fig3_real_stability():
     ax.set_ylabel("similarity to sym$_W(\\tau)$")
     ax.set_ylim(-0.5, 1.0)
     ax.set_title("C. Whitened sym(J) matches $D̂$ prediction, not precision [EL03]",
+                  loc="left", fontsize=10)
+    ax.legend(fontsize=8, loc="upper right")
+
+    # Panel D: Round A per-cell Re lambda_max curves across 3 seeds (real-data
+    # reproducibility on marrow Ery; peak-tau 0.020 +/- 0.000; pairwise Pearson 0.806).
+    ax = axes[3]
+    z = np.load(REPO / "reproducibility" / "operator_claims_benchmark" /
+                 "outputs" / "roundA_temporal_curves.npz", allow_pickle=True)
+    curves = z["curves"]          # (3 seeds, T)
+    t_centers = z["t_centers"]    # (T,)
+    peaks = z["peaks"]            # (3,)
+    seed_colors = ["#255fa8", "#3d8f47", "#a83247"]
+    for si, curve in enumerate(curves):
+        ax.plot(t_centers, curve, "-", lw=1.5, alpha=0.8,
+                 color=seed_colors[si % len(seed_colors)],
+                 label=f"seed {si} — peak τ = {peaks[si]:.3f}")
+    peak_min = float(min(peaks)); peak_max = float(max(peaks))
+    ax.axvspan(peak_min - 0.005, peak_max + 0.005, color="#255fa8", alpha=0.10,
+                label=f"3-seed peak-τ spread [{peak_min:.3f}, {peak_max:.3f}]")
+    ax.axhline(0, color="black", lw=0.5, alpha=0.6)
+    ax.set_xlabel(r"pseudotime $\tau$")
+    ax.set_ylabel(r"$\langle\mathrm{Re}\,\lambda_{max}(J_i)\rangle_\tau$")
+    ax.set_xlim(0, 1)
+    ax.set_title("D. Round A: per-cell Re λ_max, 3 seeds — boundary peak [EL09]",
                   loc="left", fontsize=10)
     ax.legend(fontsize=8, loc="upper right")
 
