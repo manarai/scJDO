@@ -1,4 +1,4 @@
-# Supplement — scJDO v57 draft 1
+# Supplement — scJDO v57 draft 5
 
 ## S1 — Constructed obstruction tables
 
@@ -42,10 +42,6 @@ For `d = 2` the antisymmetric matrix `A(x)` has one degree of freedom (`c(x)`, e
 
 Interpretation: the V_ref buffer and the neural-network weights differ between the two bias values at the same seed, i.e. the bias-strength pathway is empirically active. The training basin at these parameters is dominated by the seed, which means aggregate-level agreement of gene lists at the same seed under different bias values is high but not because bias is inert — it is because both fits fell into similar basins under this seed's initialisation. See `reproducibility/gates_r26/gate0a/REPORT_Gate0a.md`.
 
-**Table S4.** vel_scale × bias factorial (marrow Ery, r22 audit; from `reproducibility/operator_claims_benchmark/`).
-
-*Placeholder for the r22 factorial table — see the referenced source directory for full numbers. In v57's main text, the audit outcome is summarised by the "leading-direction loadings are seed-dependent under default settings" statement of §3.*
-
 ## S3 — Gate preregs and full results
 
 Preregs and reports for every gate cited in the main text, with commit hashes. Every prereg was committed before its downstream compute.
@@ -69,15 +65,6 @@ Preregs and reports for every gate cited in the main text, with commit hashes. E
 
 Bold items are the canonical evidence sources referenced in the main text. Superseded items are retained for the audit trail.
 
-## S4 — Reprogramming and K562 as illustrations only, with their limitations
-
-The r15 K562 Perturb-seq analysis (Replogle 2022) and r22 reprogramming benchmark are retained under `reproducibility/regulator_benchmark/` and `reproducibility/blind_saddle_benchmark/` as historical illustrations. Neither is used to support a main-text claim in the v57 draft because:
-
-- **r15 K562** — CRISPRi Perturb-seq is not a snapshot of an intact trajectory; the ground truth is a perturbation-response matrix, not fate probabilities. The comparison to scJDO features was inconclusive and does not meet the reporting checklist of §3.
-- **r22 reprogramming** — the reprogramming dataset is a valuable stress test for the operator machinery but the r22 audit produced a mixed outcome (one PASS, one PARTIAL, one REFUTED across the three operator claims tested). No single verdict of the form used in Gates 1–3 emerges. See `reproducibility/operator_claims_benchmark/` for full details.
-
-Both are illustrations, not evidence. Any reader who wishes to include them as motivation should treat them as such and not as substitutes for the ground-truth benchmarks in §2.4 and §2.5.
-
 ## S5 — Retracted-claims table
 
 Every v56-era claim retracted by evidence gathered in r22–r26 + Tasks 0–7 + draft-2 rewrite, with the evidence pointer and ledger ID.
@@ -86,7 +73,7 @@ Every v56-era claim retracted by evidence gathered in r22–r26 + Tasks 0–7 + 
 |:---|:---:|:---:|:---:|
 | "Two attractors" describing `vel_scale × bias` outcomes | Gate 0a Case 3 — basin dominated by seed; empirical V_ref delta 1.099 and 50/53 state-dict tensors differ; plumbing works | EL04 | Replace with "training basins" |
 | "Bias is inert" as a bug hypothesis | Gate 0a Case 3 (bug refuted); r22 factorial audit; EL04 | EL04 | — |
-| "Round A = estimator fidelity" | r11 (per-cell aggregation of learned Jacobian on lifted-truth synthetic) is estimator fidelity; Round A is real-data eigenvalue-curve reproducibility (peak-τ across seeds); a separate calibration item | EL07 (both merged) | Draft 2 §2.2 now cites EL07 for the estimator-fidelity claim explicitly |
+| "Round A = estimator fidelity" | r11 (per-cell aggregation of learned Jacobian on lifted-truth synthetic) is estimator fidelity; Round A is real-data eigenvalue-curve reproducibility on marrow Ery (peak-τ across seeds; boundary peak) — a separate calibration item | EL07 (synthetic estimator fidelity) and EL09 (real-data eigenvalue-curve reproducibility) | Draft 5 §2.2 cites EL07 for the synthetic claim; §2.3 cites EL09 for the real-data claim |
 | Gate 0c archetype-consensus statement of "K_eff = 1" as an intrinsic property | Gate 0c used absolute cosine + single linkage — methodologically flawed. Gate 0d v2 held-out gain confirms K_eff = 1 via a different, valid mechanism (real and null tensors both ≈ rank one) | EL15 | Add: "real and null tensors both approximately rank one" |
 | "Sensitivity genes" language | Terminology change; instruments produce leading-direction loadings, not "sensitivity genes" | — | Replace with "leading-direction loadings" |
 | "Velocity prior" language for the additive V_ref slot | Terminology change; the slot is an additive pseudotime-gradient prior with an external `V_ref` accepted through the same channel | — | Replace with "additive pseudotime-gradient prior" |
@@ -108,4 +95,18 @@ Every v56-era claim retracted by evidence gathered in r22–r26 + Tasks 0–7 + 
 | Audit fit 2 | 1 | −0.019 | negative |
 | Audit fit 3 | 2 | −0.023 | negative |
 
-Source: `reproducibility/operator_claims_benchmark/REPORT_R24_FIG3_PRIOR_AUDIT.md` (Task A+B; restored to `main` at commit `906285c` from `pre-cherrypick-r26-backup` @ `415dbb0`).
+Source: **r24 audit** — per-configuration eigenvalue trace across three fitting seeds under the Fig-3 configuration (`vel_scale = 2.0`, `bias_strength = 1.5`, `hidden = 256`, `sigma = 0.10`, `depth = 4`, `grid_size = 200`, 5,000 epochs). Full record in `reproducibility/operator_claims_benchmark/REPORT_R24_FIG3_PRIOR_AUDIT.md`.
+
+## S7 — Major-lineage-group mapping for §2.4 soft-mode label
+
+Mature descendants of eligible LARRY clones at day 4/6 are mapped to five major lineage groups before the rarefied indicator is computed (§Methods).
+
+| Major lineage group | Constituent cell types |
+|:---|:---|
+| Myeloid_Neu | Neutrophil |
+| Myeloid_Mono | Monocyte |
+| ErythroMeg | Erythroid, Meg |
+| MastGranu | Baso, Mast, Eos |
+| LymphoDC | Lymphoid, Ccr7_DC, pDC |
+
+On each rarefaction draw (5 descendants without replacement), the clone is marked mixed = 1 if the drawn set spans ≥ 2 major groups. The mean over 200 draws is p_mixed; the primary binary label is y_mixed = 1 iff p_mixed ≥ 0.5. Descendant counts per eligible clone: mean 14.2, median 9.5, min 5, max 144. Positive fraction (mean y_mixed) on the 520-clone cohort: 0.275.

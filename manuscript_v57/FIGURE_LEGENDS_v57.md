@@ -1,6 +1,6 @@
 # FIGURE_LEGENDS_v57.md
 
-Legends for the five main-text figures of `manuscript_v57/scJDO_v57_draft4.md`.
+Legends for the five main-text figures of `manuscript_v57/scJDO_v57_draft5.md`. `[ EL## ]` tags remain in these legends (they are stripped from the main-text file per the Draft-5 rule; see `LEDGER_MAP_final.md` for the ID → main-text-location mapping).
 
 ## Fig 1 — Lyapunov gauge, price schedule, and cross-comparison
 
