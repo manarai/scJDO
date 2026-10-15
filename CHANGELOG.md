@@ -2,6 +2,47 @@
 
 ## [Unreleased] — v2 preview
 
+### Phase B (2026-10-15) — minimum field version (Steps 1, 2, 5, 7, 8)
+
+Operator field layer on top of v1's drift. v1 is unchanged; v2 lives in
+`scjdo.v2`.
+
+- `scjdo/v2/embed.py` — Step 1 positional layer with `scvi | fa | pca`
+  backends and a frozen `transform` for projecting new data.
+- `scjdo/v2/drift.py` — Step 2 wrapper on v1's `DriftField` with
+  `clock_calibrated=False` by default; no velocity prior.
+- `scjdo/v2/field.py` — Step 5 neighbourhood Jacobian field: per-cell
+  Gaussian-weighted OLS over kNN in latent space, with a Jacobi-smoothed
+  tie between adjacent cells' Jacobians. `k` selectable, `k='auto'`
+  sweeps `{15, 25, 50, 100}` on held-out Gaussian log-likelihood. Cells
+  below the recovery radius are left `NaN` — no silent fallbacks.
+- `scjdo/v2/opspace.py` — Step 7 descriptors: sorted eigenvalues, mode
+  counts, spectral gap, Henrici index, reactivity, transient gain,
+  eigenvector condition number.
+- `scjdo/v2/archetypes.py` — Step 8 semi-NMF wrapper on the stacked
+  per-cell Jacobians; `K='auto'` sweeps held-out reconstruction;
+  archetype naming (`holder / damped / drift / fork / growing`) with a
+  non-normal `sensitive` flag.
+- `scjdo/v2/_bench/pitchfork.py` — ported pitchfork synthetic from
+  `reproducibility/code/toggle_truth.py` (default τ_crit ≈ 0.00437).
+
+**Acceptance (tests/v2/):**
+
+- `test_pitchfork_default_tau_crit_recovered[42,43]` — the field recovers
+  a positive leading eigenvalue localised within ±0.05 of τ_crit on both
+  seeds. v1's slicing cannot (its default grid starts at τ=0.02).
+- `test_pitchfork_halfsplit_spearman` — half-split binned λ_max curves
+  agree at Spearman ρ ≥ 0.8.
+- `test_pitchfork_outlier_marked_unrecovered` — far-outlier cells have
+  their Jacobians left `NaN` and `recovered=False`.
+- `test_pitchfork_el08_variant_diagnostic` — non-gating diagnostic
+  across α remappings (τ_crit ∈ {0.1, 0.3}); results logged to
+  `benchmarks/v2/pitchfork_el08.csv`. τ_target = 0.5 was removed from
+  the diagnostic — low post-bifurcation signal makes the minimum
+  crossing detector unreliable there; Phase C will revisit with Fisher
+  weighting.
+- Archetype + descriptor smoke tests on the pitchfork field.
+
 ### Phase A (2026-10-15) — audit + plan
 
 - New `V2_PLAN.md` at repo root — module-mapping table, phase plan,
