@@ -1,5 +1,25 @@
 # Changelog
 
+## [Unreleased] — v2 preview
+
+### Phase A (2026-10-15) — audit + plan
+
+- New `V2_PLAN.md` at repo root — module-mapping table, phase plan,
+  acceptance checks, and three deviations from the pasted spec surfaced for
+  the maintainer (τ_crit grid for the pitchfork benchmark, embedding default,
+  package layout).
+- `tests/v2/` scaffold with its own `conftest.py` carrying the pitchfork
+  benchmark fixtures (EL08 τ_crit grid, ±0.05 tolerance).
+- `benchmarks/v1_baseline/pytest_report.txt` — snapshot of the v1 test suite
+  (152 passed, 11 failed, 2 skipped, 2 errors; failures/errors are
+  pre-existing in untracked WIP tests, not caused by v2).
+- `benchmarks/v1_baseline/README.md` — pointers to the pre-rendered v1
+  notebook outputs under `examples/results/`, used as the Phase E comparison
+  baseline so the five full tutorials do not need to be re-fit from scratch.
+- Repaired the editable install (`pip install -e .`) — the active env's
+  `__editable__.scjdo-0.3.0.pth` previously pointed at a defunct
+  `/Users/terooatt/Downloads/scJDO`.
+
 ## [Unreleased] — 2026-09-27 (calibration-paper wrap-up)
 
 ### Fixed (from r25 review)
